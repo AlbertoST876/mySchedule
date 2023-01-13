@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="es">
-    <head>
-        @include("layouts.head", ["title" => "Inicio"])
-    </head>
+    @include("layouts.head", ["title" => "Inicio"])
 
     <body>
         @include("layouts.header")
@@ -23,7 +21,7 @@
                 </div>
             </div>
 
-            <div><img src="{{ asset("resources/img/schedule.png") }}"></div>
+            <div><img src="{{ asset("storage/img/schedule.png") }}"></div>
         </main>
     </body>
 </html>
