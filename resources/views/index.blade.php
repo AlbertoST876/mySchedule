@@ -2,32 +2,28 @@
 
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Alberto Sánchez Torreblanca">
-        <link rel="icon" href="{{ asset('icon.png') }}">
-        <title>Mi Agenda - Inicio</title>
+        @include("layouts.head", ["title" => "Inicio"])
     </head>
 
     <body>
         @include("layouts.header")
 
         <main>
-            <h1>Inicio</h1>
+            <div>
+                <h1>Mi Agenda</h1>
 
-            <hr>
+                <p>
+                    Bienvenido a tu nueva Agenda personal almacenada en la nube, aquí podrás guardar tus notas, eventos, recordatorios, etc..., lo que necesites sin tener que instalar ninguna aplicación adicional
+                    en cualquiera de tus dispositivos.
+                </p>
 
-            <h2>Bienvenida</h2>
+                <div>
+                    <a href="">Login</a>
+                    <a href="">Register</a>
+                </div>
+            </div>
 
-            <p>
-                Bienvenido a tu nueva Agenda personal almacenada en la nube, aquí podrás guardar tus notas, eventos, recordatorios, etc..., lo que necesites sin tener que instalar ninguna aplicación adicional
-                en cualquiera de tus dispositivos.
-            </p>
-
-            <p>
-                Esta agenda esta hecha con fines educativos y entre otros para su correcto uso.
-            </p>
+            <div><img src="{{ asset("resources/img/schedule.png") }}"></div>
         </main>
     </body>
 </html>

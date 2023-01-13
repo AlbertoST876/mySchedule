@@ -1,6 +1,6 @@
 <header>
     <nav>
-        <a href="./"><img src="{{ asset('icon.png') }}"></a>
+        <a href="./"><img src="{{ asset("icon.png") }}"></a>
 
         <ul>
             <li><a href="{{ route("index") }}">Inicio</a></li>
