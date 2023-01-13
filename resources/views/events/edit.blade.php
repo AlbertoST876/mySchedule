@@ -17,7 +17,7 @@
 
                 <ul>
                     <li><a href="{{ route("index") }}">Inicio</a></li>
-                    <li><a href="{{ route("calendarMonth") }}">Calendario</a></li>
+                    <li><a href="{{ route("calendar") }}">Calendario</a></li>
                     <li><a href="{{ route("events") }}">Eventos</a></li>
                 </ul>
             </nav>

@@ -17,6 +17,7 @@ use App\Http\Controllers\EventsController;
 
 Route::view("/", "index") -> name("index");
 
+Route::redirect('calendar', 'calendar/month', 301) -> name("calendar");
 Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendarDay");
 Route::get("calendar/week", [CalendarController::class, "week"]) -> name("calendarWeek");
 Route::get("calendar/month", [CalendarController::class, "month"]) -> name("calendarMonth");
