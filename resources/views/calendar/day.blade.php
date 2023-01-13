@@ -6,22 +6,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Alberto Sánchez Torreblanca">
-        <link rel="icon" href="../../icon.png">
+        <link rel="icon" href="{{ asset('icon.png') }}">
         <title>Mi Agenda - Calendario - Dia</title>
     </head>
 
     <body>
-        <header>
-            <nav>
-                <a href="./"><img src="../../icon.png"></a>
-
-                <ul>
-                    <li><a href="{{ route("index") }}">Inicio</a></li>
-                    <li><a href="{{ route("calendar") }}">Calendario</a></li>
-                    <li><a href="{{ route("events") }}">Eventos</a></li>
-                </ul>
-            </nav>
-        </header>
+        @include("layouts.header")
 
         <aside>
             <nav>
