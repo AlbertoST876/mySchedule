@@ -10,5 +10,10 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^6.0.3",
+        "@fullcalendar/daygrid": "^6.0.3",
+        "@fullcalendar/interaction": "^6.0.3"
     }
 }
