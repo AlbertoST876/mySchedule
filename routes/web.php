@@ -18,11 +18,11 @@ use App\Http\Controllers\EventsController;
 Route::view("/", "index") -> name("index");
 
 Route::redirect('calendar', 'calendar/month', 301) -> name("calendar");
-Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendarDay");
-Route::get("calendar/week", [CalendarController::class, "week"]) -> name("calendarWeek");
-Route::get("calendar/month", [CalendarController::class, "month"]) -> name("calendarMonth");
-Route::get("calendar/year", [CalendarController::class, "year"]) -> name("calendarYear");
+Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendar.day");
+Route::get("calendar/week", [CalendarController::class, "week"]) -> name("calendar.week");
+Route::get("calendar/month", [CalendarController::class, "month"]) -> name("calendar.month");
+Route::get("calendar/year", [CalendarController::class, "year"]) -> name("calendar.year");
 
 Route::get("events", [EventsController::class, "index"]) -> name("events");
-Route::get("events/show", [EventsController::class, "show"]) -> name("eventsShow");
-Route::get("events/edit", [EventsController::class, "edit"]) -> name("eventsEdit");
+Route::get("events/show", [EventsController::class, "show"]) -> name("events.show");
+Route::get("events/edit", [EventsController::class, "edit"]) -> name("events.edit");

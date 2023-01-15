@@ -1,9 +1,9 @@
 <nav>
     <ul>
-        <li><a href="{{ route("calendarDay") }}">Dia</a></li>
-        <li><a href="{{ route("calendarWeek") }}">Semana</a></li>
-        <li><a href="{{ route("calendarMonth") }}">Mes</a></li>
-        <li><a href="{{ route("calendarYear") }}">Año</a></li>
+        <li><a href="{{ route("calendar.day") }}">Dia</a></li>
+        <li><a href="{{ route("calendar.week") }}">Semana</a></li>
+        <li><a href="{{ route("calendar.month") }}">Mes</a></li>
+        <li><a href="{{ route("calendar.year") }}">Año</a></li>
     </ul>
 
     <form action="" method="get">
