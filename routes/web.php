@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
 
 /*
@@ -17,11 +16,11 @@ use App\Http\Controllers\EventsController;
 
 Route::view("/", "index") -> name("index");
 
-Route::redirect('calendar', 'calendar/month', 301) -> name("calendar");
-Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendar.day");
-Route::get("calendar/week", [CalendarController::class, "week"]) -> name("calendar.week");
-Route::get("calendar/month", [CalendarController::class, "month"]) -> name("calendar.month");
-Route::get("calendar/year", [CalendarController::class, "year"]) -> name("calendar.year");
+Route::redirect("calendar", "calendar/month", 301) -> name("calendar");
+Route::view("calendar/day", "calendar.day") -> name("calendar.day");
+Route::view("calendar/week", "calendar.week") -> name("calendar.week");
+Route::view("calendar/month", "calendar.month") -> name("calendar.month");
+Route::view("calendar/year", "calendar.year") -> name("calendar.year");
 
 Route::get("events", [EventsController::class, "index"]) -> name("events");
 Route::get("events/show", [EventsController::class, "show"]) -> name("events.show");

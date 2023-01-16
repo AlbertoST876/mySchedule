@@ -14,7 +14,13 @@
     
                 <form action="" method="post">
                     <select name="type" required>
-                        
+                        @php
+                            $options = DB::table("categories") -> get();
+                        @endphp
+
+                        @foreach ($options as $option)
+                            <option value="{{ $option -> id }}">{{ $option -> name }}</option>
+                        @endforeach
                     </select>
     
                     <div>
