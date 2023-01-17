@@ -18,7 +18,7 @@ return new class extends Migration
             $table -> foreignId("user_id") -> references("id") -> on("users");
             $table -> foreignId("category_id") -> references("id") -> on("categories");
             $table -> string("name", 50);
-            $table -> string("description", 255);
+            $table -> string("description", 255)->nullValue();
             $table -> dateTime("date");
             $table -> timestamps();
         });

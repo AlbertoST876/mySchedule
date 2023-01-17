@@ -15,11 +15,11 @@
                 <form action="" method="post">
                     <select name="type" required>
                         @php
-                            $options = DB::table("categories") -> get();
+                            $categories = DB::table("categories") -> get();
                         @endphp
 
-                        @foreach ($options as $option)
-                            <option value="{{ $option -> id }}">{{ $option -> name }}</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category -> id }}">{{ $category -> name }}</option>
                         @endforeach
                     </select>
     
@@ -30,7 +30,7 @@
     
                     <div>
                         <label for="description">Descripción:</label>
-                        <input type="text" name="description" max="255" required>
+                        <input type="text" name="description" max="255">
                     </div>
     
                     <div>
