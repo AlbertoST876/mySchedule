@@ -15,6 +15,8 @@ use App\Http\Controllers\EventsController;
 */
 
 Route::view("/", "index") -> name("index");
+Route::view("login", "auth.login") -> name("login") -> middleware("guest");
+Route::view("register", "auth.register") -> name("register") -> middleware("guest");
 
 Route::redirect("calendar", "calendar/month", 301) -> name("calendar");
 Route::view("calendar/day", "calendar.day") -> name("calendar.day");
