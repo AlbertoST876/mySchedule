@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +16,19 @@ use App\Http\Controllers\EventsController;
 */
 
 Route::view("/", "index") -> name("index");
+
 Route::view("login", "auth.login") -> name("login") -> middleware("guest");
+Route::post("login", [UserController::class, "index"]);
 Route::view("register", "auth.register") -> name("register") -> middleware("guest");
+Route::post("register", [UserController::class, "store"]);
+Route::post("logout", [UserController::class, "destroy"]) -> name("logout") -> middleware("auth");
 
-Route::redirect("calendar", "calendar/month", 301) -> name("calendar");
-Route::view("calendar/day", "calendar.day") -> name("calendar.day");
-Route::view("calendar/week", "calendar.week") -> name("calendar.week");
-Route::view("calendar/month", "calendar.month") -> name("calendar.month");
-Route::view("calendar/year", "calendar.year") -> name("calendar.year");
+Route::redirect("calendar", "calendar/month", 301) -> name("calendar") -> middleware("auth");
+Route::view("calendar/day", "calendar.day") -> name("calendar.day") -> middleware("auth");
+Route::view("calendar/week", "calendar.week") -> name("calendar.week") -> middleware("auth");
+Route::view("calendar/month", "calendar.month") -> name("calendar.month") -> middleware("auth");
+Route::view("calendar/year", "calendar.year") -> name("calendar.year") -> middleware("auth");
 
-Route::get("events", [EventsController::class, "index"]) -> name("events");
-Route::get("events/show", [EventsController::class, "show"]) -> name("events.show");
-Route::get("events/edit", [EventsController::class, "edit"]) -> name("events.edit");
+Route::get("events", [EventsController::class, "index"]) -> name("events") -> middleware("auth");
+Route::get("events/show", [EventsController::class, "show"]) -> name("events.show") -> middleware("auth");
+Route::get("events/edit", [EventsController::class, "edit"]) -> name("events.edit") -> middleware("auth");

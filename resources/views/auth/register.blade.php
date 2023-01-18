@@ -12,12 +12,12 @@
 
                 <div>
                     <label for="email">Email:</label>
-                    <input type="email" name="email" max="50" required>
+                    <input type="email" name="email" value="{{ old("email") }}" max="50" required>
                 </div>
 
                 <div>
-                    <label for="username">Nombre de Usuario:</label>
-                    <input type="text" name="username" max="25" required>
+                    <label for="name">Nombre de Usuario:</label>
+                    <input type="text" name="name" value="{{ old("name") }}" max="25" required>
                 </div>
 
                 <div>

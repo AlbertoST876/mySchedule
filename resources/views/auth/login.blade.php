@@ -13,11 +13,20 @@
                 <div>
                     <label for="email">Email:</label>
                     <input type="email" name="email" max="50" required>
+
+                    @error("email")
+                        <span>{{ $message }}</span>                        
+                    @enderror
                 </div>
 
                 <div>
                     <label for="password">Contraseña:</label>
                     <input type="password" name="password" max="255" required>
+                </div>
+
+                <div>
+                    <input type="checkbox" name="remember">
+                    <label for="remember">Recuérdame</label>
                 </div>
 
                 <div>
