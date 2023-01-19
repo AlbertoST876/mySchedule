@@ -7,6 +7,10 @@
         @include("layouts.header")
 
         <main>
+            @if (session("status"))
+                <span>{{ session("status") }}</span>
+            @endif
+
             <div>
                 <h1>Mi Agenda</h1>
 
@@ -21,7 +25,7 @@
                         <form action="{{ route("logout") }}" method="post">
                             @csrf
 
-                            <button>Logout</button>
+                            <input type="submit" value="Logout">
                         </form>
                     @endguest
 

@@ -34,7 +34,10 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request -> validate([
+            "email" => ["required", "string", "email", "max:50"],
+            "password" => ["required", "string", "max:255"]
+        ]);
     }
 
     /**

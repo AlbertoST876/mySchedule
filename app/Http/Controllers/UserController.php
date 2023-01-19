@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 
@@ -27,11 +28,21 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
-        $request -> validate([
+        $validator = Validator::make($request -> all(), [
             "name" => ["required", "string", "max:25", "unique:users"],
             "email" => ["required", "string", "email", "max:50", "unique:users"],
-            "password" => ["required", "confirmed", "max:255"]
+            "password" => ["required", "string", "confirmed", "max:255"]
         ]);
+
+        if ($validator -> fails()) {
+            $errors = $validator -> errors();
+
+            if ($errors -> has("name")) $error = ["name" => "Ya existe un usuario con ese nombre"];
+            if ($errors -> has("email")) $error = ["email" => "Ya existe un usuario con ese email"];
+            if ($errors -> has("password")) $error = ["password" => "La contraseña no cumple los requisitos establecidos"];
+
+            throw ValidationException::withMessages($error);
+        }
 
         /* $user = */ User::create([
             "name" => $request -> name,
@@ -41,7 +52,7 @@ class UserController extends Controller
 
         // Auth::login($user);
 
-        return view("auth.login");
+        return redirect() -> intended("login") -> with("status", "Te has registrado correctamente");
     }
 
     public function destroy(Request $request) {

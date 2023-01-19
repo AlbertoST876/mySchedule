@@ -34,7 +34,7 @@
                     </div>
     
                     <div>
-                        <label for="datetime"></label>
+                        <label for="datetime">Fecha y Hora:</label>
                         <input type="datetime-local" name="datetime" value="{{ date("Y-m-d\TH:i") }}" min="{{ date("Y-m-d\TH:i") }}" required>
                     </div>
     
@@ -42,9 +42,7 @@
                 </form>
             </aside>
 
-            <div>
-                
-            </div>
+            @include("layouts.events.userEvents", ["user_id" => Auth::User() -> id])
         </main>
     </body>
 </html>

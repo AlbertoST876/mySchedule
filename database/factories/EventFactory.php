@@ -21,7 +21,7 @@ class EventFactory extends Factory
             "category_id" => random_int(1, 4),
             "name" => fake() -> name(),
             "description" => fake() -> name(),
-            "date" => fake() -> dateTime()
+            "date" => fake() -> dateTime("2050-12-31 23:59:59")
         ];
     }
 }

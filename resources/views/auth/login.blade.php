@@ -7,6 +7,10 @@
         @include("layouts.header")
 
         <main>
+            @if (session("status"))
+                <span>{{ session("status") }}</span>
+            @endif
+
             <form action="" method="post">
                 @csrf
 
