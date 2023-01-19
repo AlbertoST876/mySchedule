@@ -18,6 +18,7 @@ class Event extends Model
         "user_id",
         "category_id",
         "name",
+        "description",
         "date"
     ];
 
@@ -26,14 +27,14 @@ class Event extends Model
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        "description"
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
-    protected $casts = [];
+    protected $casts = [
+        "date" => "datetime:d/m/Y H:i"
+    ];
 }

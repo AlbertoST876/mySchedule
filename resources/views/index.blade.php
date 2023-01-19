@@ -28,7 +28,6 @@
                             <input type="submit" value="Logout">
                         </form>
                     @endguest
-
                 </div>
             </div>
 

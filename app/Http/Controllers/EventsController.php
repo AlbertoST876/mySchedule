@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\Event;
 
 class EventsController extends Controller
 {
@@ -11,9 +14,15 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Authenticatable $user)
     {
-        return view("events.index");
+        $nextEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date > NOW() ORDER BY date ASC", [$user -> id]);
+        $prevEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date < NOW() ORDER BY date DESC", [$user -> id]);
+
+        return view("events.index", [
+            "nextEvents" => $nextEvents,
+            "prevEvents" => $prevEvents
+        ]);
     }
 
     /**

@@ -42,7 +42,11 @@
                 </form>
             </aside>
 
-            @include("layouts.events.userEvents", ["user_id" => Auth::User() -> id])
+            <!-- @include("layouts.events.userEvents", ["user_id" => Auth::User() -> id]) -->
+            @include("layouts.events.userEvents", [
+                "nextEvents" => $nextEvents,
+                "prevEvents" => $prevEvents
+            ])
         </main>
     </body>
 </html>
