@@ -16,12 +16,30 @@ class EventsController extends Controller
      */
     public function index(Authenticatable $user)
     {
-        $nextEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date > NOW() ORDER BY date ASC", [$user -> id]);
-        $prevEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date < NOW() ORDER BY date DESC", [$user -> id]);
+        // $nextEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date > NOW() ORDER BY date ASC", [$user -> id]);
+        // $prevEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date < NOW() ORDER BY date DESC", [$user -> id]);
+
+        $categories = DB::table("categories") -> get();
+        $eventsDB = DB::select("SELECT * FROM events WHERE user_id = ? ORDER BY date ASC", [$user -> id]);
+
+        $events = [
+            "nextEvents" => [],
+            "prevEvents" => []
+        ];
+
+        foreach ($eventsDB as $eventDB) {
+            if ($eventDB -> date > date("Y-m-d H:i:s")) {
+                $events["nextEvents"][] = $eventDB;
+            } else {
+                $events["prevEvents"][] = $eventDB;
+            }
+        }
+
+        krsort($events["prevEvents"]);
 
         return view("events.index", [
-            "nextEvents" => $nextEvents,
-            "prevEvents" => $prevEvents
+            "categories" => $categories,
+            "events" => $events
         ]);
     }
 
@@ -44,8 +62,10 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         $request -> validate([
-            "email" => ["required", "string", "email", "max:50"],
-            "password" => ["required", "string", "max:255"]
+            "type" => ["required", "integer", "between:1,4"],
+            "name" => ["required", "string", "max:50"],
+            "description" => ["string", "max:255"],
+            "datetime" => ["required", "datetime"]
         ]);
     }
 

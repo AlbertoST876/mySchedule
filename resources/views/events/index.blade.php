@@ -14,10 +14,6 @@
     
                 <form action="" method="post">
                     <select name="type" required>
-                        @php
-                            $categories = DB::table("categories") -> get();
-                        @endphp
-
                         @foreach ($categories as $category)
                             <option value="{{ $category -> id }}">{{ $category -> name }}</option>
                         @endforeach
@@ -42,11 +38,7 @@
                 </form>
             </aside>
 
-            <!-- @include("layouts.events.userEvents", ["user_id" => Auth::User() -> id]) -->
-            @include("layouts.events.userEvents", [
-                "nextEvents" => $nextEvents,
-                "prevEvents" => $prevEvents
-            ])
+            @include("layouts.events.events", ["events" => $events])
         </main>
     </body>
 </html>
