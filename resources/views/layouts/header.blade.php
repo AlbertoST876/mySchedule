@@ -4,8 +4,8 @@
 
         <ul>
             <li><a href="{{ route("index") }}">Inicio</a></li>
-            <li><a href="{{ route("calendar", [Auth::user()]) }}">Calendario</a></li>
-            <li><a href="{{ route("events", [Auth::user()]) }}">Eventos</a></li>
+            <li><a href="{{ route("calendar") }}">Calendario</a></li>
+            <li><a href="{{ route("events") }}">Eventos</a></li>
         </ul>
 
         <div class="user">

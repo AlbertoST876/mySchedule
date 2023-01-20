@@ -9,12 +9,12 @@
         <main>
             <form action="" method="post">
                 <select name="type" required>
-                    {{ $event -> type }}
+                    {{ $event -> category_id }}
                 </select>
 
                 <div>
                     <label for="name">Titulo:</label>
-                    <input type="text" name="title" value="{{ $event -> title }}" max="50" required>
+                    <input type="text" name="title" value="{{ $event -> name }}" max="50" required>
                 </div>
 
                 <div>

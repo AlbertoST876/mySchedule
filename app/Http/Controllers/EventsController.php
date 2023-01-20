@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use App\Models\Event;
 
 class EventsController extends Controller
@@ -12,15 +14,13 @@ class EventsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
     public function index(Authenticatable $user)
     {
-        // $nextEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date > NOW() ORDER BY date ASC", [$user -> id]);
-        // $prevEvents = DB::select("SELECT * FROM events WHERE user_id = ? AND date < NOW() ORDER BY date DESC", [$user -> id]);
-
         $categories = DB::table("categories") -> get();
-        $eventsDB = DB::select("SELECT * FROM events WHERE user_id = ? ORDER BY date ASC", [$user -> id]);
+        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? ORDER BY date ASC", [$user -> id]);
 
         $events = [
             "nextEvents" => [],
@@ -57,48 +57,67 @@ class EventsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Authenticatable $user)
     {
-        $request -> validate([
+        $validator = Validator::make($request -> all(), [
             "type" => ["required", "integer", "between:1,4"],
             "name" => ["required", "string", "max:50"],
             "description" => ["string", "max:255"],
-            "datetime" => ["required", "datetime"]
+            "datetime" => ["required", "date"]
         ]);
+
+        if ($validator -> fails()) {
+            throw ValidationException::withMessages(["datetime" => "Los datos introducidos no son validos"]);
+        }
+
+        Event::create([
+            "category_id" => $request -> type,
+            "user_id" => $user -> id,
+            "name" => $request -> name,
+            "description" => $request -> description,
+            "date" => $request -> datetime
+        ]);
+
+        return redirect() -> intended("events") -> with("status", "El evento se creó correctamente");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        return view("events.show", $id);
+        $event = Event::find($request -> event);
+
+        return view("events.show", ["event" => $event]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        return view("events.edit", $id);
+        $event = Event::find($request -> event);
+
+        return view("events.edit", ["event" => $event]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Event $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
         //
     }
@@ -106,10 +125,10 @@ class EventsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Event $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Event $event)
     {
         //
     }

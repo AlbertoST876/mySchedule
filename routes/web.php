@@ -30,5 +30,7 @@ Route::view("calendar/month", "calendar.month") -> name("calendar.month") -> mid
 Route::view("calendar/year", "calendar.year") -> name("calendar.year") -> middleware("auth");
 
 Route::get("events", [EventsController::class, "index"]) -> name("events") -> middleware("auth");
-Route::get("events/show", [EventsController::class, "show"]) -> name("events.show") -> middleware("auth");
-Route::get("events/edit", [EventsController::class, "edit"]) -> name("events.edit") -> middleware("auth");
+Route::post("events", [EventsController::class, "store"]);
+Route::post("events/show", [EventsController::class, "show"]) -> name("events.show") -> middleware("auth");
+Route::post("events/edit", [EventsController::class, "edit"]) -> name("events.edit") -> middleware("auth");
+Route::post("events/delete", [EventsController::class, "destroy"]) -> name("events.delete") -> middleware("auth");

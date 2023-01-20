@@ -13,6 +13,8 @@
                 <hr>
     
                 <form action="" method="post">
+                    @csrf
+
                     <select name="type" required>
                         @foreach ($categories as $category)
                             <option value="{{ $category -> id }}">{{ $category -> name }}</option>
@@ -38,7 +40,13 @@
                 </form>
             </aside>
 
-            @include("layouts.events.events", ["events" => $events])
+            <div>
+                @if (session("status"))
+                    <span>{{ session("status") }}</span>
+                @endif
+
+                @include("layouts.events.events")
+            </div>
         </main>
     </body>
 </html>
