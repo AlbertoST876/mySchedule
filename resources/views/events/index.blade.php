@@ -12,10 +12,10 @@
     
                 <hr>
     
-                <form action="" method="post">
+                <form action="{{ route("events.create") }}" method="post">
                     @csrf
 
-                    <select name="type" required>
+                    <select name="category" required>
                         @foreach ($categories as $category)
                             <option value="{{ $category -> id }}">{{ $category -> name }}</option>
                         @endforeach
@@ -33,7 +33,7 @@
     
                     <div>
                         <label for="datetime">Fecha y Hora:</label>
-                        <input type="datetime-local" name="datetime" value="{{ date("Y-m-d\TH:i") }}" min="{{ date("Y-m-d\TH:i") }}" required>
+                        <input type="datetime-local" name="date" value="{{ date("Y-m-d\TH:i") }}" min="{{ date("Y-m-d\TH:i") }}" required>
                     </div>
     
                     <input type="submit" name="create" value="Crear">

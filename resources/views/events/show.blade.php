@@ -7,21 +7,35 @@
         @include("layouts.header")
 
         <main>
-            <h1>{{ $event -> name }}</h1>
+            @foreach ($events as $event)
+                <h1>{{ $event -> name }}</h1>
 
-            <h2>{{ $event -> date }}</h2>
+                <h2>{{ $event -> date }}</h2>
 
-            <span>{{ $event -> category_id }}</span>
+                <span>{{ $event -> category }}</span>
 
-            <hr>
+                <hr>
 
-            <p>{{ $event -> description }}</p>
+                <p>{{ $event -> description }}</p>
 
-            <div>
-                <a href="{{ route("events", $event) }}">Volver</a>
-                <a href="{{ route("events.edit", $event) }}">Editar</a>
-                <a href="{{ route("events.delete", $event) }}">Borrar</a>
-            </div>
+                <div>
+                    <a href="{{ route("events") }}">Volver</a>
+
+                    <form action="{{ route("events.edit") }}" method="post">
+                        @csrf
+            
+                        <input type="hidden" name="event" value="{{ $event -> id }}">
+                        <input type="submit" value="Editar">
+                    </form>
+            
+                    <form action="{{ route("events.delete") }}" method="post">
+                        @csrf
+            
+                        <input type="hidden" name="event" value="{{ $event -> id }}">
+                        <input type="submit" value="Borrar" onclick="confirm('¿Estás seguro de que deseas borrar el evento?')">
+                    </form>
+                </div>
+            @endforeach
         </main>
     </body>
 </html>
