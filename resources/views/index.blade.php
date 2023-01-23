@@ -16,17 +16,10 @@
 
                 <p>Bienvenido a tu nueva Agenda personal almacenada en la nube, aquí podrás guardar tus notas, eventos, recordatorios, etc..., lo que necesites sin tener que instalar ninguna aplicación adicional en cualquiera de tus dispositivos.</p>
 
-
                 <div>
                     @guest
-                        <a href="{{ route("login") }}">Login</a>
-                        <a href="{{ route("register") }}">Register</a>
-                    @else
-                        <form action="{{ route("logout") }}" method="post">
-                            @csrf
-
-                            <input type="submit" value="Logout">
-                        </form>
+                        <a href="{{ route("login") }}">Iniciar Sesión</a>
+                        <a href="{{ route("register") }}">Registrarse</a>
                     @endguest
                 </div>
             </div>
