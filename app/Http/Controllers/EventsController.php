@@ -20,7 +20,7 @@ class EventsController extends Controller
     public function index(Authenticatable $user)
     {
         $categories = DB::table("categories") -> get();
-        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? ORDER BY date ASC", [$user -> id]);
+        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date, DATE_FORMAT(events.date, '%d/%m/%Y %H:%i') as dateESP FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? ORDER BY date ASC", [$user -> id]);
 
         $events = [
             "nextEvents" => [],
@@ -28,7 +28,7 @@ class EventsController extends Controller
         ];
 
         foreach ($eventsDB as $eventDB) {
-            if ($eventDB -> date > date("Y-m-d H:i:s")) {
+            if ($eventDB -> date > date("Y-m-d H:i")) {
                 $events["nextEvents"][] = $eventDB;
             } else {
                 $events["prevEvents"][] = $eventDB;
@@ -78,7 +78,7 @@ class EventsController extends Controller
             "user_id" => $user -> id,
             "name" => $request -> name,
             "description" => $request -> description,
-            "date" => $request -> datetime
+            "date" => $request -> date
         ]);
 
         return redirect() -> intended("events") -> with("status", "El evento se creó correctamente");
@@ -92,7 +92,7 @@ class EventsController extends Controller
      */
     public function show(Request $request)
     {
-        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.id = ? ORDER BY date ASC", [$request -> event]);
+        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, DATE_FORMAT(events.date, '%d/%m/%Y %H:%i') as date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.id = ? ORDER BY date ASC", [$request -> event]);
 
         return view("events.show", ["events" => $events]);
     }

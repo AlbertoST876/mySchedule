@@ -3,7 +3,7 @@
         <h3>{{ $event -> name }}</h3>
         <span>{{ $event -> category }}</span>
         <p>{{ $event -> description }}</p>
-        <span>{{ $event -> date }}</span>
+        <span>{{ $event -> dateESP }}</span>
     </div>
 
     <div>

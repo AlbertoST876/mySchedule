@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserController;
 
@@ -24,10 +25,10 @@ Route::post("register", [UserController::class, "store"]);
 Route::post("logout", [UserController::class, "destroy"]) -> name("logout") -> middleware("auth");
 
 Route::redirect("calendar", "calendar/month", 301) -> name("calendar") -> middleware("auth");
-Route::view("calendar/day", "calendar.day") -> name("calendar.day") -> middleware("auth");
-Route::view("calendar/week", "calendar.week") -> name("calendar.week") -> middleware("auth");
-Route::view("calendar/month", "calendar.month") -> name("calendar.month") -> middleware("auth");
-Route::view("calendar/year", "calendar.year") -> name("calendar.year") -> middleware("auth");
+Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendar.day") -> middleware("auth");
+Route::get("calendar/week", [CalendarController::class, "week"]) -> name("calendar.week") -> middleware("auth");
+Route::get("calendar/month", [CalendarController::class, "month"]) -> name("calendar.month") -> middleware("auth");
+Route::get("calendar/year", [CalendarController::class, "year"]) -> name("calendar.year") -> middleware("auth");
 
 Route::get("events", [EventsController::class, "index"]) -> name("events") -> middleware("auth");
 Route::post("events/create", [EventsController::class, "store"]) -> name("events.create") -> middleware("auth");
