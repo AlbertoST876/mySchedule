@@ -5,3 +5,12 @@
     border-radius: 50%;
     background-color: #00aaff;
 }
+
+table, tr, th, td {
+    border: 1px solid #000000;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}

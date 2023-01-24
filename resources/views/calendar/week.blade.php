@@ -15,26 +15,38 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>L<br><span>{{ $days[0] }}</span></th>
-                            <th>M<br><span>{{ $days[1] }}</span></th>
-                            <th>X<br><span>{{ $days[2] }}</span></th>
-                            <th>J<br><span>{{ $days[3] }}</span></th>
-                            <th>V<br><span>{{ $days[4] }}</span></th>
-                            <th>S<br><span>{{ $days[5] }}</span></th>
-                            <th>D<br><span>{{ $days[6] }}</span></th>
+                            <th>{{ $month }}</th>
+                            <th>L<br><span>{{ $dates[0] }}</span></th>
+                            <th>M<br><span>{{ $dates[1] }}</span></th>
+                            <th>X<br><span>{{ $dates[2] }}</span></th>
+                            <th>J<br><span>{{ $dates[3] }}</span></th>
+                            <th>V<br><span>{{ $dates[4] }}</span></th>
+                            <th>S<br><span>{{ $dates[5] }}</span></th>
+                            <th>D<br><span>{{ $dates[6] }}</span></th>
                         </tr>
                     </thead>
 
-                    @for ($i = 0; $i < 7; $i++)
-                        @foreach ($events[$i] as $event)
+                    <tbody>
+                        @foreach ($events as $time => $eventsDays)
                             <tr>
-                                <td>{{ $event -> dateESP }}</td>
-                                <td>{{ $event -> category }}</td>
-                                <td>{{ $event -> name }}</td>
-                                <td>{{ $event -> description }}</td>
+                                <td>{{ $time }}</td>
+
+                                @foreach ($dates as $date)
+                                    @if (array_key_exists($date, $eventsDays))
+                                        <td>
+                                            @foreach ($eventsDays as $eventsDay)
+                                                @foreach ($eventsDay as $event)
+                                                    <div>{{ $event -> name }}</div>
+                                                @endforeach
+                                            @endforeach
+                                        </td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                @endforeach
                             </tr>
                         @endforeach
-                    @endfor
+                    </tbody>
                 </table>
             </div>
         </main>
