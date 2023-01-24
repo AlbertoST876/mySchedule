@@ -13,6 +13,12 @@
 
             <div>
                 <table>
+                    <thead>
+                        <tr>
+                            <th colspan="4">{{ $day }}</th>
+                        </tr>
+                    </thead>
+
                     <tbody>
                         @foreach ($events as $event)
                             <tr>
