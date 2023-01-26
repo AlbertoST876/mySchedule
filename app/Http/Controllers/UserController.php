@@ -10,6 +10,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this -> middleware("guest", ["only" => ["index", "store"]]);
+        $this -> middleware("auth", ["only" => "destroy"]);
+    }
+
     public function index(Request $request) {
         $credentials = $request -> validate([
             "email" => ["required", "string", "email", "max:50"],

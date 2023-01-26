@@ -10,6 +10,11 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class CalendarController extends Controller
 {
+    public function __construct()
+    {
+        $this -> middleware("auth");
+    }
+    
     /**
      * Display all events in one day.
      *
