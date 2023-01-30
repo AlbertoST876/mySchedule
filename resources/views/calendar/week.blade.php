@@ -16,13 +16,13 @@
                     <thead>
                         <tr>
                             <th>{{ $month }}</th>
-                            <th>L<br><span>{{ $dates[0] }}</span></th>
-                            <th>M<br><span>{{ $dates[1] }}</span></th>
-                            <th>X<br><span>{{ $dates[2] }}</span></th>
-                            <th>J<br><span>{{ $dates[3] }}</span></th>
-                            <th>V<br><span>{{ $dates[4] }}</span></th>
-                            <th>S<br><span>{{ $dates[5] }}</span></th>
-                            <th>D<br><span>{{ $dates[6] }}</span></th>
+                            <th><div>L</div><span>{{ $dates[0] }}</span></th>
+                            <th><div>M</div><span>{{ $dates[1] }}</span></th>
+                            <th><div>X</div><span>{{ $dates[2] }}</span></th>
+                            <th><div>J</div><span>{{ $dates[3] }}</span></th>
+                            <th><div>V</div><span>{{ $dates[4] }}</span></th>
+                            <th><div>S</div><span>{{ $dates[5] }}</span></th>
+                            <th><div>D</div><span>{{ $dates[6] }}</span></th>
                         </tr>
                     </thead>
 
@@ -36,7 +36,11 @@
                                         <td>
                                             @foreach ($eventsDays as $eventsDay)
                                                 @foreach ($eventsDay as $event)
-                                                    <div>{{ $event -> name }}</div>
+                                                    <details>
+                                                        <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
+
+                                                        {{ $event -> description }}
+                                                    </details>
                                                 @endforeach
                                             @endforeach
                                         </td>

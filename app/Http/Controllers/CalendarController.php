@@ -14,7 +14,7 @@ class CalendarController extends Controller
     {
         $this -> middleware("auth");
     }
-    
+
     /**
      * Display all events in one day.
      *
@@ -44,7 +44,7 @@ class CalendarController extends Controller
         $date = new DateTime($request -> date);
         $day = $date -> format("d") . " de " . $months[$date -> format("m")] . " de " . $date -> format("Y");
 
-        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, DATE_FORMAT(events.date, '%H:%i') as dateESP FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date LIKE '" . $request -> date . "%' ORDER BY events.date ASC", [$user -> id]);
+        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, DATE_FORMAT(events.date, '%H:%i') as hour FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date LIKE '" . $request -> date . "%' ORDER BY events.date ASC", [$user -> id]);
 
         return view("calendar.day", [
             "events" => $events,
@@ -85,7 +85,7 @@ class CalendarController extends Controller
         $date2 = new DateTime();
         $date2 -> setISODate($week[0], $week[1]);
         $date2 -> add(new DateInterval("P6D"));
-        
+
         $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $date -> format("Y-m-d") . " 00:00:00' AND '" . $date2 -> format("Y-m-d") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
 
         $month = $months[$date -> format("m")];
@@ -96,7 +96,7 @@ class CalendarController extends Controller
         if ($month != $month2 && $year != $year2) $month .= " - " . $month2 . " de " . $year . " - " . $year2;
         if ($month != $month2 && $year == $year2) $month .= " - " . $month2 . " de " . $year;
         if ($month == $month2 && $year == $year2) $month .= " de " . $year;
-        
+
         $dates = [];
 
         for ($i = 0; $i < 7; $i++) {

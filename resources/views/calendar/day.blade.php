@@ -15,17 +15,22 @@
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="4">{{ $day }}</th>
+                            <th colspan="2">{{ $day }}</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($events as $event)
                             <tr>
-                                <td>{{ $event -> dateESP }}</td>
-                                <td>{{ $event -> category }}</td>
-                                <td>{{ $event -> name }}</td>
-                                <td>{{ $event -> description }}</td>
+                                <td>{{ $event -> hour }}</td>
+
+                                <td>
+                                    <details>
+                                        <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
+
+                                        {{ $event -> description }}
+                                    </details>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
