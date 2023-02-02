@@ -10,6 +10,21 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class CalendarController extends Controller
 {
+    const MONTHS = [
+        "01" => "Enero",
+        "02" => "Febrero",
+        "03" => "Marzo",
+        "04" => "Abril",
+        "05" => "Mayo",
+        "06" => "Junio",
+        "07" => "Julio",
+        "08" => "Agosto",
+        "09" => "Septiembre",
+        "10" => "Octubre",
+        "11" => "Noviembre",
+        "12" => "Diciembre"
+    ];
+
     public function __construct()
     {
         $this -> middleware("auth");
@@ -24,25 +39,10 @@ class CalendarController extends Controller
      */
     public function day(Request $request, Authenticatable $user)
     {
-        if (is_null($request -> date)) $request -> date = date("Y-m-d");
-
-        $months = [
-            "01" => "Enero",
-            "02" => "Febrero",
-            "03" => "Marzo",
-            "04" => "Abril",
-            "05" => "Mayo",
-            "06" => "Junio",
-            "07" => "Julio",
-            "08" => "Agosto",
-            "09" => "Septiembre",
-            "10" => "Octubre",
-            "11" => "Noviembre",
-            "12" => "Diciembre"
-        ];
+        if (!isset($request -> date)) $request -> date = date("Y-m-d");
 
         $date = new DateTime($request -> date);
-        $day = $date -> format("d") . " de " . $months[$date -> format("m")] . " de " . $date -> format("Y");
+        $day = $date -> format("d") . " de " . $this::MONTHS[$date -> format("m")] . " de " . $date -> format("Y");
 
         $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, DATE_FORMAT(events.date, '%H:%i') as hour FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date LIKE '" . $request -> date . "%' ORDER BY events.date ASC", [$user -> id]);
 
@@ -61,22 +61,7 @@ class CalendarController extends Controller
      */
     public function week(Request $request, Authenticatable $user)
     {
-        if (is_null($request -> date)) $request -> date = date("Y-\WW");
-
-        $months = [
-            "01" => "Enero",
-            "02" => "Febrero",
-            "03" => "Marzo",
-            "04" => "Abril",
-            "05" => "Mayo",
-            "06" => "Junio",
-            "07" => "Julio",
-            "08" => "Agosto",
-            "09" => "Septiembre",
-            "10" => "Octubre",
-            "11" => "Noviembre",
-            "12" => "Diciembre"
-        ];
+        if (!isset($request -> date)) $request -> date = date("Y-\WW");
 
         $week = explode("-W", $request -> date);
 
@@ -88,8 +73,8 @@ class CalendarController extends Controller
 
         $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $date -> format("Y-m-d") . " 00:00:00' AND '" . $date2 -> format("Y-m-d") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
 
-        $month = $months[$date -> format("m")];
-        $month2 = $months[$date2 -> format("m")];
+        $month =  $this::MONTHS[$date -> format("m")];
+        $month2 =  $this::MONTHS[$date2 -> format("m")];
         $year = $date -> format("Y");
         $year2 = $date2 -> format("Y");
 
@@ -121,7 +106,7 @@ class CalendarController extends Controller
     }
 
     /**
-     * Display all events in one month.
+     * Display all events in one month. Fixed until 2027.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Authenticatable  $user
@@ -129,7 +114,56 @@ class CalendarController extends Controller
      */
     public function month(Request $request, Authenticatable $user)
     {
-        return view("calendar.month");
+        if (!isset($request -> date)) $request -> date = date("Y-m");
+
+        $date = new DateTime($request -> date . "-01");
+        $date2 = new DateTime($request -> date . "-" . $date -> format("t"));
+
+        $month = $this::MONTHS[$date -> format("m")] . " de " . $date -> format("Y");
+
+        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $request -> date . "-01 00:00:00' AND '" . $request -> date . "-" . $date -> format("t") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
+        $events = [];
+
+        foreach ($eventsDB as $event) {
+            $eventDate = new DateTime($event -> date);
+            $events[$eventDate -> format("j")][] = $event;
+        }
+
+        $date -> format("W") == 52 ? $date -> setISODate($date -> format("Y") - 1, $date -> format("W")) : $date -> setISODate($date -> format("Y"), $date -> format("W"));
+
+        $dates = [$date -> format("Y-m-d W"), $date2 -> format("Y-m-d W")];
+
+        $weeks = [];
+
+        for ($week = (int)$date -> format("W"); $week <= $date2 -> format("W") || $date2 -> format("W") == 01 || $week == 52; $week++) {
+            if ($date -> format("Y") != $date2 -> format("Y") && $week == 52) $week = 0;
+
+            for ($i = 0; $i < 7; $i++) {
+                $weeks[$week][$date -> format("j")] = [];
+
+                $date -> add(new DateInterval("P1D"));
+            }
+
+            if ($date -> format("W") == 01 && $date2 -> format("W") == 01) {
+                for ($i = 0; $i < 7; $i++) {
+                    $weeks[53][$date -> format("j")] = [];
+    
+                    $date -> add(new DateInterval("P1D"));
+                }
+
+                $date2 -> sub(new DateInterval("P1W"));
+            }
+        }
+
+        $dates2 = [$date -> format("Y-m-d W"), $date2 -> format("Y-m-d W")];
+
+        return view("calendar.month", [
+            "events" => $events,
+            "weeks" => $weeks,
+            "month" => $month,
+            "dates" => $dates,
+            "dates2" => $dates2,
+        ]);
     }
 
     /**
@@ -141,6 +175,8 @@ class CalendarController extends Controller
      */
     public function year(Request $request, Authenticatable $user)
     {
+        if (!isset($request -> date)) $request -> date = date("Y");
+
         return view("calendar.year");
     }
 }
