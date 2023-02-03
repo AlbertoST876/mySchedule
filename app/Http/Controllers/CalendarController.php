@@ -141,13 +141,10 @@ class CalendarController extends Controller
             }
         }
 
-        $empty = 7 - count($weeks[0]);
-
         return view("calendar.month", [
             "current" => $current,
             "events" => $events,
-            "weeks" => $weeks,
-            "empty" => $empty
+            "weeks" => $weeks
         ]);
     }
 
