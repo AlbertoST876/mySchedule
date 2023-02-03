@@ -85,7 +85,7 @@ class CalendarController extends Controller
         $dates = [];
 
         for ($i = 0; $i < 7; $i++) {
-            $dates[] = $date -> format("d");
+            $dates[] = $date -> format("j");
             $date -> add(new DateInterval("P1D"));
         }
 
@@ -129,40 +129,28 @@ class CalendarController extends Controller
             $events[$eventDate -> format("j")][] = $event;
         }
 
-        $date -> format("W") == 52 ? $date -> setISODate($date -> format("Y") - 1, $date -> format("W")) : $date -> setISODate($date -> format("Y"), $date -> format("W"));
-
-        $dates = [$date -> format("Y-m-d W"), $date2 -> format("Y-m-d W")];
-
         $weeks = [];
 
-        for ($week = (int)$date -> format("W"); $week <= $date2 -> format("W") || $date2 -> format("W") == 01 || $week == 52; $week++) {
-            if ($date -> format("Y") != $date2 -> format("Y") && $week == 52) $week = 0;
-
-            for ($i = 0; $i < 7; $i++) {
-                $weeks[$week][$date -> format("j")] = [];
+        for ($week = 0; $date -> format("j") <= $date2 -> format("j") && $date -> format("m") == $date2 -> format("m"); $week++) {
+            for ($day = $date -> format("N"); $day < 8; $day++) {
+                if ($date -> format("m") == $date2 -> format("m")) {
+                    $weeks[$week][$date -> format("N")] = [
+                        "info" => $date -> format("j"),
+                        "events" => []
+                    ];
+                }
 
                 $date -> add(new DateInterval("P1D"));
             }
-
-            if ($date -> format("W") == 01 && $date2 -> format("W") == 01) {
-                for ($i = 0; $i < 7; $i++) {
-                    $weeks[53][$date -> format("j")] = [];
-    
-                    $date -> add(new DateInterval("P1D"));
-                }
-
-                $date2 -> sub(new DateInterval("P1W"));
-            }
         }
 
-        $dates2 = [$date -> format("Y-m-d W"), $date2 -> format("Y-m-d W")];
+        if (count($weeks[0]) < 7) $empty = 7 - count($weeks[0]);
 
         return view("calendar.month", [
             "events" => $events,
             "weeks" => $weeks,
             "month" => $month,
-            "dates" => $dates,
-            "dates2" => $dates2,
+            "empty" => $empty
         ]);
     }
 
