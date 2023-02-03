@@ -11,8 +11,6 @@
 
             @include("layouts.calendar.calendarNav", ["type" => "month"])
 
-            @dump($events)
-
             <div>
                 <table>
                     <thead>
