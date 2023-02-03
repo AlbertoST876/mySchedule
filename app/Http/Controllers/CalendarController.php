@@ -134,17 +134,14 @@ class CalendarController extends Controller
         for ($week = 0; $date -> format("j") <= $date2 -> format("j") && $date -> format("m") == $date2 -> format("m"); $week++) {
             for ($day = $date -> format("N"); $day < 8; $day++) {
                 if ($date -> format("m") == $date2 -> format("m")) {
-                    $weeks[$week][$date -> format("N")] = [
-                        "info" => $date -> format("j"),
-                        "events" => []
-                    ];
+                    $weeks[$week][$date -> format("N")] = $date -> format("j");
                 }
 
                 $date -> add(new DateInterval("P1D"));
             }
         }
 
-        if (count($weeks[0]) < 7) $empty = 7 - count($weeks[0]);
+        $empty = 7 - count($weeks[0]);
 
         return view("calendar.month", [
             "events" => $events,
