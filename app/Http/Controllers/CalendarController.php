@@ -11,18 +11,18 @@ use Illuminate\Contracts\Auth\Authenticatable;
 class CalendarController extends Controller
 {
     const MONTHS = [
-        "01" => "Enero",
-        "02" => "Febrero",
-        "03" => "Marzo",
-        "04" => "Abril",
-        "05" => "Mayo",
-        "06" => "Junio",
-        "07" => "Julio",
-        "08" => "Agosto",
-        "09" => "Septiembre",
-        "10" => "Octubre",
-        "11" => "Noviembre",
-        "12" => "Diciembre"
+        1 => "Enero",
+        2 => "Febrero",
+        3 => "Marzo",
+        4 => "Abril",
+        5 => "Mayo",
+        6 => "Junio",
+        7 => "Julio",
+        8 => "Agosto",
+        9 => "Septiembre",
+        10 => "Octubre",
+        11 => "Noviembre",
+        12 => "Diciembre"
     ];
 
     public function __construct()
@@ -42,13 +42,13 @@ class CalendarController extends Controller
         if (!isset($request -> date)) $request -> date = date("Y-m-d");
 
         $date = new DateTime($request -> date);
-        $day = $date -> format("d") . " de " . $this::MONTHS[$date -> format("m")] . " de " . $date -> format("Y");
+        $current = $date -> format("d") . " de " . $this::MONTHS[$date -> format("n")] . " de " . $date -> format("Y");
 
         $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, DATE_FORMAT(events.date, '%H:%i') as hour FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date LIKE '" . $request -> date . "%' ORDER BY events.date ASC", [$user -> id]);
 
         return view("calendar.day", [
-            "events" => $events,
-            "day" => $day
+            "current" => $current,
+            "events" => $events
         ]);
     }
 
@@ -73,8 +73,8 @@ class CalendarController extends Controller
 
         $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $date -> format("Y-m-d") . " 00:00:00' AND '" . $date2 -> format("Y-m-d") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
 
-        $month =  $this::MONTHS[$date -> format("m")];
-        $month2 =  $this::MONTHS[$date2 -> format("m")];
+        $month =  $this::MONTHS[$date -> format("n")];
+        $month2 =  $this::MONTHS[$date2 -> format("n")];
         $year = $date -> format("Y");
         $year2 = $date2 -> format("Y");
 
@@ -99,9 +99,9 @@ class CalendarController extends Controller
         ksort($events);
 
         return view("calendar.week", [
+            "current" => $month,
             "events" => $events,
             "dates" => $dates,
-            "month" => $month
         ]);
     }
 
@@ -119,7 +119,7 @@ class CalendarController extends Controller
         $date = new DateTime($request -> date . "-01");
         $date2 = new DateTime($request -> date . "-" . $date -> format("t"));
 
-        $month = $this::MONTHS[$date -> format("m")] . " de " . $date -> format("Y");
+        $current = $this::MONTHS[$date -> format("n")] . " de " . $date -> format("Y");
 
         $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $request -> date . "-01 00:00:00' AND '" . $request -> date . "-" . $date -> format("t") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
         $events = [];
@@ -135,18 +135,18 @@ class CalendarController extends Controller
             for ($day = $date -> format("N"); $day < 8; $day++) {
                 if ($date -> format("m") == $date2 -> format("m")) {
                     $weeks[$week][$date -> format("N")] = $date -> format("j");
-                }
 
-                $date -> add(new DateInterval("P1D"));
+                    $date -> add(new DateInterval("P1D"));
+                }
             }
         }
 
         $empty = 7 - count($weeks[0]);
 
         return view("calendar.month", [
+            "current" => $current,
             "events" => $events,
             "weeks" => $weeks,
-            "month" => $month,
             "empty" => $empty
         ]);
     }
@@ -162,6 +162,31 @@ class CalendarController extends Controller
     {
         if (!isset($request -> date)) $request -> date = date("Y");
 
-        return view("calendar.year");
+        $date = new DateTime($request -> date . "-01-01");
+        $date2 = new DateTime($request -> date . "-12-31");
+
+        $current = $date -> format("Y");
+
+        $events = DB::select("SELECT id FROM events WHERE events.user_id = ? AND date BETWEEN '" . $request -> date . "-01-01 00:00:00' AND '" . $request -> date . "-12-31 23:59:59' ORDER BY date ASC", [$user -> id]);
+
+        $months = [];
+
+        for ($month = 1; $date -> format("Y") == $date2 -> format("Y"); $month++) {
+            for ($week = 0; $date -> format("j") <= $date -> format("t") && $date -> format("n") == $month && $date -> format("Y") == $date2 -> format("Y"); $week++) {
+                for ($day = $date -> format("N"); $day < 8; $day++) {
+                    if ($date -> format("n") == $month) {
+                        $months[$this::MONTHS[$month]][$week][$date -> format("N")] = $date -> format("j");
+
+                        $date -> add(new DateInterval("P1D"));
+                    }
+                }
+            }
+        }
+
+        return view("calendar.year", [
+            "current" => $current,
+            "events" => $events,
+            "months" => $months
+        ]);
     }
 }

@@ -15,7 +15,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>{{ $month }}</th>
+                            <th>{{ $current }}</th>
                             <th><div>L</div><span>{{ $dates[0] }}</span></th>
                             <th><div>M</div><span>{{ $dates[1] }}</span></th>
                             <th><div>X</div><span>{{ $dates[2] }}</span></th>

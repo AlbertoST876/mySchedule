@@ -15,7 +15,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="7">{{ $month }}</th>
+                            <th colspan="7">{{ $current }}</th>
                         </tr>
 
                         <tr>

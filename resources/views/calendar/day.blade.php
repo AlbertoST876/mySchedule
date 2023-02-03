@@ -15,7 +15,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="2">{{ $day }}</th>
+                            <th colspan="2">{{ $current }}</th>
                         </tr>
                     </thead>
 
