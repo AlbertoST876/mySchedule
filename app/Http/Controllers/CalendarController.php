@@ -164,25 +164,33 @@ class CalendarController extends Controller
 
         $current = $date -> format("Y");
 
-        $events = DB::select("SELECT id FROM events WHERE events.user_id = ? AND date BETWEEN '" . $request -> date . "-01-01 00:00:00' AND '" . $request -> date . "-12-31 23:59:59' ORDER BY date ASC", [$user -> id]);
+        $events = DB::select("SELECT date FROM events WHERE events.user_id = ? AND date BETWEEN '" . $request -> date . "-01-01 00:00:00' AND '" . $request -> date . "-12-31 23:59:59' ORDER BY date ASC", [$user -> id]);
 
         $months = [];
 
         for ($month = 1; $date -> format("Y") == $date2 -> format("Y"); $month++) {
             for ($week = 0; $date -> format("j") <= $date -> format("t") && $date -> format("n") == $month && $date -> format("Y") == $date2 -> format("Y"); $week++) {
-                for ($day = $date -> format("N"); $day < 8; $day++) {
-                    if ($date -> format("n") == $month) {
-                        $months[$this::MONTHS[$month]][$week][$date -> format("N")] = $date -> format("j");
+                for ($day = $date -> format("N"); $day < 8 && $date -> format("n") == $month; $day++) {
+                    $months[$this::MONTHS[$month]][$week][$date -> format("N")]["day"] = $date -> format("j");
 
-                        $date -> add(new DateInterval("P1D"));
+                    $count = 0;
+
+                    foreach ($events as $event) {
+                        $eventDate = new DateTime($event -> date);
+
+                        if ($eventDate -> format("n-j") == $date -> format("n-j")) $count++;
                     }
+
+                    $months[$this::MONTHS[$month]][$week][$date -> format("N")]["events"] = $count;
+                    $date -> add(new DateInterval("P1D"));
                 }
+
+
             }
         }
 
         return view("calendar.year", [
             "current" => $current,
-            "events" => $events,
             "months" => $months
         ]);
     }

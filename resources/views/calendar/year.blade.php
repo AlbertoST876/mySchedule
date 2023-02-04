@@ -11,9 +11,9 @@
 
             @include("layouts.calendar.calendarNav", ["type" => "year"])
 
-            @dump($months)
-
             <div>
+                <div>{{ $current }}</div>
+
                 @foreach ($months as $name => $month)
                     <table>
                         <thead>
@@ -41,9 +41,11 @@
 
                                     @foreach ($week as $day)
                                         <td>
-                                            <span>{{ $day }}</span>
+                                            <span>{{ $day["day"] }}</span>
 
-                                            <div></div>
+                                            @if ($day["events"] != 0)
+                                                <div>{{ $day["events"] }}</div>
+                                            @endif
                                         </td>
                                     @endforeach
                                 </tr>
