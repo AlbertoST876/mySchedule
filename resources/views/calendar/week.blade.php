@@ -16,13 +16,13 @@
                     <thead>
                         <tr>
                             <th>{{ $current }}</th>
-                            <th><div>L</div><span>{{ $dates[0] }}</span></th>
-                            <th><div>M</div><span>{{ $dates[1] }}</span></th>
-                            <th><div>X</div><span>{{ $dates[2] }}</span></th>
-                            <th><div>J</div><span>{{ $dates[3] }}</span></th>
-                            <th><div>V</div><span>{{ $dates[4] }}</span></th>
-                            <th><div>S</div><span>{{ $dates[5] }}</span></th>
-                            <th><div>D</div><span>{{ $dates[6] }}</span></th>
+                            <th><div>L</div><span>{{ $days[1] }}</span></th>
+                            <th><div>M</div><span>{{ $days[2] }}</span></th>
+                            <th><div>X</div><span>{{ $days[3] }}</span></th>
+                            <th><div>J</div><span>{{ $days[4] }}</span></th>
+                            <th><div>V</div><span>{{ $days[5] }}</span></th>
+                            <th><div>S</div><span>{{ $days[6] }}</span></th>
+                            <th><div>D</div><span>{{ $days[7] }}</span></th>
                         </tr>
                     </thead>
 
@@ -31,8 +31,8 @@
                             <tr>
                                 <td>{{ $time }}</td>
 
-                                @foreach ($dates as $date)
-                                    @if (array_key_exists($date, $eventsDays))
+                                @foreach ($days as $day)
+                                    @if (array_key_exists($day, $eventsDays))
                                         <td>
                                             @foreach ($eventsDays as $eventsDay)
                                                 @foreach ($eventsDay as $event)

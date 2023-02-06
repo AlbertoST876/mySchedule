@@ -22,7 +22,7 @@
                     <tbody>
                         @foreach ($events as $event)
                             <tr>
-                                <td>{{ $event -> hour }}</td>
+                                <td>{{ $event -> time }}</td>
 
                                 <td>
                                     <details>

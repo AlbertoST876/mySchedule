@@ -38,20 +38,16 @@
 
                                 @foreach ($week as $day)
                                     <td>
-                                        <span>{{ $day }}</span>
+                                        <span>{{ $day["day"] }}</span>
 
-                                        @foreach ($events as $numDay => $eventsDay)
-                                            @if ($numDay == $day)
-                                                @foreach ($eventsDay as $event)
-                                                    <div>
-                                                        <details>
-                                                            <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
+                                        @foreach ($day["events"] as $event)
+                                            <div>
+                                                <details>
+                                                    <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
-                                                            {{ $event -> description }}
-                                                        </details>
-                                                    </div>
-                                                @endforeach
-                                            @endif
+                                                    {{ $event -> description }}
+                                                </details>
+                                            </div>
                                         @endforeach
                                     </td>
                                 @endforeach
