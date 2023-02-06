@@ -80,15 +80,15 @@ class CalendarController extends Controller
         if ($month != $month2 && $year == $year2) $month .= " - " . $month2 . " de " . $year;
         if ($month == $month2 && $year == $year2) $month .= " de " . $year;
 
-        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $date -> format("Y-m-d") . " 00:00:00' AND '" . $date2 -> format("Y-m-d") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
-        $events = [];
+        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $date -> format("Y-m-d") . " 00:00:00' AND '" . $date2 -> format("Y-m-d") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
+        $times = [];
 
-        foreach ($eventsDB as $event) {
+        foreach ($events as $event) {
             $eventDate = new DateTime($event -> date);
-            $events[$eventDate -> format("H:i")][$eventDate -> format("j")][] = $event;
+            $times[$eventDate -> format("H:i")][$eventDate -> format("j")][] = $event;
         }
-        
-        ksort($events);
+
+        ksort($times);
 
         $days = [];
 
@@ -99,7 +99,7 @@ class CalendarController extends Controller
 
         return view("calendar.week", [
             "current" => $month,
-            "events" => $events,
+            "times" => $times,
             "days" => $days,
         ]);
     }
@@ -135,7 +135,7 @@ class CalendarController extends Controller
                         if ($eventDate -> format("j") == $date -> format("j")) {
                             $weeks[$week][$day]["events"][] = $events[$event];
 
-                            array_splice($events, $event, 1);
+                            array_splice($events, $event, 0);
                         }
                     }
 
@@ -179,7 +179,7 @@ class CalendarController extends Controller
                         $eventDate = new DateTime($events[$event] -> date);
 
                         if ($eventDate -> format("n-j") == $date -> format("n-j")) {
-                            array_splice($events, $event, 1);
+                            array_splice($events, $event, 0);
                             $count++;
                         }
                     }

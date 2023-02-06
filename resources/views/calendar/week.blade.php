@@ -27,21 +27,19 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($events as $time => $eventsDays)
+                        @foreach ($times as $time => $eventsDays)
                             <tr>
                                 <td>{{ $time }}</td>
 
                                 @foreach ($days as $day)
                                     @if (array_key_exists($day, $eventsDays))
                                         <td>
-                                            @foreach ($eventsDays as $eventsDay)
-                                                @foreach ($eventsDay as $event)
-                                                    <details>
-                                                        <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
+                                            @foreach ($eventsDays[$day] as $event)
+                                                <details>
+                                                    <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
-                                                        {{ $event -> description }}
-                                                    </details>
-                                                @endforeach
+                                                    {{ $event -> description }}
+                                                </details>
                                             @endforeach
                                         </td>
                                     @else
