@@ -175,17 +175,19 @@ class CalendarController extends Controller
 
                     $count = 0;
 
-                    foreach ($events as $event) {
-                        $eventDate = new DateTime($event -> date);
+                    for ($event = 0; $event < count($events); $event++) {
+                        $eventDate = new DateTime($events[$event] -> date);
 
-                        if ($eventDate -> format("n-j") == $date -> format("n-j")) $count++;
+                        if ($eventDate -> format("n-j") == $date -> format("n-j")) {
+                            array_splice($events, $event, 1);
+
+                            $count++;
+                        }
                     }
 
                     $months[$this::MONTHS[$month]][$week][$date -> format("N")]["events"] = $count;
                     $date -> add(new DateInterval("P1D"));
                 }
-
-
             }
         }
 
