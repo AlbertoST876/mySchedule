@@ -32,13 +32,13 @@
                     <tbody>
                         @foreach ($weeks as $key => $week)
                             <tr>
-                                @if ($key == 0 && count($weeks[0]) < 7)
-                                    <td colspan="{{ 7 - count($weeks[0]) }}"></td>
+                                @if ($key == 0 && count($week) < 7)
+                                    <td colspan="{{ 7 - count($week) }}"></td>
                                 @endif
 
                                 @foreach ($week as $day)
                                     <td>
-                                        <span>{{ $day["day"] }}</span>
+                                        <span>{{ $day["num"] }}</span>
 
                                         @foreach ($day["events"] as $event)
                                             <div>

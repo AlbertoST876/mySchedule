@@ -14,11 +14,11 @@
             <div>
                 <div>{{ $current }}</div>
 
-                @foreach ($months as $name => $month)
+                @foreach ($months as $month)
                     <table>
                         <thead>
                             <tr>
-                                <th colspan="7">{{ $name }}</th>
+                                <th colspan="7">{{ $month["name"] }}</th>
                             </tr>
 
                             <tr>
@@ -33,15 +33,15 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($month as $key => $week)
+                            @foreach ($month["weeks"] as $key => $week)
                                 <tr>
-                                    @if ($key == 0 && count($month[0]) < 7)
-                                        <td colspan="{{ 7 - count($month[0]) }}"></td>
+                                    @if ($key == 0 && count($week) < 7)
+                                        <td colspan="{{ 7 - count($week) }}"></td>
                                     @endif
 
                                     @foreach ($week as $day)
                                         <td>
-                                            <span>{{ $day["day"] }}</span>
+                                            <span>{{ $day["num"] }}</span>
 
                                             @if ($day["events"] != 0)
                                                 <div>{{ $day["events"] }}</div>
