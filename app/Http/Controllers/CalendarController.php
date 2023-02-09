@@ -93,7 +93,8 @@ class CalendarController extends Controller
         $days = [];
 
         for ($day = $date -> format("N"); $day < 8; $day++) {
-            $days[$day] = $date -> format("j");
+            $days[$day]["num"] = $date -> format("j");
+            $days[$day]["fullnum"] = $date -> format("d");
             $date -> add(new DateInterval("P1D"));
         }
 
@@ -123,24 +124,22 @@ class CalendarController extends Controller
         $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $request -> date . "-01 00:00:00' AND '" . $request -> date . "-" . $date -> format("t") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
         $weeks = [];
 
-        for ($week = 0; $date -> format("j") <= $date2 -> format("j") && $date -> format("m") == $date2 -> format("m"); $week++) {
-            for ($day = $date -> format("N"); $day < 8; $day++) {
-                if ($date -> format("m") == $date2 -> format("m")) {
-                    $weeks[$week][$day]["num"] = $date -> format("j");
-                    $weeks[$week][$day]["events"] = [];
+        for ($week = 0; $date -> format("m") == $date2 -> format("m"); $week++) {
+            for ($day = $date -> format("N"); $day < 8 && $date -> format("m") == $date2 -> format("m"); $day++) {
+                $weeks[$week][$day]["num"] = $date -> format("j");
+                $weeks[$week][$day]["fullnum"] = $date -> format("d");
+                $weeks[$week][$day]["events"] = [];
 
-                    for ($event = 0; $event < count($events); $event++) {
-                        $eventDate = new DateTime($events[$event] -> date);
+                for ($event = 0; $event < count($events); $event++) {
+                    $eventDate = new DateTime($events[$event] -> date);
 
-                        if ($eventDate -> format("j") == $date -> format("j")) {
-                            $weeks[$week][$day]["events"][] = $events[$event];
-
-                            array_splice($events, $event, 0);
-                        }
+                    if ($eventDate -> format("j") == $date -> format("j")) {
+                        $weeks[$week][$day]["events"][] = $events[$event];
+                        array_splice($events, $event, 0);
                     }
-
-                    $date -> add(new DateInterval("P1D"));
                 }
+
+                $date -> add(new DateInterval("P1D"));
             }
         }
 
@@ -175,6 +174,7 @@ class CalendarController extends Controller
             for ($week = 0; $date -> format("j") <= $date -> format("t") && $date -> format("n") == $month && $date -> format("Y") == $date2 -> format("Y"); $week++) {
                 for ($day = $date -> format("N"); $day < 8 && $date -> format("n") == $month; $day++) {
                     $months[$month]["weeks"][$week][$day]["num"] = $date -> format("j");
+                    $months[$month]["weeks"][$week][$day]["fullnum"] = $date -> format("d");
                     $count = 0;
 
                     for ($event = 0; $event < count($events); $event++) {

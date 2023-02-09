@@ -43,7 +43,7 @@
                                         <td>
                                             <span>{{ $day["num"] }}</span>
 
-                                            @if ($day["events"] != 0)
+                                            @if ($day["events"] > 0)
                                                 <div>{{ $day["events"] }}</div>
                                             @endif
                                         </td>

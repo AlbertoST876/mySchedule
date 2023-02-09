@@ -16,13 +16,13 @@
                     <thead>
                         <tr>
                             <th>{{ $current }}</th>
-                            <th><div>L</div><span>{{ $days[1] }}</span></th>
-                            <th><div>M</div><span>{{ $days[2] }}</span></th>
-                            <th><div>X</div><span>{{ $days[3] }}</span></th>
-                            <th><div>J</div><span>{{ $days[4] }}</span></th>
-                            <th><div>V</div><span>{{ $days[5] }}</span></th>
-                            <th><div>S</div><span>{{ $days[6] }}</span></th>
-                            <th><div>D</div><span>{{ $days[7] }}</span></th>
+                            <th><div>L</div><span>{{ $days[1]["num"] }}</span></th>
+                            <th><div>M</div><span>{{ $days[2]["num"] }}</span></th>
+                            <th><div>X</div><span>{{ $days[3]["num"] }}</span></th>
+                            <th><div>J</div><span>{{ $days[4]["num"] }}</span></th>
+                            <th><div>V</div><span>{{ $days[5]["num"] }}</span></th>
+                            <th><div>S</div><span>{{ $days[6]["num"] }}</span></th>
+                            <th><div>D</div><span>{{ $days[7]["num"] }}</span></th>
                         </tr>
                     </thead>
 
