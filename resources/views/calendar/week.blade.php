@@ -15,14 +15,25 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>{{ $current }}</th>
-                            <th><div>L</div><span>{{ $days[1]["num"] }}</span></th>
-                            <th><div>M</div><span>{{ $days[2]["num"] }}</span></th>
-                            <th><div>X</div><span>{{ $days[3]["num"] }}</span></th>
-                            <th><div>J</div><span>{{ $days[4]["num"] }}</span></th>
-                            <th><div>V</div><span>{{ $days[5]["num"] }}</span></th>
-                            <th><div>S</div><span>{{ $days[6]["num"] }}</span></th>
-                            <th><div>D</div><span>{{ $days[7]["num"] }}</span></th>
+                            <th rowspan="2">{{ $current }}</th>
+                            <th>L</th>
+                            <th>M</th>
+                            <th>X</th>
+                            <th>J</th>
+                            <th>V</th>
+                            <th>S</th>
+                            <th>D</th>
+                        </tr>
+
+                        <tr>
+                            @foreach ($days as $day)
+                                <th>
+                                    <form action="{{ route("calendar.day") }}" method="get">
+                                        <input type="hidden" name="date" value="{{ $day["date"] }}">
+                                        <input type="submit" value="{{ $day["num"] }}">
+                                    </form>
+                                </th>
+                            @endforeach
                         </tr>
                     </thead>
 
@@ -32,9 +43,9 @@
                                 <td>{{ $time }}</td>
 
                                 @foreach ($days as $day)
-                                    @if (array_key_exists($day, $eventsDays))
+                                    @if (array_key_exists($day["num"], $eventsDays))
                                         <td>
-                                            @foreach ($eventsDays[$day] as $event)
+                                            @foreach ($eventsDays[$day["num"]] as $event)
                                                 <details>
                                                     <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 

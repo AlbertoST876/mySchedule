@@ -38,7 +38,10 @@
 
                                 @foreach ($week as $day)
                                     <td>
-                                        <span>{{ $day["num"] }}</span>
+                                        <form action="{{ route("calendar.day") }}" method="get">
+                                            <input type="hidden" name="date" value="{{ $day["date"] }}">
+                                            <input type="submit" value="{{ $day["num"] }}">
+                                        </form>
 
                                         @foreach ($day["events"] as $event)
                                             <div>

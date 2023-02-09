@@ -18,7 +18,12 @@
                     <table>
                         <thead>
                             <tr>
-                                <th colspan="7">{{ $month["name"] }}</th>
+                                <th colspan="7">
+                                    <form action="{{ route("calendar.month") }}" method="get">
+                                        <input type="hidden" name="date" value="{{ $month["date"] }}">
+                                        <input type="submit" value="{{ $month["name"] }}">
+                                    </form>
+                                </th>
                             </tr>
 
                             <tr>
@@ -41,7 +46,10 @@
 
                                     @foreach ($week as $day)
                                         <td>
-                                            <span>{{ $day["num"] }}</span>
+                                            <form action="{{ route("calendar.day") }}" method="get">
+                                                <input type="hidden" name="date" value="{{ $day["date"] }}">
+                                                <input type="submit" value="{{ $day["num"] }}">
+                                            </form>
 
                                             @if ($day["events"] > 0)
                                                 <div>{{ $day["events"] }}</div>

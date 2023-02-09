@@ -94,7 +94,7 @@ class CalendarController extends Controller
 
         for ($day = $date -> format("N"); $day < 8; $day++) {
             $days[$day]["num"] = $date -> format("j");
-            $days[$day]["fullnum"] = $date -> format("d");
+            $days[$day]["date"] = $date -> format("Y-m-d");
             $date -> add(new DateInterval("P1D"));
         }
 
@@ -127,7 +127,7 @@ class CalendarController extends Controller
         for ($week = 0; $date -> format("m") == $date2 -> format("m"); $week++) {
             for ($day = $date -> format("N"); $day < 8 && $date -> format("m") == $date2 -> format("m"); $day++) {
                 $weeks[$week][$day]["num"] = $date -> format("j");
-                $weeks[$week][$day]["fullnum"] = $date -> format("d");
+                $weeks[$week][$day]["date"] = $date -> format("Y-m-d");
                 $weeks[$week][$day]["events"] = [];
 
                 for ($event = 0; $event < count($events); $event++) {
@@ -170,11 +170,12 @@ class CalendarController extends Controller
 
         for ($month = 1; $date -> format("Y") == $date2 -> format("Y"); $month++) {
             $months[$month]["name"] = $this::MONTHS[$date -> format("m")];
+            $months[$month]["date"] = $date -> format("Y-m");
 
             for ($week = 0; $date -> format("j") <= $date -> format("t") && $date -> format("n") == $month && $date -> format("Y") == $date2 -> format("Y"); $week++) {
                 for ($day = $date -> format("N"); $day < 8 && $date -> format("n") == $month; $day++) {
                     $months[$month]["weeks"][$week][$day]["num"] = $date -> format("j");
-                    $months[$month]["weeks"][$week][$day]["fullnum"] = $date -> format("d");
+                    $months[$month]["weeks"][$week][$day]["date"] = $date -> format("Y-m-d");
                     $count = 0;
 
                     for ($event = 0; $event < count($events); $event++) {
