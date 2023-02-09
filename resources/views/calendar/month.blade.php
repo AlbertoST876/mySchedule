@@ -15,10 +15,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="7">{{ $current }}</th>
+                            <th colspan="8">{{ $current }}</th>
                         </tr>
 
                         <tr>
+                            <th>Nº</th>
                             <th>L</th>
                             <th>M</th>
                             <th>X</th>
@@ -32,11 +33,18 @@
                     <tbody>
                         @foreach ($weeks as $key => $week)
                             <tr>
-                                @if ($key == 0 && count($week) < 7)
-                                    <td colspan="{{ 7 - count($week) }}"></td>
+                                <td>
+                                    <form action="{{ route("calendar.week") }}" method="get">
+                                        <input type="hidden" name="date" value="{{ $week["date"] }}">
+                                        <input type="submit" value="{{ $week["num"] }}">
+                                    </form>
+                                </td>
+
+                                @if ($key == 0 && count($week["days"]) < 7)
+                                    <td colspan="{{ 7 - count($week["days"]) }}"></td>
                                 @endif
 
-                                @foreach ($week as $day)
+                                @foreach ($week["days"] as $day)
                                     <td>
                                         <form action="{{ route("calendar.day") }}" method="get">
                                             <input type="hidden" name="date" value="{{ $day["date"] }}">
