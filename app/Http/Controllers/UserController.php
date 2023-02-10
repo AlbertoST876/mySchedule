@@ -28,7 +28,7 @@ class UserController extends Controller
 
         $request -> session() -> regenerate();
 
-        return redirect() -> intended() -> with("status", "Has iniciado sesión");
+        return redirect() -> intended() -> with("status", "Has Iniciado Sesión.");
     }
 
     public function store(Request $request) {
@@ -56,7 +56,7 @@ class UserController extends Controller
 
         // Auth::login($user);
 
-        return redirect() -> intended("login") -> with("status", "Te has registrado correctamente");
+        return redirect() -> intended("login") -> with("status", "Te has Registrado Correctamente.");
     }
 
     public function destroy(Request $request) {
@@ -65,6 +65,6 @@ class UserController extends Controller
         $request -> session() -> invalidate();
         $request -> session() -> regenerateToken();
 
-        return redirect() -> intended() -> with("status", "Has cerrado sesión");
+        return redirect() -> intended() -> with("status", "Has Cerrado Sesión.");
     }
 }
