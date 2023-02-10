@@ -30,7 +30,7 @@
                     <h1 class="flex items-center my-6 text-5xl font-extrabold dark:text-white">MySchedule</h1>
 
                     <p>Bienvenido a tu nueva Agenda personal almacenada en la nube, aquí podrás guardar tus notas, eventos, recordatorios, etc..., lo que necesites sin tener que instalar ninguna aplicación adicional en cualquiera de tus dispositivos.</p>
-                    
+
                     @guest
                         <div class="flex items-cencet justify-center my-6">
                             <a class="border border-solid border-black rounded-xl shadow-md bg-sky-500 mx-12 px-4 py-2" href="{{ route("login") }}">Iniciar Sesión</a>
@@ -38,8 +38,8 @@
                         </div>
                     @endguest
                 </div>
-                
-                <div><img class="border border-solid border-black rounded-md shadow-md" src="{{ asset("storage/img/schedule.png") }}"></div>
+
+                <div><img class="border border-solid border-black rounded-md shadow-md" src="{{ asset("storage/img/schedule.jpg") }}"></div>
             </div>
         </main>
     </body>
