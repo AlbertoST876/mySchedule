@@ -7,10 +7,8 @@
         @include("layouts.header")
 
         <main>
-            @include("layouts.calendar.calendarAside")
+            @include("layouts.calendar.calendarAside", ["type" => "year"])
 
-            @include("layouts.calendar.calendarNav", ["type" => "year"])
-            
             <div>
                 <div>{{ $current }}</div>
 

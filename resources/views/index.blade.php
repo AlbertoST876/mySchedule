@@ -27,12 +27,12 @@
 
             <div class="grid gap-24 grid-cols-2 grid-rows-1 px-24 py-24">
                 <div>
-                    <h1 class="flex items-center my-6 text-5xl font-extrabold dark:text-white">MySchedule</h1>
+                    <h1 class="flex items-center my-6 text-6xl font-extrabold dark:text-white">MySchedule</h1>
 
-                    <p>Bienvenido a tu nueva Agenda personal almacenada en la nube, aquí podrás guardar tus notas, eventos, recordatorios, etc..., lo que necesites sin tener que instalar ninguna aplicación adicional en cualquiera de tus dispositivos.</p>
+                    <p class="text-justify text-xl">Bienvenido a tu nueva Agenda personal almacenada en la nube, aquí podrás guardar tus notas, tareas, eventos, recordatorios, etc..., lo que necesites sin tener que instalar ninguna aplicación adicional en cualquiera de tus dispositivos.</p>
 
                     @guest
-                        <div class="flex items-cencet justify-center my-6">
+                        <div class="flex items-cencet justify-center my-8">
                             <a class="border border-solid border-black rounded-xl shadow-md bg-sky-500 mx-12 px-4 py-2" href="{{ route("login") }}">Iniciar Sesión</a>
                             <a class="border border-solid border-black rounded-xl shadow-md bg-sky-500 mx-12 px-4 py-2" href="{{ route("register") }}">Registrarse</a>
                         </div>
@@ -42,5 +42,16 @@
                 <div><img class="border border-solid border-black rounded-md shadow-md" src="{{ asset("storage/img/schedule.jpg") }}"></div>
             </div>
         </main>
+
+        <footer class="p-4 bg-slate-100 rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">©{{ date("Y") }} <a href="{{ route("index") }}" class="hover:underline">MySchedule</a>. Todos los derechos reservados.</span>
+
+            <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+                <li><a href="" class="mr-4 hover:underline md:mr-6 ">Sobre Nosotros</a></li>
+                <li><a href="" class="mr-4 hover:underline md:mr-6">Política de Privacidad</a></li>
+                <li><a href="" class="mr-4 hover:underline md:mr-6">Licencia del Usuario Final</a></li>
+                <li><a href="" class="hover:underline">Contacto</a></li>
+            </ul>
+        </footer>
     </body>
 </html>

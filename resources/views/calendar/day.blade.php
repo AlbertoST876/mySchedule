@@ -7,9 +7,7 @@
         @include("layouts.header")
 
         <main>
-            @include("layouts.calendar.calendarAside")
-
-            @include("layouts.calendar.calendarNav", ["type" => "date"])
+            @include("layouts.calendar.calendarAside", ["type" => "day"])
 
             <div>
                 <table>
