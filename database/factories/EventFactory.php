@@ -21,7 +21,7 @@ class EventFactory extends Factory
             "category_id" => random_int(1, 4),
             "name" => fake() -> name(),
             "description" => fake() -> text(),
-            "date" => fake() -> dateTimeBetween("2023-01-01 00:00:00", "2025-12-31 23:59:59")
+            "date" => fake() -> dateTimeBetween("2023-01-01 00:00:00", "2023-12-31 23:59:59")
         ];
     }
 }
