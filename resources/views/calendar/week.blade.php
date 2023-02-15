@@ -28,25 +28,25 @@
             </div>
 
             <div>
-                <table>
-                    <thead>
+                <table class="w-full">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <th rowspan="2">{{ $current }}</th>
-                            <th>L</th>
-                            <th>M</th>
-                            <th>X</th>
-                            <th>J</th>
-                            <th>V</th>
-                            <th>S</th>
-                            <th>D</th>
+                            <th style="width: 12.5%" rowspan="2">{{ $current }}</th>
+                            <th class="border-b-0" style="width: 12.5%">L</th>
+                            <th class="border-b-0" style="width: 12.5%">M</th>
+                            <th class="border-b-0" style="width: 12.5%">X</th>
+                            <th class="border-b-0" style="width: 12.5%">J</th>
+                            <th class="border-b-0" style="width: 12.5%">V</th>
+                            <th class="border-b-0" style="width: 12.5%">S</th>
+                            <th class="border-b-0" style="width: 12.5%">D</th>
                         </tr>
 
                         <tr>
                             @foreach ($days as $day)
-                                <th>
+                                <th class="border-t-0" style="width: 12.5%">
                                     <form action="{{ route("calendar.day") }}" method="get">
                                         <input type="hidden" name="date" value="{{ $day["date"] }}">
-                                        <input type="submit" value="{{ $day["num"] }}">
+                                        <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $day["num"] }}">
                                     </form>
                                 </th>
                             @endforeach
@@ -56,22 +56,20 @@
                     <tbody>
                         @foreach ($times as $time => $eventsDays)
                             <tr>
-                                <td>{{ $time }}</td>
+                                <td class="pr-4 bg-gray-100 text-right" style="width: 12.5%">{{ $time }}</td>
 
                                 @foreach ($days as $day)
-                                    @if (array_key_exists($day["num"], $eventsDays))
-                                        <td>
+                                    <td style="width: 12.5%">
+                                        @if (array_key_exists($day["num"], $eventsDays))
                                             @foreach ($eventsDays[$day["num"]] as $event)
-                                                <details>
+                                                <details class="m-1 px-4 py-2 bg-gray-100 rounded-lg">
                                                     <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
                                                     {{ $event -> description }}
                                                 </details>
                                             @endforeach
-                                        </td>
-                                    @else
-                                        <td></td>
-                                    @endif
+                                        @endif
+                                    </td>
                                 @endforeach
                             </tr>
                         @endforeach

@@ -28,8 +28,8 @@
             </div>
 
             <div>
-                <table>
-                    <thead>
+                <table class="w-full">
+                    <thead class="bg-gray-100">
                         <tr>
                             <th colspan="2">{{ $current }}</th>
                         </tr>
@@ -37,12 +37,12 @@
 
                     <tbody>
                         @foreach ($times as $time => $events)
-                            <tr>
-                                <td>{{ $time }}</td>
+                            <tr class="w-full">
+                                <td class="w-1/6 pr-4 bg-gray-100 text-right">{{ $time }}</td>
 
                                 @foreach ($events as $event)
-                                    <td>
-                                        <details>
+                                    <td class="w-5/6">
+                                        <details class="m-1 px-4 py-2 bg-gray-100 rounded-lg">
                                             <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
                                             {{ $event -> description }}

@@ -28,63 +28,65 @@
             </div>
 
             <div>
-                <div>{{ $current }}</div>
+                <div class="w-full text-center font-bold border-b border-b-black">Año {{ $current }}</div>
 
-                @foreach ($months as $month)
-                    <table>
-                        <thead>
-                            <tr>
-                                <th colspan="8">
-                                    <form action="{{ route("calendar.month") }}" method="get">
-                                        <input type="hidden" name="date" value="{{ $month["date"] }}">
-                                        <input type="submit" value="{{ $month["name"] }}">
-                                    </form>
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <th>Nº</th>
-                                <th>L</th>
-                                <th>M</th>
-                                <th>X</th>
-                                <th>J</th>
-                                <th>V</th>
-                                <th>S</th>
-                                <th>D</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($month["weeks"] as $key => $week)
+                <div class="flex flex-wrap align-center justify-center">
+                    @foreach ($months as $month)
+                        <table class="w-1/6 m-6">
+                            <thead class="bg-gray-100">
                                 <tr>
-                                    <td>
-                                        <form action="{{ route("calendar.week") }}" method="get">
-                                            <input type="hidden" name="date" value="{{ $week["date"] }}">
-                                            <input type="submit" value="{{ $week["num"] }}">
+                                    <th class="w-full" colspan="8">
+                                        <form action="{{ route("calendar.month") }}" method="get">
+                                            <input type="hidden" name="date" value="{{ $month["date"] }}">
+                                            <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $month["name"] }}">
                                         </form>
-                                    </td>
-
-                                    @if ($key == 0 && count($week["days"]) < 7)
-                                        <td colspan="{{ 7 - count($week["days"]) }}"></td>
-                                    @endif
-
-                                    @foreach ($week["days"] as $day)
-                                        <td>
-                                            <form action="{{ route("calendar.day") }}" method="get">
-                                                <input type="hidden" name="date" value="{{ $day["date"] }}">
-                                                <input type="submit" value="{{ $day["num"] }}">
-                                            </form>
-
-                                            @if ($day["events"] > 0)
-                                                <div>{{ $day["events"] }}</div>
-                                            @endif
-                                        </td>
-                                    @endforeach
+                                    </th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @endforeach
+
+                                <tr>
+                                    <th style="width: 12.5%">Semana Nº</th>
+                                    <th style="width: 12.5%">L</th>
+                                    <th style="width: 12.5%">M</th>
+                                    <th style="width: 12.5%">X</th>
+                                    <th style="width: 12.5%">J</th>
+                                    <th style="width: 12.5%">V</th>
+                                    <th style="width: 12.5%">S</th>
+                                    <th style="width: 12.5%">D</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($month["weeks"] as $key => $week)
+                                    <tr>
+                                        <td class="pr-4 bg-gray-100 text-center" style="width: 12.5%">
+                                            <form action="{{ route("calendar.week") }}" method="get">
+                                                <input type="hidden" name="date" value="{{ $week["date"] }}">
+                                                <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $week["num"] }}">
+                                            </form>
+                                        </td>
+
+                                        @if ($key == 0 && count($week["days"]) < 7)
+                                            <td class="w-auto" colspan="{{ 7 - count($week["days"]) }}"></td>
+                                        @endif
+
+                                        @foreach ($week["days"] as $day)
+                                            <td style="width: 12.5%">
+                                                <form action="{{ route("calendar.day") }}" method="get">
+                                                    <input type="hidden" name="date" value="{{ $day["date"] }}">
+                                                    <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $day["num"] }}">
+                                                </form>
+
+                                                @if ($day["events"] > 0)
+                                                    <div>{{ $day["events"] }}</div>
+                                                @endif
+                                            </td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endforeach
+                </div>
             </div>
         </main>
     </body>
