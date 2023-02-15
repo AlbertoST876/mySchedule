@@ -2,7 +2,7 @@
     <nav class="bg-slate-100 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
             <a class="flex items-center" href="{{ route("index") }}">
-                <img class="h-6 mr-3 sm:h-12" src="{{ asset("icon.png") }}">
+                <img class="h-12 mr-3" src="{{ asset("icon.png") }}">
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">MySchedule</span>
             </a>
 
