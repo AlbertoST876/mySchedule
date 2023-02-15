@@ -32,17 +32,19 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($events as $event)
+                        @foreach ($times as $time => $events)
                             <tr>
-                                <td>{{ $event -> time }}</td>
+                                <td>{{ $time }}</td>
 
-                                <td>
-                                    <details>
-                                        <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
+                                @foreach ($events as $event)
+                                    <td>
+                                        <details>
+                                            <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
-                                        {{ $event -> description }}
-                                    </details>
-                                </td>
+                                            {{ $event -> description }}
+                                        </details>
+                                    </td>
+                                @endforeach
                             </tr>
                         @endforeach
                     </tbody>
