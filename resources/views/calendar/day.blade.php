@@ -37,18 +37,18 @@
 
                     <tbody>
                         @foreach ($times as $time => $events)
-                            <tr class="w-full">
+                            <tr>
                                 <td class="w-1/6 pr-4 bg-gray-100 text-right">{{ $time }}</td>
 
-                                @foreach ($events as $event)
-                                    <td class="w-5/6">
+                                <td class="w-5/6">
+                                    @foreach ($events as $event)
                                         <details class="m-1 px-4 py-2 bg-gray-100 rounded-lg">
                                             <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
                                             {{ $event -> description }}
                                         </details>
-                                    </td>
-                                @endforeach
+                                    @endforeach
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

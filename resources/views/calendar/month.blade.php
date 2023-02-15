@@ -70,7 +70,7 @@
                                 <td class="pr-4 bg-gray-100 text-center" style="width: 12.5%">
                                     <form action="{{ route("calendar.week") }}" method="get">
                                         <input type="hidden" name="date" value="{{ $week["date"] }}">
-                                        <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $week["num"] }}">
+                                        <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $week["num"] }}">
                                     </form>
                                 </td>
 
@@ -82,17 +82,15 @@
                                     <td style="width: 12.5%">
                                         <form action="{{ route("calendar.day") }}" method="get">
                                             <input type="hidden" name="date" value="{{ $day["date"] }}">
-                                            <input class="m-2 px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $day["num"] }}">
+                                            <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $day["num"] }}">
                                         </form>
 
                                         @foreach ($day["events"] as $event)
-                                            <div>
-                                                <details class="m-1 px-4 py-2 bg-gray-100 rounded-lg">
-                                                    <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
+                                            <details class="m-1 px-4 py-2 bg-gray-100 rounded-lg">
+                                                <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
-                                                    {{ $event -> description }}
-                                                </details>
-                                            </div>
+                                                {{ $event -> description }}
+                                            </details>
                                         @endforeach
                                     </td>
                                 @endforeach

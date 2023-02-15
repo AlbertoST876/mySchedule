@@ -38,7 +38,7 @@
                                     <th class="w-full" colspan="8">
                                         <form action="{{ route("calendar.month") }}" method="get">
                                             <input type="hidden" name="date" value="{{ $month["date"] }}">
-                                            <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $month["name"] }}">
+                                            <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm focus:outline-none" type="submit" value="{{ $month["name"] }}">
                                         </form>
                                     </th>
                                 </tr>
@@ -61,7 +61,7 @@
                                         <td class="pr-4 bg-gray-100 text-center" style="width: 12.5%">
                                             <form action="{{ route("calendar.week") }}" method="get">
                                                 <input type="hidden" name="date" value="{{ $week["date"] }}">
-                                                <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $week["num"] }}">
+                                                <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $week["num"] }}">
                                             </form>
                                         </td>
 
@@ -70,14 +70,14 @@
                                         @endif
 
                                         @foreach ($week["days"] as $day)
-                                            <td style="width: 12.5%">
+                                            <td class="text-center" style="width: 12.5%">
                                                 <form action="{{ route("calendar.day") }}" method="get">
                                                     <input type="hidden" name="date" value="{{ $day["date"] }}">
-                                                    <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $day["num"] }}">
+                                                    <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $day["num"] }}">
                                                 </form>
 
                                                 @if ($day["events"] > 0)
-                                                    <div>{{ $day["events"] }}</div>
+                                                    <div class="mt-2">{{ $day["events"] }}</div>
                                                 @endif
                                             </td>
                                         @endforeach

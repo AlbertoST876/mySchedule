@@ -46,7 +46,7 @@
                                 <th class="border-t-0" style="width: 12.5%">
                                     <form action="{{ route("calendar.day") }}" method="get">
                                         <input type="hidden" name="date" value="{{ $day["date"] }}">
-                                        <input class="px-2 py-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="submit" value="{{ $day["num"] }}">
+                                        <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $day["num"] }}">
                                     </form>
                                 </th>
                             @endforeach
