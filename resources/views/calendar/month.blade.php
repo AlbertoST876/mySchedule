@@ -53,21 +53,21 @@
                         </tr>
 
                         <tr>
-                            <th style="width: 12.5%">Semana Nº</th>
-                            <th style="width: 12.5%">L</th>
-                            <th style="width: 12.5%">M</th>
-                            <th style="width: 12.5%">X</th>
-                            <th style="width: 12.5%">J</th>
-                            <th style="width: 12.5%">V</th>
-                            <th style="width: 12.5%">S</th>
-                            <th style="width: 12.5%">D</th>
+                            <th class="w-[12.5%]">Semana Nº</th>
+                            <th class="w-[12.5%]">L</th>
+                            <th class="w-[12.5%]">M</th>
+                            <th class="w-[12.5%]">X</th>
+                            <th class="w-[12.5%]">J</th>
+                            <th class="w-[12.5%]">V</th>
+                            <th class="w-[12.5%]">S</th>
+                            <th class="w-[12.5%]">D</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($weeks as $key => $week)
                             <tr>
-                                <td class="pr-4 bg-gray-100 text-center" style="width: 12.5%">
+                                <td class="w-[12.5%] pr-4 bg-gray-100 text-center">
                                     <form action="{{ route("calendar.week") }}" method="get">
                                         <input type="hidden" name="date" value="{{ $week["date"] }}">
                                         <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $week["num"] }}">
@@ -79,10 +79,10 @@
                                 @endif
 
                                 @foreach ($week["days"] as $day)
-                                    <td style="width: 12.5%">
+                                    <td class="w-[12.5%] align-top">
                                         <form action="{{ route("calendar.day") }}" method="get">
                                             <input type="hidden" name="date" value="{{ $day["date"] }}">
-                                            <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $day["num"] }}">
+                                            <input class="mb-2 px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $day["num"] }}">
                                         </form>
 
                                         @foreach ($day["events"] as $event)

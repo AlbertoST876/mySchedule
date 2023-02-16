@@ -19,12 +19,12 @@ use App\Http\Controllers\UserController;
 Route::view("/", "index") -> name("index");
 
 Route::view("login", "auth.login") -> name("login") -> middleware("guest");
-Route::post("login", [UserController::class, "index"]);
+Route::post("login", [UserController::class, "login"]);
 Route::view("register", "auth.register") -> name("register") -> middleware("guest");
-Route::post("register", [UserController::class, "store"]);
-Route::post("logout", [UserController::class, "destroy"]) -> name("logout");
+Route::post("register", [UserController::class, "register"]);
+Route::post("logout", [UserController::class, "logout"]) -> name("logout");
 
-Route::redirect("calendar", "calendar/month", 301) -> name("calendar") -> middleware("auth");
+Route::redirect("calendar", "calendar/month", 301) -> name("calendar");
 Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendar.day");
 Route::get("calendar/week", [CalendarController::class, "week"]) -> name("calendar.week");
 Route::get("calendar/month", [CalendarController::class, "month"]) -> name("calendar.month");

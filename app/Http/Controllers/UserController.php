@@ -12,11 +12,11 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this -> middleware("guest", ["only" => ["index", "store"]]);
-        $this -> middleware("auth", ["only" => "destroy"]);
+        $this -> middleware("guest", ["only" => ["login", "register"]]);
+        $this -> middleware("auth", ["only" => "logout"]);
     }
 
-    public function index(Request $request) {
+    public function login(Request $request) {
         $credentials = $request -> validate([
             "email" => ["required", "string", "email", "max:50"],
             "password" => ["required", "string", "max:255"]
@@ -31,7 +31,7 @@ class UserController extends Controller
         return redirect() -> intended() -> with("status", "Has iniciado sesión");
     }
 
-    public function store(Request $request) {
+    public function register(Request $request) {
         $validator = Validator::make($request -> all(), [
             "name" => ["required", "string", "max:25", "unique:users"],
             "email" => ["required", "string", "email", "max:50", "unique:users"],
@@ -59,7 +59,7 @@ class UserController extends Controller
         return redirect() -> intended("login") -> with("status", "Te has registrado correctamente");
     }
 
-    public function destroy(Request $request) {
+    public function logout(Request $request) {
         Auth::guard("web") -> logout();
 
         $request -> session() -> invalidate();

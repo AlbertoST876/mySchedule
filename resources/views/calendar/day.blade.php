@@ -31,7 +31,7 @@
                 <table class="w-full">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th colspan="2">{{ $current }}</th>
+                            <th class="w-full" colspan="2">{{ $current }}</th>
                         </tr>
                     </thead>
 
