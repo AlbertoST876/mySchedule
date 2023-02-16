@@ -112,7 +112,7 @@ class CalendarController extends Controller
     }
 
     /**
-     * Display all events in one month. Fixed until 2027.
+     * Display all events in one month.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Authenticatable  $user

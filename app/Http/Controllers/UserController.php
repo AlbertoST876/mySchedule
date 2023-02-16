@@ -16,6 +16,12 @@ class UserController extends Controller
         $this -> middleware("auth", ["only" => "logout"]);
     }
 
+    /**
+     * Start a user session.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function login(Request $request) {
         $credentials = $request -> validate([
             "email" => ["required", "string", "email", "max:50"],
@@ -31,6 +37,12 @@ class UserController extends Controller
         return redirect() -> intended() -> with("status", "Has iniciado sesión");
     }
 
+    /**
+     * Register a user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request) {
         $validator = Validator::make($request -> all(), [
             "name" => ["required", "string", "max:25", "unique:users"],
@@ -59,6 +71,12 @@ class UserController extends Controller
         return redirect() -> intended("login") -> with("status", "Te has registrado correctamente");
     }
 
+    /**
+     * Close a user session.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function logout(Request $request) {
         Auth::guard("web") -> logout();
 
