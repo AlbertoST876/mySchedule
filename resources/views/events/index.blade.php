@@ -47,8 +47,8 @@
                                 </button>
                             </div>
 
-                            <div class="p-6 space-y-6">
-                                <form action="{{ route("events.create") }}" method="post">
+                            <form action="{{ route("events.create") }}" method="post">
+                                <div class="p-6 space-y-6">
                                     @csrf
 
                                     <select class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="category" required>
@@ -68,15 +68,26 @@
                                     </div>
 
                                     <div class="mb-4">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="color">Color:</label>
+                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="color" name="color">
+                                    </div>
+
+                                    <div class="mb-4">
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="datetime">Fecha y Hora:</label>
                                         <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="datetime-local" name="date" value="{{ date("Y-m-d\TH:i") }}" min="{{ date("Y-m-d\TH:i") }}" required>
                                     </div>
-                                </form>
-                            </div>
 
-                            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <input class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" name="create" value="Crear">
-                            </div>
+                                    @error("date")
+                                        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                            <span class="font-medium">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                    <input class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" name="create" value="Crear">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

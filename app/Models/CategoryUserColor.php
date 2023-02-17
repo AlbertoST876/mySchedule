@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class CategoryUserColor extends Model
 {
     use HasFactory;
 
@@ -15,12 +15,9 @@ class Event extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "user_id",
         "category_id",
-        "name",
-        "description",
-        "color",
-        "date"
+        "user_id",
+        "color"
     ];
 
     /**
@@ -35,7 +32,5 @@ class Event extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        "date" => "datetime:d/m/Y H:i"
-    ];
+    protected $casts = [];
 }

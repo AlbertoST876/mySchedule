@@ -65,7 +65,8 @@ class EventsController extends Controller
         $validator = Validator::make($request -> all(), [
             "category" => ["required", "integer", "between:1,4"],
             "name" => ["required", "string", "max:50"],
-            "description" => ["string", "max:255"],
+            "description" => ["string", "nullable", "max:255"],
+            "color" => ["string", "max:10"],
             "date" => ["required", "date"]
         ]);
 
@@ -78,6 +79,7 @@ class EventsController extends Controller
             "user_id" => $user -> id,
             "name" => $request -> name,
             "description" => $request -> description,
+            "color" => $request -> color,
             "date" => $request -> date
         ]);
 
@@ -125,7 +127,8 @@ class EventsController extends Controller
         $validator = Validator::make($request -> all(), [
             "category" => ["required", "integer", "between:1,4"],
             "name" => ["required", "string", "max:50"],
-            "description" => ["string", "max:255"],
+            "description" => ["string", "nullable", "max:255"],
+            "color" => ["string", "max:10"],
             "date" => ["required", "date"]
         ]);
 
@@ -137,6 +140,7 @@ class EventsController extends Controller
         $event -> category_id = $request -> category;
         $event -> name = $request -> name;
         $event -> description = $request -> description;
+        $event -> color = $request -> color;
         $event -> date = $request -> date;
         $event -> save();
 

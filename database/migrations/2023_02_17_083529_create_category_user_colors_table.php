@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create("events", function (Blueprint $table) {
+        Schema::create('category_user_colors', function (Blueprint $table) {
             $table -> id();
-            $table -> foreignId("user_id") -> references("id") -> on("users");
             $table -> foreignId("category_id") -> references("id") -> on("categories");
-            $table -> string("name", 50);
-            $table -> string("description", 255) -> nullable();
-            $table -> string("color", 10) -> nullable();
-            $table -> dateTime("date");
+            $table -> foreignId("user_id") -> references("id") -> on("users");
+            $table -> string("color", 10);
             $table -> timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("events");
+        Schema::dropIfExists('category_user_colors');
     }
 };
