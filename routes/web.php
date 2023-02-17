@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::post("login", [UserController::class, "login"]);
 Route::view("register", "auth.register") -> name("register") -> middleware("guest");
 Route::post("register", [UserController::class, "register"]);
 Route::post("logout", [UserController::class, "logout"]) -> name("logout");
+
+Route::post("settings", [UserSettingsController::class, "index"]) -> name("user.settings");
+Route::post("settings/update", [UserSettingsController::class, "update"]) -> name("user.update");
 
 Route::redirect("calendar", "calendar/month", 301) -> name("calendar");
 Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendar.day");

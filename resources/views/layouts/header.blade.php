@@ -21,10 +21,18 @@
 
                         <ul class="py-2" aria-labelledby="user-menu-button">
                             <li>
+                                <form action="{{ route("user.settings") }}" method="post">
+                                    @csrf
+
+                                    <input class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" type="submit" value="Ajustes">
+                                </form>
+                            </li>
+
+                            <li>
                                 <form action="{{ route("logout") }}" method="post">
                                     @csrf
 
-                                    <input class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" type="submit" value="Cerrar Sesión" onclick="confirm('¿Estás seguro de que quieres cerrar sesión?')">
+                                    <input class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" type="submit" value="Cerrar Sesión" onclick="return confirm('¿Estás seguro de que quieres cerrar sesión?')">
                                 </form>
                             </li>
                         </ul>
