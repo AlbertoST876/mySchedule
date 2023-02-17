@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +18,13 @@ use App\Http\Controllers\UserSettingsController;
 
 Route::view("/", "index") -> name("index");
 
-Route::view("login", "auth.login") -> name("login") -> middleware("guest");
-Route::post("login", [UserController::class, "login"]);
-Route::view("register", "auth.register") -> name("register") -> middleware("guest");
-Route::post("register", [UserController::class, "register"]);
-Route::post("logout", [UserController::class, "logout"]) -> name("logout");
-
-Route::post("settings", [UserSettingsController::class, "index"]) -> name("user.settings");
-Route::post("settings/update", [UserSettingsController::class, "update"]) -> name("user.update");
+Route::get("login", [UserController::class, "index"]) -> name("login");
+Route::post("login", [UserController::class, "show"]);
+Route::get("register", [UserController::class, "create"]) -> name("register");
+Route::post("register", [UserController::class, "store"]);
+Route::get("settings", [UserController::class, "edit"]) -> name("settings");
+Route::patch("settings/update", [UserController::class, "update"]) -> name("settings.update");
+Route::post("logout", [UserController::class, "destroy"]) -> name("logout");
 
 Route::redirect("calendar", "calendar/month", 301) -> name("calendar");
 Route::get("calendar/day", [CalendarController::class, "day"]) -> name("calendar.day");

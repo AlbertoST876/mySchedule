@@ -10,7 +10,7 @@
                 @auth
                     <button type="button" class="flex mr-3 text-sm bg-slate-100 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                         <span class="sr-only">Abrir Menu de Usuario</span>
-                        <img class="w-12 h-12 rounded-full" src="{{ asset("./storage/img/default-user.png") }}" alt="Foto de Perfil">
+                        <img class="w-12 h-12 rounded-full" src="{{ is_null(auth() -> user() -> profile_img) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profile_img) }}" alt="Foto de Perfil">
                     </button>
 
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
@@ -20,13 +20,7 @@
                         </div>
 
                         <ul class="py-2" aria-labelledby="user-menu-button">
-                            <li>
-                                <form action="{{ route("user.settings") }}" method="post">
-                                    @csrf
-
-                                    <input class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" type="submit" value="Ajustes">
-                                </form>
-                            </li>
+                            <li><a href="{{ route("settings") }}" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Ajustes</a></li>
 
                             <li>
                                 <form action="{{ route("logout") }}" method="post">

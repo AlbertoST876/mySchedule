@@ -71,7 +71,7 @@ class EventsController extends Controller
         ]);
 
         if ($validator -> fails()) {
-            throw ValidationException::withMessages(["date" => "Los datos introducidos no son validos"]);
+            throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
         }
 
         Event::create([
@@ -133,7 +133,7 @@ class EventsController extends Controller
         ]);
 
         if ($validator -> fails()) {
-            throw ValidationException::withMessages(["date" => "Los datos introducidos no son validos"]);
+            throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
         }
 
         $event = Event::find($request -> event);
