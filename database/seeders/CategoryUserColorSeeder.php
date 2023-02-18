@@ -17,9 +17,9 @@ class CategoryUserColorSeeder extends Seeder
     {
         //CategoryUserColor::factory(4) -> create();
 
-        CategoryUserColor::factory() -> create(["category_id" => 1, "user_id" => 1, "color" => "#F5EB00"]);
-        CategoryUserColor::factory() -> create(["category_id" => 2, "user_id" => 1, "color" => "#32F556"]);
-        CategoryUserColor::factory() -> create(["category_id" => 3, "user_id" => 1, "color" => "#71E7F5"]);
-        CategoryUserColor::factory() -> create(["category_id" => 4, "user_id" => 1, "color" => "#F5453B"]);
+        CategoryUserColor::factory() -> create(["category_id" => 1, "user_id" => 1, "color" => "#F0E600"]);
+        CategoryUserColor::factory() -> create(["category_id" => 2, "user_id" => 1, "color" => "#78FF78"]);
+        CategoryUserColor::factory() -> create(["category_id" => 3, "user_id" => 1, "color" => "#6496FF"]);
+        CategoryUserColor::factory() -> create(["category_id" => 4, "user_id" => 1, "color" => "#FF6464"]);
     }
 }
