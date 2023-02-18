@@ -79,7 +79,7 @@ class EventsController extends Controller
             "user_id" => $user -> id,
             "name" => $request -> name,
             "description" => $request -> description,
-            "color" => $request -> color,
+            "color" => $request -> boolean("color-checkbox") ? $request -> color : null,
             "date" => $request -> date
         ]);
 
