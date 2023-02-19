@@ -26,7 +26,23 @@
                     </div>
                 @endif
 
-                @include("layouts.events.events")
+                <div>
+                    <details class="mx-12 my-4">
+                        <summary class="my-6 text-4xl font-extrabold dark:text-white">Eventos Pasados</summary>
+
+                        @foreach ($events["prevEvents"] as $event)
+                            @include("layouts.events.event")
+                        @endforeach
+                    </details>
+
+                    <details class="mx-12 my-4" open>
+                        <summary class="my-6 text-4xl font-extrabold dark:text-white">Eventos Proximos</summary>
+
+                        @foreach ($events["nextEvents"] as $event)
+                            @include("layouts.events.event")
+                        @endforeach
+                    </details>
+                </div>
 
                 <div data-dial-init class="fixed right-6 bottom-6 group">
                     <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">

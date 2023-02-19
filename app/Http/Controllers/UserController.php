@@ -80,10 +80,10 @@ class UserController extends Controller
 
         // Auth::login($user);
 
-        CategoryUserColor::factory() -> create(["category_id" => 1, "user_id" => $user -> id, "color" => "#F0E600"]);
-        CategoryUserColor::factory() -> create(["category_id" => 2, "user_id" => $user -> id, "color" => "#78FF78"]);
-        CategoryUserColor::factory() -> create(["category_id" => 3, "user_id" => $user -> id, "color" => "#6496FF"]);
-        CategoryUserColor::factory() -> create(["category_id" => 4, "user_id" => $user -> id, "color" => "#FF6464"]);
+        CategoryUserColor::factory() -> create(["category_id" => 1, "user_id" => $user -> id, "color" => "#f0e600"]);
+        CategoryUserColor::factory() -> create(["category_id" => 2, "user_id" => $user -> id, "color" => "#78ff78"]);
+        CategoryUserColor::factory() -> create(["category_id" => 3, "user_id" => $user -> id, "color" => "#6496ff"]);
+        CategoryUserColor::factory() -> create(["category_id" => 4, "user_id" => $user -> id, "color" => "#ff6464"]);
 
         return redirect() -> intended("login") -> with("status", "Te has registrado correctamente");
     }
