@@ -26,7 +26,7 @@ class EventsController extends Controller
     public function index(Authenticatable $user)
     {
         $categories = DB::table("categories") -> get();
-        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? ORDER BY date ASC", [$user -> id]);
+        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.color, category_user_colors.color AS categoryColor, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id LEFT JOIN category_user_colors ON categories.id = category_user_colors.category_id WHERE events.user_id = ? ORDER BY date ASC", [$user -> id]);
 
         $events = [
             "nextEvents" => [],

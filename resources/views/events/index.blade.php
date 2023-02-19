@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                <div>
+                <div class="my-8">
                     <details class="mx-12 my-4">
                         <summary class="my-6 text-4xl font-extrabold dark:text-white">Eventos Pasados</summary>
 
