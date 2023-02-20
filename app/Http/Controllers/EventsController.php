@@ -94,7 +94,7 @@ class EventsController extends Controller
      */
     public function show(Request $request)
     {
-        $event = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, DATE_FORMAT(events.date, '%d/%m/%Y %H:%i') as date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.id = ? ORDER BY date ASC", [$request -> event]);
+        $event = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.color, category_user_colors.color AS categoryColor, DATE_FORMAT(events.date, '%d/%m/%Y %H:%i') as date FROM events LEFT JOIN categories ON events.category_id = categories.id LEFT JOIN category_user_colors ON categories.id = category_user_colors.category_id WHERE events.id = ?", [$request -> event]);
 
         return view("events.show", ["event" => $event[0]]);
     }
@@ -108,7 +108,7 @@ class EventsController extends Controller
     public function edit(Request $request)
     {
         $categories = DB::select("SELECT * FROM categories");
-        $event = DB::select("SELECT id, category_id, name, description, DATE_FORMAT(events.date, '%Y-%m-%d\T%H:%i') as date FROM events WHERE id = ? ORDER BY date ASC", [$request -> event]);
+        $event = DB::select("SELECT id, category_id, name, description, events.color, DATE_FORMAT(events.date, '%Y-%m-%d\T%H:%i') as date FROM events WHERE id = ?", [$request -> event]);
 
         return view("events.edit", [
             "categories" => $categories,
@@ -140,7 +140,7 @@ class EventsController extends Controller
         $event -> category_id = $request -> category;
         $event -> name = $request -> name;
         $event -> description = $request -> description;
-        $event -> color = $request -> color;
+        $event -> color = $request -> boolean("color-checkbox") ? $request -> color : null;
         $event -> date = $request -> date;
         $event -> save();
 

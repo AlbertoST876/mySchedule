@@ -7,7 +7,7 @@
         @include("layouts.header")
 
         <main>
-            <div class="mx-24 my-12 p-8 bg-gray-100 rounded-xl">
+            <div class="mx-24 my-12 p-8 rounded-xl" style="background-color: {{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
                 <div class="grid gap-4 grid-cols-3 grid-rows-1">
                     <div>
                         <span class="text-lg font-bold dark:text-white">{{ $event -> date }}</span>
