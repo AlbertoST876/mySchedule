@@ -44,7 +44,7 @@ class CalendarController extends Controller
         $date = new DateTime($request -> date);
         $current = $date -> format("j") . " de " . $this::MONTHS[$date -> format("m")] . " de " . $date -> format("Y");
 
-        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date LIKE '" . $request -> date . "%' ORDER BY events.date ASC", [$user -> id]);
+        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.color, category_user_colors.color AS categoryColor, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id LEFT JOIN category_user_colors ON categories.id = category_user_colors.category_id WHERE events.user_id = ? AND events.date LIKE '" . $request -> date . "%' ORDER BY events.date ASC", [$user -> id]);
         $times = [];
 
         foreach ($events as $event) {
@@ -86,7 +86,7 @@ class CalendarController extends Controller
         if ($month != $month2 && $year == $year2) $month .= " - " . $month2 . " de " . $year;
         if ($month == $month2 && $year == $year2) $month .= " de " . $year;
 
-        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $date -> format("Y-m-d") . " 00:00:00' AND '" . $date2 -> format("Y-m-d") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
+        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.color, category_user_colors.color AS categoryColor, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id LEFT JOIN category_user_colors ON categories.id = category_user_colors.category_id WHERE events.user_id = ? AND events.date BETWEEN '" . $date -> format("Y-m-d") . " 00:00:00' AND '" . $date2 -> format("Y-m-d") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
         $times = [];
 
         foreach ($events as $event) {
@@ -127,7 +127,7 @@ class CalendarController extends Controller
 
         $current = $this::MONTHS[$date -> format("m")] . " de " . $date -> format("Y");
 
-        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id WHERE events.user_id = ? AND events.date BETWEEN '" . $request -> date . "-01 00:00:00' AND '" . $request -> date . "-" . $date -> format("t") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
+        $events = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.color, category_user_colors.color AS categoryColor, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id LEFT JOIN category_user_colors ON categories.id = category_user_colors.category_id WHERE events.user_id = ? AND events.date BETWEEN '" . $request -> date . "-01 00:00:00' AND '" . $request -> date . "-" . $date -> format("t") . " 23:59:59' ORDER BY events.date ASC", [$user -> id]);
         $weeks = [];
 
         for ($week = 0; $date -> format("m") == $date2 -> format("m"); $week++) {
@@ -188,6 +188,7 @@ class CalendarController extends Controller
                 for ($day = $date -> format("N"); $day < 8 && $date -> format("n") == $month; $day++) {
                     $months[$month]["weeks"][$week]["days"][$day]["num"] = $date -> format("j");
                     $months[$month]["weeks"][$week]["days"][$day]["date"] = $date -> format("Y-m-d");
+                    $color = ["red" => 0, "green" => 255]; 
                     $count = 0;
 
                     for ($event = 0; $event < count($events); $event++) {
@@ -196,9 +197,15 @@ class CalendarController extends Controller
                         if ($eventDate -> format("n-j") == $date -> format("n-j")) {
                             array_splice($events, $event, 0);
                             $count++;
+
+                            if ($color["red"] < 255 || $color["green"] > 0) {
+                                $color["red"] += 51;
+                                $color["green"] -= 51;
+                            }
                         }
                     }
 
+                    $months[$month]["weeks"][$week]["days"][$day]["color"] = "#" . str_pad(dechex($color["red"]), 2, "0", STR_PAD_LEFT) . str_pad(dechex($color["green"]), 2, "0", STR_PAD_LEFT) . "00";
                     $months[$month]["weeks"][$week]["days"][$day]["events"] = $count;
                     $date -> add(new DateInterval("P1D"));
                 }
