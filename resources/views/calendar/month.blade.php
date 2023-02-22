@@ -4,7 +4,7 @@
     @include("layouts.head", ["title" => "Calendario - Mes"])
 
     <body>
-        @include("layouts.header")
+        @include("layouts.header", ["current" => "calendar"])
 
         <main>
             <div class="px-4 sm:px-16 md:px-32 lg:px-48 xl:px-64 2xl:px-96 pt-2 mb-8 bg-slate-100 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">

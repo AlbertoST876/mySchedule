@@ -4,7 +4,7 @@
     @include("layouts.head", ["title" => "Inicio"])
 
     <body>
-        @include("layouts.header")
+        @include("layouts.header", ["current" => "home"])
 
         <main>
             @if (session("status"))

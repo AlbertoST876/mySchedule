@@ -4,7 +4,7 @@
     @include("layouts.head", ["title" => "Eventos - Ver"])
 
     <body>
-        @include("layouts.header")
+        @include("layouts.header", ["current" => "events"])
 
         <main>
             <div class="mx-24 my-12 p-8 rounded-xl" style="background-color: {{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">

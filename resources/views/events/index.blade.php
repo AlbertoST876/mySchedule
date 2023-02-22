@@ -4,7 +4,7 @@
     @include("layouts.head", ["title" => "Eventos"])
 
     <body>
-        @include("layouts.header")
+        @include("layouts.header", ["current" => "events"])
 
         <main>
             <div class="mx-24 my-12">
