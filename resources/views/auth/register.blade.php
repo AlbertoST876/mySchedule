@@ -4,7 +4,7 @@
     @include("layouts.head", ["title" => "Registro"])
 
     <body>
-        @include("layouts.header", ["current" => ""])
+        @include("layouts.header", ["current" => "home"])
 
         <main>
             <form class="mx-12 my-12" action="" method="post">
