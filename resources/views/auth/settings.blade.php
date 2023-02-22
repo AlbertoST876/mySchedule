@@ -4,7 +4,7 @@
     @include("layouts.head", ["title" => "Ajustes"])
 
     <body>
-        @include("layouts.header")
+        @include("layouts.header", ["current" => ""])
 
         <main>
             <div class="mx-24 my-12">
