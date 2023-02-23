@@ -66,13 +66,18 @@ class EventsController extends Controller
             "category" => ["required", "integer", "between:1,4"],
             "name" => ["required", "string", "max:50"],
             "description" => ["string", "nullable", "max:255"],
-            "color" => ["string", "max:10"],
-            "date" => ["required", "date"]
+            "color" => ["string", "nullable", "max:10"],
+            "date" => ["required", "date"],
+            "remember" => ["required", "string", "max:5"]
         ]);
 
         if ($validator -> fails()) {
             throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
         }
+
+        $remember = new DateTime($request -> date);
+
+        if (!is_null($request -> remember)) $remember -> sub(new DateInterval($request -> remember));
 
         Event::create([
             "category_id" => $request -> category,
@@ -80,7 +85,8 @@ class EventsController extends Controller
             "name" => $request -> name,
             "description" => $request -> description,
             "color" => $request -> boolean("color-checkbox") ? $request -> color : null,
-            "date" => $request -> date
+            "date" => $request -> date,
+            "remember" => is_null($request -> remember) ? null : $remember -> format("Y-m-d H:i:s")
         ]);
 
         return redirect() -> intended("events") -> with("status", "El evento se creó correctamente");
@@ -128,13 +134,18 @@ class EventsController extends Controller
             "category" => ["required", "integer", "between:1,4"],
             "name" => ["required", "string", "max:50"],
             "description" => ["string", "nullable", "max:255"],
-            "color" => ["string", "max:10"],
-            "date" => ["required", "date"]
+            "color" => ["string", "nullable", "max:10"],
+            "date" => ["required", "date"],
+            "remember" => ["required", "string", "max:5"]
         ]);
 
         if ($validator -> fails()) {
             throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
         }
+
+        $remember = new DateTime($request -> date);
+
+        if (!is_null($request -> remember)) $remember -> sub(new DateInterval($request -> remember));
 
         $event = Event::find($request -> event);
         $event -> category_id = $request -> category;
@@ -142,6 +153,7 @@ class EventsController extends Controller
         $event -> description = $request -> description;
         $event -> color = $request -> boolean("color-checkbox") ? $request -> color : null;
         $event -> date = $request -> date;
+        $event -> remember = is_null($request -> remember) ? null : $remember -> format("Y-m-d H:i:s");
         $event -> save();
 
         return redirect() -> intended("events") -> with("status", "El evento se actualizó correctamente");
