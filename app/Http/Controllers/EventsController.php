@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -77,7 +78,7 @@ class EventsController extends Controller
 
         $remember = new DateTime($request -> date);
 
-        if (!is_null($request -> remember)) $remember -> sub(new DateInterval($request -> remember));
+        if ($request -> remember != "null") $remember -> sub(new DateInterval($request -> remember));
 
         Event::create([
             "category_id" => $request -> category,
@@ -86,7 +87,7 @@ class EventsController extends Controller
             "description" => $request -> description,
             "color" => $request -> boolean("color-checkbox") ? $request -> color : null,
             "date" => $request -> date,
-            "remember" => is_null($request -> remember) ? null : $remember -> format("Y-m-d H:i:s")
+            "remember" => $request -> remember == "null" ? null : $remember -> format("Y-m-d H:i:s")
         ]);
 
         return redirect() -> intended("events") -> with("status", "El evento se creó correctamente");
@@ -145,7 +146,7 @@ class EventsController extends Controller
 
         $remember = new DateTime($request -> date);
 
-        if (!is_null($request -> remember)) $remember -> sub(new DateInterval($request -> remember));
+        if ($request -> remember != "null") $remember -> sub(new DateInterval($request -> remember));
 
         $event = Event::find($request -> event);
         $event -> category_id = $request -> category;
@@ -153,7 +154,7 @@ class EventsController extends Controller
         $event -> description = $request -> description;
         $event -> color = $request -> boolean("color-checkbox") ? $request -> color : null;
         $event -> date = $request -> date;
-        $event -> remember = is_null($request -> remember) ? null : $remember -> format("Y-m-d H:i:s");
+        $event -> remember = $request -> remember == "null" ? null : $remember -> format("Y-m-d H:i:s");
         $event -> save();
 
         return redirect() -> intended("events") -> with("status", "El evento se actualizó correctamente");

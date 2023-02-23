@@ -47,13 +47,13 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="remember">Recordar:</label>
                         <select class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="remember" required>
                             <option value="null" selected>Nunca</option>
-                            <option value="P10I">10 minutos antes</option>
-                            <option value="P30I">30 minutos antes</option>
-                            <option value="P1H">1 hora antes</option>
-                            <option value="P2H">2 horas antes</option>
-                            <option value="P3H">3 horas antes</option>
-                            <option value="P6H">6 horas antes</option>
-                            <option value="P12H">12 horas antes</option>
+                            <option value="PT10M">10 minutos antes</option>
+                            <option value="PT30M">30 minutos antes</option>
+                            <option value="PT1H">1 hora antes</option>
+                            <option value="PT2H">2 horas antes</option>
+                            <option value="PT3H">3 horas antes</option>
+                            <option value="PT6H">6 horas antes</option>
+                            <option value="PT12H">12 horas antes</option>
                             <option value="P1D">1 día antes</option>
                         </select>
                     </div>
