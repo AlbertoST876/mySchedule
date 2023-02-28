@@ -102,10 +102,10 @@
                                             <option value="PT30M">30 minutos antes</option>
                                             <option value="PT1H">1 hora antes</option>
                                             <option value="PT2H">2 horas antes</option>
-                                            <option value="PT3H">3 horas antes</option>
                                             <option value="PT6H">6 horas antes</option>
                                             <option value="PT12H">12 horas antes</option>
                                             <option value="P1D">1 día antes</option>
+                                            <option value="P2D">2 dias antes</option>
                                         </select>
                                     </div>
 

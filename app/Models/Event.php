@@ -21,7 +21,8 @@ class Event extends Model
         "description",
         "color",
         "date",
-        "remember"
+        "remember",
+        "isRemembered"
     ];
 
     /**
