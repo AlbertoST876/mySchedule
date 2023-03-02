@@ -53,7 +53,7 @@
 
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
                 <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-slate-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-slate-100 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                    <li><a href="{{ route("index") }}" class="block px-2 py-2 pl-3 pr-4 text-xl {{ $current == "home" ? "text-blue-600" : "text-black" }} rounded md:bg-transparent md:hover:text-blue-600 md:p-0 dark:text-white" aria-current="page">Inicio</a></li>
+                    <li><a href="{{ route("index") }}" class="block px-2 py-2 pl-3 pr-4 text-xl {{ $current == "home" ? "text-blue-600" : "text-black" }} rounded md:bg-transparent md:hover:text-blue-600 md:p-0 dark:text-white">Inicio</a></li>
                     <li><a href="{{ route("calendar") }}" class="block px-2 py-2 pl-3 pr-4 text-xl {{ $current == "calendar" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Calendario</a></li>
                     <li><a href="{{ route("events") }}" class="block px-2 py-2 pl-3 pr-4 text-xl {{ $current == "events" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Eventos</a></li>
                 </ul>

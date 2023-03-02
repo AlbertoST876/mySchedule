@@ -27,21 +27,8 @@
                 @endif
 
                 <div class="my-8">
-                    <details class="mx-12 my-4">
-                        <summary class="my-6 text-4xl font-extrabold dark:text-white">Eventos Pasados</summary>
-
-                        @foreach ($events["prevEvents"] as $event)
-                            @include("layouts.events.event")
-                        @endforeach
-                    </details>
-
-                    <details class="mx-12 my-4" open>
-                        <summary class="my-6 text-4xl font-extrabold dark:text-white">Eventos Proximos</summary>
-
-                        @foreach ($events["nextEvents"] as $event)
-                            @include("layouts.events.event")
-                        @endforeach
-                    </details>
+                    @include("layouts.events.eventsList", ["open" => false, "name" => "Eventos Pasados", "events" => $events["prevEvents"]])
+                    @include("layouts.events.eventsList", ["open" => true, "name" => "Eventos Proximos", "events" => $events["nextEvents"]])
                 </div>
 
                 <div data-dial-init class="fixed right-6 bottom-6 group">

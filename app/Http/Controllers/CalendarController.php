@@ -188,7 +188,7 @@ class CalendarController extends Controller
                 for ($day = $date -> format("N"); $day < 8 && $date -> format("n") == $month; $day++) {
                     $months[$month]["weeks"][$week]["days"][$day]["num"] = $date -> format("j");
                     $months[$month]["weeks"][$week]["days"][$day]["date"] = $date -> format("Y-m-d");
-                    $color = ["red" => 0, "green" => 255]; 
+                    $color = "";
                     $count = 0;
 
                     for ($event = 0; $event < count($events); $event++) {
@@ -197,15 +197,16 @@ class CalendarController extends Controller
                         if ($eventDate -> format("n-j") == $date -> format("n-j")) {
                             array_splice($events, $event, 0);
                             $count++;
-
-                            if ($color["red"] < 255 || $color["green"] > 0) {
-                                $color["red"] += 51;
-                                $color["green"] -= 51;
-                            }
                         }
                     }
 
-                    $months[$month]["weeks"][$week]["days"][$day]["color"] = "#" . str_pad(dechex($color["red"]), 2, "0", STR_PAD_LEFT) . str_pad(dechex($color["green"]), 2, "0", STR_PAD_LEFT) . "00";
+                    if ($count == 1) $color = "#00ff00";
+                    if ($count == 2) $color = "#00bb00";
+                    if ($count == 3) $color = "#bbbb00";
+                    if ($count == 4) $color = "#ffbb00";
+                    if ($count >= 5) $color = "#ff0000";
+
+                    $months[$month]["weeks"][$week]["days"][$day]["color"] = $color;
                     $months[$month]["weeks"][$week]["days"][$day]["events"] = $count;
                     $date -> add(new DateInterval("P1D"));
                 }
