@@ -8,6 +8,8 @@
         @include("layouts.calendar.nav", ["current" => "week"])
 
         <main>
+            @include("layouts.warn", ["message" => session("status")])
+
             <div>
                 <table class="w-full">
                     <thead class="bg-gray-100">

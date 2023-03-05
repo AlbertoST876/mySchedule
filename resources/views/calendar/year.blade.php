@@ -8,6 +8,8 @@
         @include("layouts.calendar.nav", ["current" => "year"])
 
         <main>
+            @include("layouts.warn", ["message" => session("status")])
+
             <div>
                 <div class="w-full text-center font-bold border-b border-b-black">Año {{ $current }}</div>
 

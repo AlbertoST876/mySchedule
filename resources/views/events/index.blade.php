@@ -8,7 +8,7 @@
 
         <main>
             <div class="mx-24 my-12">
-                @include("layouts.warn", ["warn" => session("status")])
+                @include("layouts.warn", ["message" => session("status")])
 
                 <div class="my-8">
                     @include("layouts.events.eventsList", ["open" => false, "name" => "Eventos Pasados", "events" => $events["prevEvents"]])

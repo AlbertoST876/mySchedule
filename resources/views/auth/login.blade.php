@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "home"])
 
         <main>
-            @include("layouts.warn", ["warn" => session("status")])
+            @include("layouts.warn", ["message" => session("status")])
 
             <form class="mx-12 my-12" action="" method="post">
                 @csrf

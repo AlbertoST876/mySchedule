@@ -8,7 +8,7 @@
 
         <main>
             <div class="mx-24 my-12">
-                @include("layouts.warn", ["warn" => session("status")])
+                @include("layouts.warn", ["message" => session("status")])
 
                 <h1 class="my-6 text-5xl font-extrabold dark:text-white">Ajustes de la Cuenta</h1>
 

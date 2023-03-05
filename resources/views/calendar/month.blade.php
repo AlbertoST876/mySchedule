@@ -8,7 +8,7 @@
         @include("layouts.calendar.nav", ["current" => "month"])
 
         <main>
-            @include("layouts.warn", ["warn" => session("status")])
+            @include("layouts.warn", ["message" => session("status")])
 
             <div>
                 <table class="w-full">

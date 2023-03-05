@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "home"])
 
         <main>
-            @include("layouts.warn", ["warn" => session("status")])
+            @include("layouts.warn", ["message" => session("status")])
 
             <div class="grid gap-24 grid-cols-2 grid-rows-1 mx-24 my-24">
                 <div>
