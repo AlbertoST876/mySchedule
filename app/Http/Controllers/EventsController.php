@@ -69,7 +69,7 @@ class EventsController extends Controller
             "description" => ["string", "nullable", "max:255"],
             "color" => ["string", "nullable", "max:10"],
             "date" => ["required", "date"],
-            "remember" => ["required", "string", "max:5"]
+            "remember" => ["date", "nullable"]
         ]);
 
         if ($validator -> fails()) {
@@ -81,9 +81,9 @@ class EventsController extends Controller
             "user_id" => $user -> id,
             "name" => $request -> name,
             "description" => $request -> description,
-            "color" => $request -> boolean("color-checkbox") ? $request -> color : null,
+            "color" => $request -> color,
             "date" => $request -> date,
-            "remember" => $request -> remember != "null" ? $request -> remember : null
+            "remember" => $request -> remember
         ]);
 
         return redirect() -> intended("events") -> with("status", "El evento se creó correctamente");
@@ -111,7 +111,7 @@ class EventsController extends Controller
     public function edit(Request $request)
     {
         $categories = DB::select("SELECT * FROM categories");
-        $event = DB::select("SELECT id, category_id, name, description, events.color, DATE_FORMAT(events.date, '%Y-%m-%d\T%H:%i') as date FROM events WHERE id = ?", [$request -> event]);
+        $event = DB::select("SELECT id, category_id, name, description, color, DATE_FORMAT(date, '%Y-%m-%d\T%H:%i') as date, DATE_FORMAT(remember, '%Y-%m-%d\T%H:%i') as remember FROM events WHERE id = ?", [$request -> event]);
 
         return view("events.edit", [
             "categories" => $categories,
@@ -133,7 +133,7 @@ class EventsController extends Controller
             "description" => ["string", "nullable", "max:255"],
             "color" => ["string", "nullable", "max:10"],
             "date" => ["required", "date"],
-            "remember" => ["required", "string", "max:5"]
+            "remember" => ["date", "nullable"]
         ]);
 
         if ($validator -> fails()) {
@@ -144,9 +144,9 @@ class EventsController extends Controller
         $event -> category_id = $request -> category;
         $event -> name = $request -> name;
         $event -> description = $request -> description;
-        $event -> color = $request -> boolean("color-checkbox") ? $request -> color : null;
+        $event -> color = $request -> color;
         $event -> date = $request -> date;
-        $event -> remember = $request -> remember != "null" ? $request -> remember : null;
+        $event -> remember = $request -> remember;
         $event -> isRemembered = 0;
         $event -> save();
 

@@ -102,7 +102,7 @@ class UserController extends Controller
         ]);
 
         if (!Auth::attempt($credentials, $request -> boolean("remember"))) {
-            throw ValidationException::withMessages(["email" => "Las credenciales introducidas no son correctas"]);
+            throw ValidationException::withMessages(["error" => "Las credenciales introducidas no son correctas"]);
         }
 
         $request -> session() -> regenerate();
