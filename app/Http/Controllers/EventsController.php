@@ -76,10 +76,6 @@ class EventsController extends Controller
             throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
         }
 
-        $remember = new DateTime($request -> date);
-
-        if ($request -> remember != "null") $remember -> sub(new DateInterval($request -> remember));
-
         Event::create([
             "category_id" => $request -> category,
             "user_id" => $user -> id,
@@ -87,7 +83,7 @@ class EventsController extends Controller
             "description" => $request -> description,
             "color" => $request -> boolean("color-checkbox") ? $request -> color : null,
             "date" => $request -> date,
-            "remember" => $request -> remember != "null" ? $remember -> format("Y-m-d H:i:s") : null
+            "remember" => $request -> remember != "null" ? $request -> remember : null
         ]);
 
         return redirect() -> intended("events") -> with("status", "El evento se creó correctamente");
@@ -144,18 +140,13 @@ class EventsController extends Controller
             throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
         }
 
-        if ($request -> remember != "null") {
-            $remember = new DateTime($request -> date);
-            $remember -> sub(new DateInterval($request -> remember));
-        }
-
         $event = Event::find($request -> event);
         $event -> category_id = $request -> category;
         $event -> name = $request -> name;
         $event -> description = $request -> description;
         $event -> color = $request -> boolean("color-checkbox") ? $request -> color : null;
         $event -> date = $request -> date;
-        $event -> remember = $request -> remember != "null" ? $remember -> format("Y-m-d H:i:s") : null;
+        $event -> remember = $request -> remember != "null" ? $request -> remember : null;
         $event -> isRemembered = 0;
         $event -> save();
 

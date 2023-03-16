@@ -21,7 +21,7 @@ return new class extends Migration
             $table -> string("description", 255) -> nullable();
             $table -> string("color", 10) -> nullable();
             $table -> dateTime("date");
-            $table -> dateTime("remember") -> nullable();
+            $table -> string("remember", 10) -> nullable();
             $table -> boolean("isRemembered") -> default(0);
             $table -> timestamps();
         });
