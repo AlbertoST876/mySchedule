@@ -35,7 +35,7 @@
                     <div class="mb-4">
                         <input id="color-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="color-checkbox" {{ is_null($event -> color) ? "" : "checked" }}>
                         <label class="text-sm font-medium text-gray-900" for="color">Color:</label>
-                        <input id="color" class="block mt-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1" type="color" name="color" value="{{ $event -> color }}">
+                        <input id="color" class="block mt-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1" type="color" name="color" value="{{ $event -> color }}" disabled>
                     </div>
 
                     <div class="mb-4">
