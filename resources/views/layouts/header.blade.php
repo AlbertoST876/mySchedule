@@ -1,14 +1,14 @@
 <header>
-    <nav class="bg-slate-100 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
+    <nav class="px-2 sm:px-4 py-3 bg-slate-100 border-gray-200 rounded">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
             <a class="flex items-center" href="{{ route("index") }}">
-                <img class="h-12 mr-3" src="{{ asset("icon.svg") }}">
+                <img class="h-12 mr-3" src="{{ asset("icon.svg") }}" alt="Icono de la Aplicación">
                 <span class="self-center text-xl font-semibold whitespace-nowrap">MySchedule</span>
             </a>
 
             <div class="flex items-center md:order-2">
                 @auth
-                    <button type="button" class="flex mr-3 text-sm bg-slate-100 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <button type="button" class="flex mr-3 md:mr-0 text-sm bg-slate-100 rounded-full focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                         <span class="sr-only">Abrir Menu de Usuario</span>
                         <img class="w-12 h-12 rounded-full" src="{{ is_null(auth() -> user() -> profile_img) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profile_img) }}" alt="Foto de Perfil">
                     </button>
@@ -20,13 +20,13 @@
                         </div>
 
                         <ul class="py-2" aria-labelledby="user-menu-button">
-                            <li><a href="{{ route("settings") }}" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ajustes</a></li>
+                            <li><a href="{{ route("settings") }}" class="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100">Ajustes</a></li>
 
                             <li>
                                 <form action="{{ route("logout") }}" method="post">
                                     @csrf
 
-                                    <input class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" type="submit" value="Cerrar Sesión" onclick="return confirm('¿Estás seguro de que quieres cerrar sesión?')">
+                                    <input class="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100" type="submit" value="Cerrar Sesión" onclick="return confirm('¿Estás seguro de que quieres cerrar sesión?')">
                                 </form>
                             </li>
                         </ul>
@@ -51,11 +51,11 @@
                 </button>
             </div>
 
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-                <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-slate-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-slate-100">
-                    <li><a href="{{ route("index") }}" class="block px-2 py-2 pl-3 pr-4 text-xl {{ $current == "home" ? "text-blue-600" : "text-black" }} rounded md:bg-transparent md:hover:text-blue-600 md:p-0">Inicio</a></li>
-                    <li><a href="{{ route("calendar") }}" class="block px-2 py-2 pl-3 pr-4 text-xl {{ $current == "calendar" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0">Calendario</a></li>
-                    <li><a href="{{ route("events") }}" class="block px-2 py-2 pl-3 pr-4 text-xl {{ $current == "events" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0">Eventos</a></li>
+            <div class="p-4 mt-4 md:mt-0 items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
+                <ul class="flex flex-col border border-gray-100 rounded-lg bg-slate-100 md:flex-row md:space-x-8 md:text-sm md:font-medium md:border-0 md:bg-slate-100">
+                    <li><a href="{{ route("index") }}" class="block p-2 md:p-0 text-xl {{ $current == "home" ? "text-blue-600" : "text-black" }} rounded md:bg-transparent md:hover:text-blue-600">Inicio</a></li>
+                    <li><a href="{{ route("calendar") }}" class="block p-2 md:p-0 text-xl {{ $current == "calendar" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600">Calendario</a></li>
+                    <li><a href="{{ route("events") }}" class="block p-2 md:p-0 text-xl {{ $current == "events" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600">Eventos</a></li>
                 </ul>
             </div>
         </div>
