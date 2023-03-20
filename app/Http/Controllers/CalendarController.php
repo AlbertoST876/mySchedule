@@ -202,8 +202,8 @@ class CalendarController extends Controller
                     }
 
                     if ($count == 1) $color = "#00ff00";
-                    if ($count == 2) $color = "#00bb00";
-                    if ($count == 3) $color = "#bbbb00";
+                    if ($count == 2) $color = "#bbff00";
+                    if ($count == 3) $color = "#ffff00";
                     if ($count == 4) $color = "#ffbb00";
                     if ($count >= 5) $color = "#ff0000";
 
