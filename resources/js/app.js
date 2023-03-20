@@ -5,16 +5,16 @@ window.onload = function() {
         function initField(check, field) {
             if (check.checked == true) {
                 field.removeAttribute("disabled");
-                field.classList.add("bg-gray-50");
+                field.classList.add("block");
             } else {
-                field.classList.add("bg-gray-300");
+                field.classList.add("hidden");
             }
         }
 
         function toggleField(field) {
             field.toggleAttribute("disabled");
-            field.classList.toggle("bg-gray-50");
-            field.classList.toggle("bg-gray-300");
+            field.classList.toggle("block");
+            field.classList.toggle("hidden");
         }
 
         let colorCheck = document.querySelector("#color-checkbox");

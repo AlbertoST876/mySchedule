@@ -35,46 +35,46 @@
                             </div>
 
                             <form action="{{ route("events.create") }}" method="post">
-                                <div class="p-6 space-y-6">
+                                <div class="p-6">
                                     @csrf
 
-                                    <select class="p-3 mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" name="category" required>
+                                    <select class="mb-6 p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" name="category" required>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category -> id }}">{{ $category -> name }}</option>
                                         @endforeach
                                     </select>
 
-                                    <div class="mb-4">
+                                    <div class="mb-6">
                                         <label class="mb-2 block text-sm font-medium text-gray-900" for="name">Nombre</label>
                                         <input class="p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="text" name="name" max="50" required>
                                     </div>
 
-                                    <div class="mb-4">
+                                    <div class="mb-6">
                                         <label class="mb-2 block text-sm font-medium text-gray-900" for="description">Descripción</label>
                                         <input class="p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="text" name="description" max="255">
                                     </div>
 
-                                    <div class="mb-4">
+                                    <div class="mb-6">
                                         <label class="mb-2 block text-sm font-medium text-gray-900" for="datetime">Fecha y Hora</label>
                                         <input id="datetime" class="p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="date" min="{{ date("Y-m-d\TH:i") }}" value="{{ date("Y-m-d\TH:i") }}" required>
                                     </div>
 
-                                    <div class="mb-4">
+                                    <div class="mb-2">
                                         <input id="remember-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="remember-checkbox">
                                         <label class="text-sm font-medium text-gray-900" for="remember">Recordar</label>
-                                        <input id="remember" class="mt-2 p-3 block border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="remember" min="{{ date("Y-m-d\TH:i") }}" disabled>
+                                        <input id="remember" class="mt-2 mb-6 p-3 border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="remember" min="{{ date("Y-m-d\TH:i") }}" disabled>
                                     </div>
 
-                                    <div class="mb-4">
+                                    <div class="mb-2">
                                         <input id="color-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="color-checkbox">
                                         <label class="text-sm font-medium text-gray-900" for="color">Color</label>
-                                        <input id="color" class="mt-2 p-1 block border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="color" name="color" disabled>
+                                        <input id="color" class="mt-2 mb-6 p-1 border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="color" name="color" disabled>
                                     </div>
 
                                     @include("layouts.error", ["error" => "error"])
                                 </div>
 
-                                <div class="p-6 flex items-center space-x-2 border-t border-gray-200 rounded-b">
+                                <div class="p-4 flex items-center space-x-2 border-t border-gray-200 rounded-b">
                                     <input class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" type="submit" name="create" value="Crear">
                                 </div>
                             </form>
