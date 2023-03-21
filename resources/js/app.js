@@ -35,7 +35,7 @@ window.onload = function() {
 
     if (events.length > 0) {
         for (let i = 0; i < events.length; i++) {
-            events[i].setAttribute("style", "background-color: " + events[i].getAttribute("data-color"))
+            events[i].style.backgroundColor = events[i].getAttribute("data-color");
         }
     }
 };
