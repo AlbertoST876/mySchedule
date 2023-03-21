@@ -60,7 +60,7 @@
                                                 </form>
 
                                                 @if ($day["events"] > 0)
-                                                    <div class="mt-2 py-1 rounded-full" style="background-color: {{ $day["color"] }}">{{ $day["events"] }}</div>
+                                                    <div class="mt-2 py-1 rounded-full" data-color="{{ $day["color"] }}">{{ $day["events"] }}</div>
                                                 @endif
                                             </td>
                                         @endforeach

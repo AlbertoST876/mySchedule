@@ -30,4 +30,12 @@ window.onload = function() {
         rememberCheck.onclick = function() { toggleField(remember); };
         remember.addEventListener("focus", function() { remember.setAttribute("max", date.value); });
     }
+
+    let events = document.querySelectorAll("*[data-color]");
+
+    if (events.length > 0) {
+        for (let i = 0; i < events.length; i++) {
+            events[i].setAttribute("style", "background-color: " + events[i].getAttribute("data-color"))
+        }
+    }
 };

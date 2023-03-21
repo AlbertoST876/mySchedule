@@ -1,4 +1,4 @@
-<div class="mx-6 mb-6 p-8 rounded-xl" style="background-color: {{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
+<div class="mx-6 mb-6 p-8 rounded-xl" data-color="{{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
     <div class="grid gap-4 grid-cols-3 grid-rows-1">
         <div>
             <span class="text-lg font-bold">{{ $event -> date }}</span>

@@ -45,7 +45,7 @@
                                     <td class="w-[12.5%]">
                                         @if (array_key_exists($day["num"], $eventsDays))
                                             @foreach ($eventsDays[$day["num"]] as $event)
-                                                <details class="m-1 px-4 py-2 rounded-lg" style="background-color: {{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
+                                                <details class="m-1 px-4 py-2 rounded-lg" data-color="{{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
                                                     <summary>{{ $event -> category }} - {{ $event -> name }}</summary>
 
                                                     {{ $event -> description }}
