@@ -40,13 +40,13 @@
                     <div class="mb-2">
                         <input id="remember-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="remember-checkbox" {{ is_null($event -> remember) ? "" : "checked" }}>
                         <label class="text-sm font-medium text-gray-900" for="remember">Recordar</label>
-                        <input id="remember" class="mt-2 mb-6 p-3 border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="remember" value="{{ $event -> remember }}" min="{{ date("Y-m-d\TH:i") }}" disabled>
+                        <input id="remember" class="mt-2 mb-6 p-3 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="remember" value="{{ $event -> remember }}" min="{{ date("Y-m-d\TH:i") }}" disabled>
                     </div>
 
                     <div class="mb-2">
                         <input id="color-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="color-checkbox" {{ is_null($event -> color) ? "" : "checked" }}>
                         <label class="text-sm font-medium text-gray-900" for="color">Color</label>
-                        <input id="color" class="mt-2 p-1 mb-6 border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="color" name="color" value="{{ $event -> color }}" disabled>
+                        <input id="color" class="mt-2 p-1 mb-6 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="color" name="color" value="{{ $event -> color }}" disabled>
                     </div>
 
                     <input type="hidden" name="event" value="{{ $event -> id }}">
