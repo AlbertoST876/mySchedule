@@ -10,7 +10,7 @@
                 @auth
                     <button type="button" class="flex mr-3 md:mr-0 text-sm bg-slate-100 rounded-full focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                         <span class="sr-only">Abrir Menu de Usuario</span>
-                        <img class="w-12 h-12 rounded-full" src="{{ is_null(auth() -> user() -> profile_img) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profile_img) }}" alt="Foto de Perfil">
+                        <img class="w-12 h-12 rounded-full" src="{{ is_null(auth() -> user() -> profileImg) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profileImg) }}" alt="Foto de Perfil">
                     </button>
 
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-md" id="user-dropdown">

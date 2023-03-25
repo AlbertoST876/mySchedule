@@ -37,7 +37,7 @@
                 <div class="my-8">
                     <h2 class="my-6 text-3xl font-extrabold">Foto de Perfil</h2>
 
-                    <img class="w-32 h-32 mb-4 rounded-full" src="{{ is_null(auth() -> user() -> profile_img) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profile_img) }}" alt="Foto de Perfil">
+                    <img class="w-32 h-32 mb-4 rounded-full" src="{{ is_null(auth() -> user() -> profileImg) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profileImg) }}" alt="Foto de Perfil">
 
                     <form action="{{ route("settings.update") }}" method="post" enctype="multipart/form-data">
                         @csrf
