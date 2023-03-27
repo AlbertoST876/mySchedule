@@ -161,7 +161,7 @@ class UserController extends Controller
             $imageName = date("Y-m-d_H-i-s") . "_" . $user -> name . "." . $request -> file("profileImg") -> extension();
             $request -> file("profileImg") -> storeAs("public/img/users", $imageName);
 
-            DB::update("UPDATE users SET profile_img = ? WHERE id = ?", ["./storage/img/users/" . $imageName, $user -> id]);
+            DB::update("UPDATE users SET profileImg = ? WHERE id = ?", ["./storage/img/users/" . $imageName, $user -> id]);
         }
 
         return redirect() -> intended("settings") -> with("status", "Ajustes guardados correctamente");

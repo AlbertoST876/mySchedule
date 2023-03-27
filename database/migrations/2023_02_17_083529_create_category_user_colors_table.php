@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('category_user_colors', function (Blueprint $table) {
+        Schema::create('category_user_colors', function(Blueprint $table) {
             $table -> id();
             $table -> foreignId("category_id") -> references("id") -> on("categories");
             $table -> foreignId("user_id") -> references("id") -> on("users");
