@@ -108,7 +108,7 @@ class CalendarController extends Controller
         return view("calendar.week", [
             "current" => $month,
             "times" => $times,
-            "days" => $days,
+            "days" => $days
         ]);
     }
 
