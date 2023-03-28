@@ -1,5 +1,5 @@
 <header>
-    <nav class="px-4 py-6 bg-slate-100 border-gray-200 rounded">
+    <nav class="px-4 md:px-8 lg:px-12 py-6 bg-slate-100 border-gray-200 rounded">
         <div class="flex flex-wrap items-center justify-between">
             <a class="flex items-center" href="{{ route("index") }}">
                 <img class="mr-3 w-12 h-12" src="{{ asset("icon.svg") }}" alt="Icono de la Aplicación">
