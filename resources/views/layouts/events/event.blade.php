@@ -1,16 +1,16 @@
-<div class="mx-6 mb-6 p-8 rounded-xl" data-color="{{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
-    <div class="grid gap-4 grid-cols-3 grid-rows-1">
+<div class="m-6 p-8 rounded-xl" data-color="{{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
+    <div class="grid gap-2 lg:gap-4 grid-cols-2 lg:grid-cols-3 grid-rows-2">
         <div>
             <span class="text-lg font-bold">{{ $event -> date }}</span>
             <h3 class="mt-2 text-xl font-extrabold">{{ $event -> name }}</h3>
         </div>
 
-        <span class="text-base text-center font-bold">{{ $event -> category }}</span>
+        <span class="text-base text-right lg:text-center font-bold">{{ $event -> category }}</span>
 
-        <p class="col-span-3">{{ $event -> description }}</p>
+        <p class="col-span-2 lg:col-span-3 text-justify">{{ $event -> description }}</p>
     </div>
 
-    <div class="flex mt-6">
+    <div class="flex">
         <form action="{{ route("events.show") }}" method="post">
             @csrf
 

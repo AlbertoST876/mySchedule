@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "events"])
 
         <main>
-            <div class="mx-24 my-12">
+            <div class="mx-6 my-12 lg:mx-24 lg:my-12">
                 @include("layouts.warn", ["message" => session("status")])
 
                 <div class="my-8">

@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "events"])
 
         <main>
-            <div class="mx-24 my-12">
+            <div class="mx-6 my-12 lg:mx-24 lg:my-12">
                 <form action="{{ route("events.update") }}" method="post">
                     @csrf
                     @method("patch")
