@@ -118,7 +118,7 @@ class UserController extends Controller
      */
     public function edit(Authenticatable $user)
     {
-        $categories = DB::select("SELECT categories.id, categories.name, category_user_colors.color FROM category_user_colors LEFT JOIN categories ON category_user_colors.category_id = categories.id WHERE category_user_colors.user_id = ?", [$user -> id]);
+        $categories = DB::table("category_user_colors") -> leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", $user -> id) -> select("categories.id", "categories.name", "category_user_colors.color") -> get();
 
         return view("auth.settings", ["categories" => $categories]);
     }
@@ -145,13 +145,13 @@ class UserController extends Controller
             }
 
             for ($category = 1; $category < 5; $category++) {
-                DB::update("UPDATE category_user_colors SET color = ? WHERE category_id = ? AND user_id = ?", [$request -> $category, $category, $user -> id]);
+                DB::table("category_user_colors") -> where("category_id", $category) -> where("user_id", $user -> id) -> update(["color" => $request -> $category]);
             }
         }
 
         if (isset($request -> image)) {
             $validator = Validator::make($request -> all(), [
-                "profileImg" => ["image", "mimes:jpg,jpeg,png", "max:2048", "dimensions:min_width=128,min_height=128,max_width=1024,max_height=1024"]
+                "profileImg" => ["image", "mimes:jpg,jpeg,png", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"]
             ]);
 
             if ($validator -> fails()) {
@@ -161,7 +161,7 @@ class UserController extends Controller
             $imageName = date("Y-m-d_H-i-s") . "_" . $user -> name . "." . $request -> file("profileImg") -> extension();
             $request -> file("profileImg") -> storeAs("public/img/users", $imageName);
 
-            DB::update("UPDATE users SET profileImg = ? WHERE id = ?", ["./storage/img/users/" . $imageName, $user -> id]);
+            DB::table("users") -> where("id", $user -> id) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
         }
 
         return redirect() -> intended("settings") -> with("status", "Ajustes guardados correctamente");

@@ -49,6 +49,16 @@
 
                         @include("layouts.error", ["error" => "errorProfileImg"])
 
+                        <div class="mb-4">
+                            <ul class="mb-4 max-w-full space-y-1 text-gray-500 list-disc list-inside">
+                                <li>Formato PNG, JPG o JPEG.</li>
+                                <li>Tamaño máximo de 2 Mb.</li>
+                                <li>Ancho y alto mínimo de 128 Pixeles y máximo de 2048 Pixeles.</li>
+                            </ul>
+
+                            <span class="text-gray-500">Se recomienda que la proporción de la imagen sea 1:1 (p. ej. 512 x 512 Pixeles).</span>
+                        </div>
+
                         <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="image" value="Cambiar">
                     </form>
                 </div>

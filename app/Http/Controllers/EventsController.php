@@ -27,7 +27,7 @@ class EventsController extends Controller
     public function index(Authenticatable $user)
     {
         $categories = DB::table("categories") -> get();
-        $eventsDB = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.color, category_user_colors.color AS categoryColor, events.date FROM events LEFT JOIN categories ON events.category_id = categories.id LEFT JOIN category_user_colors ON categories.id = category_user_colors.category_id WHERE events.user_id = ? ORDER BY date ASC", [$user -> id]);
+        $eventsDB = DB::table("events") -> leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> select("events.id", "categories.name AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
 
         $events = [
             "nextEvents" => [],
@@ -97,9 +97,9 @@ class EventsController extends Controller
      */
     public function show(Request $request)
     {
-        $event = DB::select("SELECT events.id, categories.name AS category, events.name, events.description, events.color, category_user_colors.color AS categoryColor, DATE_FORMAT(events.date, '%d/%m/%Y %H:%i') as date FROM events LEFT JOIN categories ON events.category_id = categories.id LEFT JOIN category_user_colors ON categories.id = category_user_colors.category_id WHERE events.id = ?", [$request -> event]);
+        $event = DB::table("events") -> leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '%d/%m/%Y %H:%i') AS date")) -> first();
 
-        return view("events.show", ["event" => $event[0]]);
+        return view("events.show", ["event" => $event]);
     }
 
     /**
@@ -110,12 +110,12 @@ class EventsController extends Controller
      */
     public function edit(Request $request)
     {
-        $categories = DB::select("SELECT * FROM categories");
-        $event = DB::select("SELECT id, category_id, name, description, color, DATE_FORMAT(date, '%Y-%m-%d\T%H:%i') as date, DATE_FORMAT(remember, '%Y-%m-%d\T%H:%i') as remember FROM events WHERE id = ?", [$request -> event]);
+        $categories = DB::table("categories") -> get();
+        $event = DB::table("events") -> where("id", $request -> event) -> select("id", "category_id", "name", "description", "color", DB::raw("DATE_FORMAT(date, '%Y-%m-%d\T%H:%i') AS date"), DB::raw("DATE_FORMAT(remember, '%Y-%m-%d\T%H:%i') AS remember")) -> first();
 
         return view("events.edit", [
             "categories" => $categories,
-            "event" => $event[0]
+            "event" => $event
         ]);
     }
 
@@ -150,7 +150,7 @@ class EventsController extends Controller
         $event -> isRemembered = 0;
         $event -> save();
 
-        return redirect() -> intended("events") -> with("status", "El evento se actualizó correctamente");
+        return redirect() -> intended("events") -> with("status", "El evento se editó correctamente");
     }
 
     /**
