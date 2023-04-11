@@ -17,14 +17,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule -> call(function() {
-            $events = DB::select("SELECT events.id, users.email, events.name, events.description, events.date FROM events LEFT JOIN users ON events.user_id = users.id WHERE events.remember <= NOW() AND events.isRemembered = false");
+            $events = DB::table("events") -> leftJoin("users", "events.user_id", "users.id") -> where("events.remember", "<=", DB::raw("NOW()")) -> where("events.isRemembered", false) -> select("events.id", "users.email", "events.name", "events.description", "events.date") -> get();
 
             foreach ($events as $event) {
                 mail($event -> email, $event -> name, $event -> description);
 
-                DB::update("UPDATE events SET isRemembered = true WHERE id = ?", [$event -> id]);
+                DB::table("events") -> where("id", $event -> id) -> update(["isRemembered" => true]);
             }
-        }) -> everyTwoMinute();
+        }) -> everyTwoMinutes();
     }
 
     /**
