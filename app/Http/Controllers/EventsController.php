@@ -37,7 +37,7 @@ class EventsController extends Controller
         foreach ($eventsDB as $eventDB) {
             $eventDate = new DateTime($eventDB -> date);
 
-            if ($eventDB -> date > date("Y-m-d H:i")) {
+            if ($eventDB -> date > date("Y-m-d H:i:s")) {
                 $eventDB -> date = $eventDate -> format("d/m/Y H:i");
                 $events["nextEvents"][] = $eventDB;
             } else {
