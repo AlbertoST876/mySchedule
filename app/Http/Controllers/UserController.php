@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Models\CategoryUserColor;
 use App\Models\User;
@@ -56,21 +55,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request -> all(), [
+        $request -> validate([
             "name" => ["required", "string", "max:25", "unique:users"],
             "email" => ["required", "string", "email", "max:50", "unique:users"],
             "password" => ["required", "string", "confirmed", "max:255"]
         ]);
-
-        if ($validator -> fails()) {
-            $errors = $validator -> errors();
-
-            if ($errors -> has("name")) $error = ["name" => "Ya existe un usuario con ese nombre"];
-            if ($errors -> has("email")) $error = ["email" => "Ya existe un usuario con ese email"];
-            if ($errors -> has("password")) $error = ["password" => "La contraseña no cumple los requisitos establecidos"];
-
-            throw ValidationException::withMessages($error);
-        }
 
         $user = User::create([
             "name" => $request -> name,
@@ -102,7 +91,7 @@ class UserController extends Controller
         ]);
 
         if (!Auth::attempt($credentials, $request -> boolean("remember"))) {
-            throw ValidationException::withMessages(["error" => "Las credenciales introducidas no son correctas"]);
+            throw ValidationException::withMessages(["remember" => __("auth.failed")]);
         }
 
         $request -> session() -> regenerate();
@@ -133,16 +122,12 @@ class UserController extends Controller
     public function update(Request $request, Authenticatable $user)
     {
         if (isset($request -> colors)) {
-            $validator = Validator::make($request -> all(), [
+            $request -> validate([
                 "1" => ["string", "max:10"],
                 "2" => ["string", "max:10"],
                 "3" => ["string", "max:10"],
                 "4" => ["string", "max:10"]
             ]);
-
-            if ($validator -> fails()) {
-                throw ValidationException::withMessages(["errorColors" => "Los datos introducidos no son validos"]);
-            }
 
             for ($category = 1; $category < 5; $category++) {
                 DB::table("category_user_colors") -> where("category_id", $category) -> where("user_id", $user -> id) -> update(["color" => $request -> $category]);
@@ -150,13 +135,9 @@ class UserController extends Controller
         }
 
         if (isset($request -> image)) {
-            $validator = Validator::make($request -> all(), [
-                "profileImg" => ["image", "mimes:jpg,jpeg,png", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"]
+            $request -> validate([
+                "profileImg" => ["image", "mimes:png,jpg,jpeg", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"]
             ]);
-
-            if ($validator -> fails()) {
-                throw ValidationException::withMessages(["errorProfileImg" => "La imagen introducida no cumple los requisitos establecidos"]);
-            }
 
             $imageName = date("Y-m-d_H-i-s") . "_" . $user -> name . "." . $request -> file("profileImg") -> extension();
             $request -> file("profileImg") -> storeAs("public/img/users", $imageName);

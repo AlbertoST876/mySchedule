@@ -7,8 +7,6 @@ use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 use App\Models\Event;
 
 class EventsController extends Controller
@@ -63,7 +61,7 @@ class EventsController extends Controller
      */
     public function store(Request $request, Authenticatable $user)
     {
-        $validator = Validator::make($request -> all(), [
+        $request -> validate([
             "category" => ["required", "integer", "between:1,4"],
             "name" => ["required", "string", "max:50"],
             "description" => ["string", "nullable", "max:255"],
@@ -71,10 +69,6 @@ class EventsController extends Controller
             "date" => ["required", "date"],
             "remember" => ["date", "nullable"]
         ]);
-
-        if ($validator -> fails()) {
-            throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
-        }
 
         Event::create([
             "category_id" => $request -> category,
@@ -127,7 +121,7 @@ class EventsController extends Controller
      */
     public function update(Request $request)
     {
-        $validator = Validator::make($request -> all(), [
+        $request -> validate([
             "category" => ["required", "integer", "between:1,4"],
             "name" => ["required", "string", "max:50"],
             "description" => ["string", "nullable", "max:255"],
@@ -135,10 +129,6 @@ class EventsController extends Controller
             "date" => ["required", "date"],
             "remember" => ["date", "nullable"]
         ]);
-
-        if ($validator -> fails()) {
-            throw ValidationException::withMessages(["error" => "Los datos introducidos no son validos"]);
-        }
 
         $event = Event::find($request -> event);
         $event -> category_id = $request -> category;
