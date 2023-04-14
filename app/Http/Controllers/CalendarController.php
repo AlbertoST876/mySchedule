@@ -62,7 +62,7 @@ class CalendarController extends Controller
         if (!isset($request -> date)) $request -> date = date("Y-m-d");
 
         $date = new DateTime($request -> date);
-        $current = $date -> format("j") . " " . $this::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
+        $current = $date -> format("j") . " " . self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
         $events = DB::table("events") -> leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> where("events.date", "LIKE", $date -> format("Y-m-d%")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
@@ -97,8 +97,8 @@ class CalendarController extends Controller
         $date2 -> setISODate($week[0], $week[1]);
         $date2 -> add(new DateInterval("P6D"));
 
-        $month = $this::MONTHS[$this -> lang][$date -> format("m")];
-        $month2 = $this::MONTHS[$this -> lang][$date2 -> format("m")];
+        $month = self::MONTHS[$this -> lang][$date -> format("m")];
+        $month2 = self::MONTHS[$this -> lang][$date2 -> format("m")];
         $year = $date -> format("Y");
         $year2 = $date2 -> format("Y");
 
@@ -146,7 +146,7 @@ class CalendarController extends Controller
         $date = new DateTime($request -> date . "-01");
         $date2 = new DateTime($request -> date . "-" . $date -> format("t"));
 
-        $current = $this::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
+        $current = self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
         $events = DB::table("events") -> leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $weeks = [];
@@ -198,7 +198,7 @@ class CalendarController extends Controller
         $months = [];
 
         for ($month = 1; $date -> format("Y") == $date2 -> format("Y"); $month++) {
-            $months[$month]["name"] = $this::MONTHS[$this -> lang][$date -> format("m")];
+            $months[$month]["name"] = self::MONTHS[$this -> lang][$date -> format("m")];
             $months[$month]["date"] = $date -> format("Y-m");
 
             for ($week = 0; $date -> format("n") == $month && $date -> format("Y") == $date2 -> format("Y"); $week++) {
