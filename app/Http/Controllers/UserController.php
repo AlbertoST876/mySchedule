@@ -74,7 +74,7 @@ class UserController extends Controller
         CategoryUserColor::factory() -> create(["category_id" => 3, "user_id" => $user -> id, "color" => "#6496ff"]);
         CategoryUserColor::factory() -> create(["category_id" => 4, "user_id" => $user -> id, "color" => "#ff6464"]);
 
-        return redirect() -> intended("login") -> with("status", "Te has registrado correctamente");
+        return redirect() -> route("login") -> with("status", __("messages.user_registered"));
     }
 
     /**
@@ -96,7 +96,7 @@ class UserController extends Controller
 
         $request -> session() -> regenerate();
 
-        return redirect() -> intended() -> with("status", "Has iniciado sesión");
+        return redirect() -> route("index") -> with("status", __("messages.user_logged"));
     }
 
     /**
@@ -145,7 +145,7 @@ class UserController extends Controller
             DB::table("users") -> where("id", $user -> id) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
         }
 
-        return redirect() -> intended("settings") -> with("status", "Ajustes guardados correctamente");
+        return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));
     }
 
     /**
@@ -161,6 +161,6 @@ class UserController extends Controller
         $request -> session() -> invalidate();
         $request -> session() -> regenerateToken();
 
-        return redirect() -> intended() -> with("status", "Has cerrado sesión");
+        return redirect() -> route("index") -> with("status", __("messages.user_logged_out"));
     }
 }

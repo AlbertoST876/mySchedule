@@ -6,5 +6,5 @@
     @vite(["resources/css/app.css", "resources/js/app.js"])
     @php date_default_timezone_set("Europe/Madrid") @endphp
     <link rel="icon" href="{{ asset("icon.svg") }}">
-    <title>MySchedule - {{ $title }}</title>
+    <title>@lang("messages.title") - {{ $title }}</title>
 </head>

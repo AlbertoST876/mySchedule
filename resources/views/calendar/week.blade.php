@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="es">
-    @include("layouts.head", ["title" => "Calendario - Semana"])
+<html lang="{{ app() -> getLocale() }}">
+    @include("layouts.head", ["title" => __("messages.calendar") . " - " . __("messages.week")])
 
     <body>
         @include("layouts.header", ["current" => "calendar"])
@@ -15,13 +15,13 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th class="w-[12.5%]" rowspan="2">{{ $current }}</th>
-                            <th class="w-[12.5%] border-b-0">L</th>
-                            <th class="w-[12.5%] border-b-0">M</th>
-                            <th class="w-[12.5%] border-b-0">X</th>
-                            <th class="w-[12.5%] border-b-0">J</th>
-                            <th class="w-[12.5%] border-b-0">V</th>
-                            <th class="w-[12.5%] border-b-0">S</th>
-                            <th class="w-[12.5%] border-b-0">D</th>
+                            <th class="w-[12.5%] border-b-0">@lang("messages.monday")</th>
+                            <th class="w-[12.5%] border-b-0">@lang("messages.thuesday")</th>
+                            <th class="w-[12.5%] border-b-0">@lang("messages.wednesday")</th>
+                            <th class="w-[12.5%] border-b-0">@lang("messages.thursday")</th>
+                            <th class="w-[12.5%] border-b-0">@lang("messages.friday")</th>
+                            <th class="w-[12.5%] border-b-0">@lang("messages.saturday")</th>
+                            <th class="w-[12.5%] border-b-0">@lang("messages.sunday")</th>
                         </tr>
 
                         <tr>

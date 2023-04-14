@@ -17,9 +17,9 @@ class CategorySeeder extends Seeder
     {
         //Category::factory(4) -> create();
 
-        Category::factory() -> create(["name" => "Nota"]);
-        Category::factory() -> create(["name" => "Tarea"]);
-        Category::factory() -> create(["name" => "Evento"]);
-        Category::factory() -> create(["name" => "Recordatorio"]);
+        Category::factory() -> create(["name_en" => "Note", "name_es" => "Nota"]);
+        Category::factory() -> create(["name_en" => "Task", "name_es" => "Tarea"]);
+        Category::factory() -> create(["name_en" => "Event", "name_es" => "Evento"]);
+        Category::factory() -> create(["name_en" => "Reminder", "name_es" => "Recordatorio"]);
     }
 }

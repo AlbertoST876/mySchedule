@@ -15,21 +15,21 @@
             @csrf
 
             <input type="hidden" name="event" value="{{ $event -> id }}">
-            <input class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm" type="submit" value="Ver">
+            <input class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.see")">
         </form>
 
         <form action="{{ route("events.edit") }}" method="post">
             @csrf
 
             <input type="hidden" name="event" value="{{ $event -> id }}">
-            <input class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm" type="submit" value="Editar">
+            <input class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.edit")">
         </form>
 
         <form action="{{ route("events.delete") }}" method="post">
             @csrf
 
             <input type="hidden" name="event" value="{{ $event -> id }}">
-            <input class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" value="Borrar" onclick="return confirm('¿Estás seguro de que deseas borrar el evento?')">
+            <input class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.delete")" onclick="return confirm('@lang("messages.delete_confirm")')">
         </form>
     </div>
 </div>

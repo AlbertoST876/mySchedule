@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="es">
-    @include("layouts.head", ["title" => "Ajustes"])
+<html lang="{{ app() -> getLocale() }}">
+    @include("layouts.head", ["title" => __("messages.settings")])
 
     <body>
         @include("layouts.header", ["current" => "home"])
@@ -10,12 +10,12 @@
             <div class="mx-24 my-12">
                 @include("layouts.warn", ["message" => session("status")])
 
-                <h1 class="my-6 text-5xl font-extrabold">Ajustes de la Cuenta</h1>
+                <h1 class="my-6 text-5xl font-extrabold">@lang("messages.account_settings")</h1>
 
                 <hr>
 
                 <div class="my-8">
-                    <h2 class="my-6 text-3xl font-extrabold">Colores de las Categorias</h2>
+                    <h2 class="my-6 text-3xl font-extrabold">@lang("messages.categories_colors")</h2>
 
                     <form action="{{ route("settings.update") }}" method="post">
                         @csrf
@@ -30,14 +30,14 @@
                             </div>
                         @endforeach
 
-                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="colors" value="Editar">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="colors" value="@lang("messages.edit")">
                     </form>
                 </div>
 
                 <div class="my-8">
-                    <h2 class="my-6 text-3xl font-extrabold">Foto de Perfil</h2>
+                    <h2 class="my-6 text-3xl font-extrabold">@lang("messages.profileImg")</h2>
 
-                    <img class="w-32 h-32 mb-4 rounded-full" src="{{ is_null(auth() -> user() -> profileImg) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profileImg) }}" alt="Foto de Perfil">
+                    <img class="w-32 h-32 mb-4 rounded-full" src="{{ is_null(auth() -> user() -> profileImg) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profileImg) }}" alt="@lang("messages.alt_profileImg")">
 
                     <form action="{{ route("settings.update") }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -51,15 +51,15 @@
 
                         <div class="mb-4">
                             <ul class="mb-4 max-w-full space-y-1 text-gray-500 list-disc list-inside">
-                                <li>Formato PNG, JPG o JPEG.</li>
-                                <li>Tamaño máximo de 2 Mb.</li>
-                                <li>Ancho y alto mínimo de 128 Pixeles y máximo de 2048 Pixeles.</li>
+                                <li>@lang("messages.profileImg_formats")</li>
+                                <li>@lang("messages.profileImg_size")</li>
+                                <li>@lang("messages.profileImg_dimensions")</li>
                             </ul>
 
-                            <span class="text-gray-500">Se recomienda que la proporción de la imagen sea 1:1 (p. ej. 512 x 512 Pixeles).</span>
+                            <span class="text-gray-500">@lang("messages.profileImg_recomendation")</span>
                         </div>
 
-                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="image" value="Cambiar">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="image" value="@lang("messages.change")">
                     </form>
                 </div>
             </div>

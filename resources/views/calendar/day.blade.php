@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="es">
-    @include("layouts.head", ["title" => "Calendario - Día"])
+<html lang="{{ app() -> getLocale() }}">
+    @include("layouts.head", ["title" => __("messages.calendar") . " - " . __("messages.day")])
 
     <body>
         @include("layouts.header", ["current" => "calendar"])

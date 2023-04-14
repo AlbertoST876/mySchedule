@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="es">
-    @include("layouts.head", ["title" => "Calendario - Año"])
+<html lang="{{ app() -> getLocale() }}">
+    @include("layouts.head", ["title" => __("messages.calendar") . " - " . __("messages.year")])
 
     <body>
         @include("layouts.header", ["current" => "calendar"])
@@ -11,7 +11,7 @@
             @include("layouts.warn", ["message" => session("status")])
 
             <div>
-                <div class="w-full text-center font-bold border-b border-b-black">Año {{ $current }}</div>
+                <div class="w-full text-center font-bold border-b border-b-black">@lang("messages.year") {{ $current }}</div>
 
                 <div class="flex flex-wrap align-center justify-center">
                     @foreach ($months as $month)
@@ -27,14 +27,14 @@
                                 </tr>
 
                                 <tr>
-                                    <th class="w-[12.5%]">Semana Nº</th>
-                                    <th class="w-[12.5%]">L</th>
-                                    <th class="w-[12.5%]">M</th>
-                                    <th class="w-[12.5%]">X</th>
-                                    <th class="w-[12.5%]">J</th>
-                                    <th class="w-[12.5%]">V</th>
-                                    <th class="w-[12.5%]">S</th>
-                                    <th class="w-[12.5%]">D</th>
+                                    <th class="w-[12.5%]">@lang("messages.week_number")</th>
+                                    <th class="w-[12.5%]">@lang("messages.monday")</th>
+                                    <th class="w-[12.5%]">@lang("messages.thuesday")</th>
+                                    <th class="w-[12.5%]">@lang("messages.wednesday")</th>
+                                    <th class="w-[12.5%]">@lang("messages.thursday")</th>
+                                    <th class="w-[12.5%]">@lang("messages.friday")</th>
+                                    <th class="w-[12.5%]">@lang("messages.saturday")</th>
+                                    <th class="w-[12.5%]">@lang("messages.sunday")</th>
                                 </tr>
                             </thead>
 
