@@ -20,6 +20,7 @@ return [
         "profileImg_dimensions" => "Ancho y alto mínimo de 128 Pixeles y máximo de 2048 Pixeles.",
         "profileImg_recomendation" => "Se recomienda que la proporción de la imagen sea 1:1 (p. ej. 512 x 512 Pixeles).",
         "change" => "Cambiar",
+        "timeZone" => "Zona Horaria",
 
     // Calendar
         // Week

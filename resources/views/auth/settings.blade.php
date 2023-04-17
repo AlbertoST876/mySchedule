@@ -15,7 +15,7 @@
                 <hr>
 
                 <div class="my-8">
-                    <h2 class="my-6 text-3xl font-extrabold">@lang("messages.categories_colors")</h2>
+                    <h2 class="mb-6 text-3xl font-extrabold">@lang("messages.categories_colors")</h2>
 
                     <form action="{{ route("settings.update") }}" method="post">
                         @csrf
@@ -30,12 +30,12 @@
                             </div>
                         @endforeach
 
-                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="colors" value="@lang("messages.edit")">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="colors" value="@lang("messages.change")">
                     </form>
                 </div>
 
                 <div class="my-8">
-                    <h2 class="my-6 text-3xl font-extrabold">@lang("messages.profileImg")</h2>
+                    <h2 class="mb-6 text-3xl font-extrabold">@lang("messages.profileImg")</h2>
 
                     <img class="w-32 h-32 mb-4 rounded-full" src="{{ is_null(auth() -> user() -> profileImg) ? asset("./storage/img/default-user.png") : asset(auth() -> user() -> profileImg) }}" alt="@lang("messages.alt_profileImg")">
 
@@ -60,6 +60,32 @@
                         </div>
 
                         <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="image" value="@lang("messages.change")">
+                    </form>
+                </div>
+
+                <div class="my-8">
+                    <h2 class="mb-6 text-3xl font-extrabold">@lang("messages.timeZone")</h2>
+
+                    <form action="{{ route("settings.update") }}" method="post">
+                        @csrf
+                        @method("patch")
+
+                        <div class="mb-6">
+                            <select class="nice-select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="zone" required>
+                                @foreach ($timeZones as $timeZone)
+                                    @if (auth() -> user() -> timeZone == $timeZone -> name)
+                                        <option value="{{ $timeZone -> name }}" selected>{{ $timeZone -> name }}</option>
+                                    @else
+                                        <option value="{{ $timeZone -> name }}">{{ $timeZone -> name }}</option>
+                                    @endif
+
+                                @endforeach
+                            </select>
+
+                            @include("layouts.error", ["field" => "zone"])
+                        </div>
+
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="timeZone" value="@lang("messages.change")">
                     </form>
                 </div>
             </div>

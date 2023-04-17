@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this -> call([
-            UserSeeder::class,
+            TimeZoneSeeder::class,
             CategorySeeder::class,
-            CategoryUserColorSeeder::class,
-            EventSeeder::class
+            UserSeeder::class,
+            EventSeeder::class,
+            CategoryUserColorSeeder::class
         ]);
     }
 }

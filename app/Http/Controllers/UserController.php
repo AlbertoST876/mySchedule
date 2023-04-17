@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Validation\ValidationException;
 use App\Models\CategoryUserColor;
+use App\Models\TimeZone;
 use App\Models\User;
 
 class UserController extends Controller
 {
+    private string $lang;
+
     public function __construct() {
         $this -> middleware("guest", ["only" => [
             "index",
@@ -25,6 +28,8 @@ class UserController extends Controller
             "update",
             "destroy"
         ]]);
+
+        $this -> lang = app() -> getLocale();
     }
 
     /**
@@ -107,9 +112,13 @@ class UserController extends Controller
      */
     public function edit(Authenticatable $user)
     {
-        $categories = DB::table("category_user_colors") -> leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", $user -> id) -> select("categories.id", "categories.name", "category_user_colors.color") -> get();
+        $categories = DB::table("category_user_colors") -> leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", $user -> id) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
+        $timeZones = TimeZone::all();
 
-        return view("auth.settings", ["categories" => $categories]);
+        return view("auth.settings", [
+            "categories" => $categories,
+            "timeZones" => $timeZones
+        ]);
     }
 
     /**
@@ -143,6 +152,16 @@ class UserController extends Controller
             $request -> file("profileImg") -> storeAs("public/img/users", $imageName);
 
             DB::table("users") -> where("id", $user -> id) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
+        }
+
+        if (isset($request -> timeZone)) {
+            $request -> validate([
+                "zone" => ["string", "max:30"]
+            ]);
+
+            // $user -> timeZone = $request -> zone;
+
+            DB::table("users") -> where("id", $user -> id) -> update(["timeZone" => $request -> zone]);
         }
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));

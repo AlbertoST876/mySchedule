@@ -72,7 +72,7 @@
                                     <div class="mb-2">
                                         <input id="remember-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="remember-checkbox">
                                         <label class="text-sm font-medium text-gray-900" for="remember">@lang("messages.remember")</label>
-                                        <input id="remember" class="mt-2 mb-6 p-3 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="remember" min="{{ date("Y-m-d\TH:i") }}" disabled>
+                                        <input id="remember" class="mt-2 mb-6 p-3 hidden w-full border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" type="datetime-local" name="remember" min="{{ date("Y-m-d\TH:i") }}" disabled>
 
                                         @include("layouts.error", ["field" => "remember"])
                                     </div>
@@ -80,7 +80,7 @@
                                     <div class="mb-2">
                                         <input id="color-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="color-checkbox">
                                         <label class="text-sm font-medium text-gray-900" for="color">@lang("messages.color")</label>
-                                        <input id="color" class="mt-2 mb-6 p-1 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="color" name="color" disabled>
+                                        <input id="color" class="mt-2 mb-6 p-1 hidden w-full border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" type="color" name="color" disabled>
 
                                         @include("layouts.error", ["field" => "color"])
                                     </div>

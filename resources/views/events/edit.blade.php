@@ -28,21 +28,21 @@
 
                     <div class="mb-6">
                         <label class="mb-2 block text-sm font-medium text-gray-900" for="name">@lang("messages.title"):</label>
-                        <input class="p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="text" name="name" value="{{ $event -> name }}" max="50" required>
+                        <input class="p-3 block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" type="text" name="name" value="{{ $event -> name }}" max="50" required>
 
                         @include("layouts.error", ["field" => "name"])
                     </div>
 
                     <div class="mb-6">
                         <label class="mb-2 block text-sm font-medium text-gray-900" for="description">@lang("messages.description"):</label>
-                        <input class="p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="text" name="description" value="{{ $event -> description }}" max="255">
+                        <input class="p-3 block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" type="text" name="description" value="{{ $event -> description }}" max="255">
 
                         @include("layouts.error", ["field" => "description"])
                     </div>
 
                     <div class="mb-6">
                         <label class="mb-2 block text-sm font-medium text-gray-900" for="date">@lang("messages.datetime"):</label>
-                        <input id="datetime" class="p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="date" value="{{ $event -> date }}" min="{{ date("Y-m-d\TH:i") }}" required>
+                        <input id="datetime" class="p-3 block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" type="datetime-local" name="date" value="{{ $event -> date }}" min="{{ date("Y-m-d\TH:i") }}" required>
 
                         @include("layouts.error", ["field" => "date"])
                     </div>
@@ -50,7 +50,7 @@
                     <div class="mb-2">
                         <input id="remember-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="remember-checkbox" {{ is_null($event -> remember) ? "" : "checked" }}>
                         <label class="text-sm font-medium text-gray-900" for="remember">@lang("messages.remember")</label>
-                        <input id="remember" class="mt-2 mb-6 p-3 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="datetime-local" name="remember" value="{{ $event -> remember }}" min="{{ date("Y-m-d\TH:i") }}" disabled>
+                        <input id="remember" class="mt-2 mb-6 p-3 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" type="datetime-local" name="remember" value="{{ $event -> remember }}" min="{{ date("Y-m-d\TH:i") }}" disabled>
 
                         @include("layouts.error", ["field" => "remember"])
                     </div>
@@ -58,7 +58,7 @@
                     <div class="mb-2">
                         <input id="color-checkbox" class="mr-1 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" type="checkbox" name="color-checkbox" {{ is_null($event -> color) ? "" : "checked" }}>
                         <label class="text-sm font-medium text-gray-900" for="color">@lang("messages.color")</label>
-                        <input id="color" class="mt-2 p-1 mb-6 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" type="color" name="color" value="{{ $event -> color }}" disabled>
+                        <input id="color" class="mt-2 p-1 mb-6 hidden border bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full" type="color" name="color" value="{{ $event -> color }}" disabled>
 
                         @include("layouts.error", ["field" => "color"])
                     </div>
