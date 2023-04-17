@@ -10,6 +10,6 @@
     <title>@lang("messages.title") - {{ $title }}</title>
 
     @auth
-        @php date_default_timezone_set(auth() -> user() -> timeZone) @endphp
+        @php date_default_timezone_set(session() -> get("timeZone")) @endphp
     @endauth
 </head>

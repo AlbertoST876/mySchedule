@@ -1,4 +1,4 @@
-import 'flowbite';
+import "flowbite";
 
 window.onload = function() {
     let events = document.querySelectorAll("*[data-color]");
@@ -43,6 +43,6 @@ window.onload = function() {
     NiceSelect.bind(niceSelect, {searchable: true});
 
     niceSelect.style.display = "inline-block";
+    niceSelect.style.paddingLeft = "5px";
     niceSelect.style.float = "none";
-
 };

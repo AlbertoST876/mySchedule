@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TimeZone extends Model
+class Region extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,8 @@ class TimeZone extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "name",
-        "shortName"
+        "name_en",
+        "name_es"
     ];
 
     /**

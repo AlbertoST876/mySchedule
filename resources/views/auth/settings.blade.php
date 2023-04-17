@@ -72,13 +72,16 @@
 
                         <div class="mb-6">
                             <select class="nice-select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="zone" required>
-                                @foreach ($timeZones as $timeZone)
-                                    @if (auth() -> user() -> timeZone == $timeZone -> name)
-                                        <option value="{{ $timeZone -> name }}" selected>{{ $timeZone -> name }}</option>
-                                    @else
-                                        <option value="{{ $timeZone -> name }}">{{ $timeZone -> name }}</option>
-                                    @endif
-
+                                @foreach ($regions as $region => $zones)
+                                    <optgroup label="{{ $region }}">
+                                        @foreach ($zones as $zone)
+                                            @if (session() -> get("timeZone") == $zone -> zone)
+                                                <option value="{{ $zone -> id }}" selected>{{ $zone -> name }}</option>
+                                            @else
+                                                <option value="{{ $zone -> id }}">{{ $zone -> name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </optgroup>
                                 @endforeach
                             </select>
 

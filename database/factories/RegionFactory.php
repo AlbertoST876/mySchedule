@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class TimeZoneFactory extends Factory
+class RegionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,8 @@ class TimeZoneFactory extends Factory
     public function definition()
     {
         return [
-            "name" => fake() -> name(),
-            "shortName" => fake() -> name()
+            "name_en" => fake() -> name(),
+            "name_es" => fake() -> name()
         ];
     }
 }

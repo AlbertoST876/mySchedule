@@ -74,10 +74,16 @@ class UserController extends Controller
 
         // Auth::login($user);
 
-        CategoryUserColor::factory() -> create(["category_id" => 1, "user_id" => $user -> id, "color" => "#f0e600"]);
-        CategoryUserColor::factory() -> create(["category_id" => 2, "user_id" => $user -> id, "color" => "#78ff78"]);
-        CategoryUserColor::factory() -> create(["category_id" => 3, "user_id" => $user -> id, "color" => "#6496ff"]);
-        CategoryUserColor::factory() -> create(["category_id" => 4, "user_id" => $user -> id, "color" => "#ff6464"]);
+        $categoriesUserColor = [
+            [1, "#f0e600"],
+            [2, "#78ff78"],
+            [3, "#6496ff"],
+            [4, "#ff6464"]
+        ];
+
+        foreach ($categoriesUserColor as $categoryUserColor) {
+            CategoryUserColor::factory() -> create(["category_id" => $categoryUserColor[0], "user_id" => $user -> id, "color" => $categoryUserColor[1]]);
+        }
 
         return redirect() -> route("login") -> with("status", __("messages.user_registered"));
     }
@@ -101,23 +107,33 @@ class UserController extends Controller
 
         $request -> session() -> regenerate();
 
+        $timeZone = DB::table("users") -> leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
+        session() -> put("timeZone", $timeZone -> name);
+
         return redirect() -> route("index") -> with("status", __("messages.user_logged"));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Authenticatable $user)
+    public function edit(Request $request, Authenticatable $user)
     {
         $categories = DB::table("category_user_colors") -> leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", $user -> id) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
-        $timeZones = TimeZone::all();
+        $timeZones = DB::table("time_zones") -> leftJoin("regions", "time_zones.region", "regions.id") -> select("time_zones.id", "regions.name_" . $this -> lang . " AS region", "time_zones.name AS zone", "time_zones.shortName AS name") -> get();
+
+        $regions = [];
+
+        foreach ($timeZones as $timeZone) {
+            $regions[$timeZone -> region][] = $timeZone;
+        }
 
         return view("auth.settings", [
             "categories" => $categories,
-            "timeZones" => $timeZones
+            "regions" => $regions
         ]);
     }
 
@@ -156,12 +172,13 @@ class UserController extends Controller
 
         if (isset($request -> timeZone)) {
             $request -> validate([
-                "zone" => ["string", "max:30"]
+                "zone" => ["integer"]
             ]);
 
-            // $user -> timeZone = $request -> zone;
-
             DB::table("users") -> where("id", $user -> id) -> update(["timeZone" => $request -> zone]);
+
+            $timeZone = DB::table("users") -> leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
+            session() -> put("timeZone", $timeZone -> name);
         }
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));
