@@ -37,12 +37,4 @@ window.onload = function() {
         rememberCheck.onclick = function() { toggleField(remember); };
         remember.addEventListener("focus", function() { remember.setAttribute("max", date.value); });
     }
-
-    let niceSelect = document.querySelector(".nice-select2");
-
-    NiceSelect.bind(niceSelect, {searchable: true});
-
-    niceSelect.style.display = "inline-block";
-    niceSelect.style.paddingLeft = "5px";
-    niceSelect.style.float = "none";
 };

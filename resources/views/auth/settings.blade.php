@@ -24,7 +24,7 @@
                         @foreach ($categories as $category)
                             <div class="mb-4">
                                 <label class="mb-2 block text-sm font-medium text-gray-900" for="{{ $category -> id }}">{{ $category -> name }}:</label>
-                                <input class="p-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full md:w-3/4 lg:w-2/4 xl:w-1/4" type="color" name="{{ $category -> id }}" value="{{ $category -> color }}" required>
+                                <input class="p-1 block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" type="color" name="{{ $category -> id }}" value="{{ $category -> color }}" required>
 
                                 @include("layouts.error", ["field" => $category -> id])
                             </div>
@@ -71,7 +71,7 @@
                         @method("patch")
 
                         <div class="mb-6">
-                            <select class="nice-select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="zone" required>
+                            <select class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="zone" required>
                                 @foreach ($regions as $region => $zones)
                                     <optgroup label="{{ $region }}">
                                         @foreach ($zones as $zone)
