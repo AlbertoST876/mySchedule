@@ -107,7 +107,7 @@ class UserController extends Controller
 
         $request -> session() -> regenerate();
 
-        $timeZone = DB::table("users") -> leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
+        $timeZone = User::join("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
         session() -> put("timeZone", $timeZone -> name);
 
         return redirect() -> route("index") -> with("status", __("messages.user_logged"));
@@ -122,8 +122,8 @@ class UserController extends Controller
      */
     public function edit(Request $request, Authenticatable $user)
     {
-        $categories = DB::table("category_user_colors") -> leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", $user -> id) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
-        $timeZones = DB::table("time_zones") -> leftJoin("regions", "time_zones.region", "regions.id") -> select("time_zones.id", "regions.name_" . $this -> lang . " AS region", "time_zones.name AS zone", "time_zones.shortName AS name") -> get();
+        $categories = CategoryUserColor::join("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", $user -> id) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
+        $timeZones = TimeZone::join("regions", "time_zones.region", "regions.id") -> select("time_zones.id", "regions.name_" . $this -> lang . " AS region", "time_zones.name AS zone", "time_zones.shortName AS name") -> get();
 
         $regions = [];
 
@@ -155,7 +155,7 @@ class UserController extends Controller
             ]);
 
             for ($category = 1; $category < 5; $category++) {
-                DB::table("category_user_colors") -> where("category_id", $category) -> where("user_id", $user -> id) -> update(["color" => $request -> $category]);
+                CategoryUserColor::where("category_id", $category) -> where("user_id", $user -> id) -> update(["color" => $request -> $category]);
             }
         }
 
@@ -167,7 +167,7 @@ class UserController extends Controller
             $imageName = date("Y-m-d_H-i-s") . "_" . $user -> name . "." . $request -> file("profileImg") -> extension();
             $request -> file("profileImg") -> storeAs("public/img/users", $imageName);
 
-            DB::table("users") -> where("id", $user -> id) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
+            User::where("id", $user -> id) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
         }
 
         if (isset($request -> timeZone)) {
@@ -175,9 +175,9 @@ class UserController extends Controller
                 "zone" => ["integer"]
             ]);
 
-            DB::table("users") -> where("id", $user -> id) -> update(["timeZone" => $request -> zone]);
+            User::where("id", $user -> id) -> update(["timeZone" => $request -> zone]);
 
-            $timeZone = DB::table("users") -> leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
+            $timeZone = User::join("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
             session() -> put("timeZone", $timeZone -> name);
         }
 

@@ -7,6 +7,8 @@ use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Auth\Authenticatable;
+use App\Models\CategoryUserColor;
+use App\Models\Category;
 use App\Models\Event;
 
 class CalendarController extends Controller
@@ -64,7 +66,7 @@ class CalendarController extends Controller
         $date = new DateTime($request -> date);
         $current = $date -> format("j") . " " . self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
-        $events = DB::table("events") -> leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> where("events.date", "LIKE", $date -> format("Y-m-d%")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> where("events.date", "LIKE", $date -> format("Y-m-d%")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -106,7 +108,7 @@ class CalendarController extends Controller
         if ($month != $month2 && $year == $year2) $month .= " - " . $month2 . " " . $year;
         if ($month == $month2 && $year == $year2) $month .= " " . $year;
 
-        $events = DB::table("events") -> leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -148,7 +150,7 @@ class CalendarController extends Controller
 
         $current = self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
-        $events = DB::table("events") -> leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $weeks = [];
 
         for ($week = 0; $date -> format("m") == $date2 -> format("m"); $week++) {
