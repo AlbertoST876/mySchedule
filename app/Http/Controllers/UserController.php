@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Validation\ValidationException;
 use App\Models\CategoryUserColor;
 use App\Models\TimeZone;
@@ -107,8 +106,8 @@ class UserController extends Controller
 
         $request -> session() -> regenerate();
 
-        $timeZone = User::join("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
-        session() -> put("timeZone", $timeZone -> name);
+        $timeZone = User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
+        $request -> session() -> put("timeZone", $timeZone -> name);
 
         return redirect() -> route("index") -> with("status", __("messages.user_logged"));
     }
@@ -117,13 +116,12 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Authenticatable $user)
+    public function edit(Request $request)
     {
-        $categories = CategoryUserColor::join("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", $user -> id) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
-        $timeZones = TimeZone::join("regions", "time_zones.region", "regions.id") -> select("time_zones.id", "regions.name_" . $this -> lang . " AS region", "time_zones.name AS zone", "time_zones.shortName AS name") -> get();
+        $categories = CategoryUserColor::leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", Auth::id()) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
+        $timeZones = TimeZone::leftJoin("regions", "time_zones.region", "regions.id") -> select("time_zones.id", "regions.name_" . $this -> lang . " AS region", "time_zones.name AS zone", "time_zones.shortName AS name") -> get();
 
         $regions = [];
 
@@ -141,10 +139,9 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Authenticatable $user)
+    public function update(Request $request)
     {
         if (isset($request -> colors)) {
             $request -> validate([
@@ -155,7 +152,7 @@ class UserController extends Controller
             ]);
 
             for ($category = 1; $category < 5; $category++) {
-                CategoryUserColor::where("category_id", $category) -> where("user_id", $user -> id) -> update(["color" => $request -> $category]);
+                CategoryUserColor::where("category_id", $category) -> where("user_id", Auth::id()) -> update(["color" => $request -> $category]);
             }
         }
 
@@ -164,10 +161,10 @@ class UserController extends Controller
                 "profileImg" => ["image", "mimes:png,jpg,jpeg", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"]
             ]);
 
-            $imageName = date("Y-m-d_H-i-s") . "_" . $user -> name . "." . $request -> file("profileImg") -> extension();
+            $imageName = date("Y-m-d_H-i-s") . "_" . Auth::user() -> name . "." . $request -> file("profileImg") -> extension();
             $request -> file("profileImg") -> storeAs("public/img/users", $imageName);
 
-            User::where("id", $user -> id) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
+            User::where("id", Auth::id()) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
         }
 
         if (isset($request -> timeZone)) {
@@ -175,10 +172,10 @@ class UserController extends Controller
                 "zone" => ["integer"]
             ]);
 
-            User::where("id", $user -> id) -> update(["timeZone" => $request -> zone]);
+            User::where("id", Auth::id()) -> update(["timeZone" => $request -> zone]);
 
-            $timeZone = User::join("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", auth() -> user() -> id) -> select("time_zones.name") -> first();
-            session() -> put("timeZone", $timeZone -> name);
+            $timeZone = User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
+            $request -> session() -> put("timeZone", $timeZone -> name);
         }
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));

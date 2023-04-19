@@ -6,7 +6,7 @@ use DateTime;
 use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use App\Models\CategoryUserColor;
 use App\Models\Category;
 use App\Models\Event;
@@ -56,17 +56,16 @@ class CalendarController extends Controller
      * Display all events in one day.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function day(Request $request, Authenticatable $user)
+    public function day(Request $request)
     {
         if (!isset($request -> date)) $request -> date = date("Y-m-d");
 
         $date = new DateTime($request -> date);
         $current = $date -> format("j") . " " . self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
-        $events = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> where("events.date", "LIKE", $date -> format("Y-m-d%")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "LIKE", $date -> format("Y-m-d%")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -84,10 +83,9 @@ class CalendarController extends Controller
      * Display all events in one week.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function week(Request $request, Authenticatable $user)
+    public function week(Request $request)
     {
         if (!isset($request -> date)) $request -> date = date("Y-\WW");
 
@@ -108,7 +106,7 @@ class CalendarController extends Controller
         if ($month != $month2 && $year == $year2) $month .= " - " . $month2 . " " . $year;
         if ($month == $month2 && $year == $year2) $month .= " " . $year;
 
-        $events = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -138,10 +136,9 @@ class CalendarController extends Controller
      * Display all events in one month.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function month(Request $request, Authenticatable $user)
+    public function month(Request $request)
     {
         if (!isset($request -> date)) $request -> date = date("Y-m");
 
@@ -150,7 +147,7 @@ class CalendarController extends Controller
 
         $current = self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
-        $events = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $weeks = [];
 
         for ($week = 0; $date -> format("m") == $date2 -> format("m"); $week++) {
@@ -184,10 +181,9 @@ class CalendarController extends Controller
      * Display all events in one year.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function year(Request $request, Authenticatable $user)
+    public function year(Request $request)
     {
         if (!isset($request -> date)) $request -> date = date("Y");
 
@@ -196,7 +192,7 @@ class CalendarController extends Controller
 
         $current = $date -> format("Y");
 
-        $events = Event::where("user_id", $user -> id) -> whereBetween("date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("date") -> orderBy("date") -> get();
+        $events = Event::where("user_id", Auth::id()) -> whereBetween("date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("date") -> orderBy("date") -> get();
         $months = [];
 
         for ($month = 1; $date -> format("Y") == $date2 -> format("Y"); $month++) {

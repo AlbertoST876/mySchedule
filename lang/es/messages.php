@@ -47,7 +47,7 @@ return [
         // Index
         "prevEvents" => "Eventos Pasados",
         "nextEvents" => "Eventos Próximos",
-        "create_event" => "Crear eventos",
+        "create_event" => "Crear evento",
         "close_create_event" => "Cerrar creación de evento",
         "create" => "Crear",
 

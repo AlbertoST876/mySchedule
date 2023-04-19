@@ -6,7 +6,7 @@ use DateTime;
 use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Event;
 
@@ -28,14 +28,13 @@ class EventsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function index(Authenticatable $user)
+    public function index()
     {
         $categories = Category::select("id", "name_" . $this -> lang . " AS name") -> get();
-        $prevEvents = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date", "DESC") -> get();
-        $nextEvents = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", $user -> id) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $prevEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date", "DESC") -> get();
+        $nextEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
 
         return view("events.index", [
             "categories" => $categories,
@@ -49,10 +48,9 @@ class EventsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Authenticatable  $user
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Authenticatable $user)
+    public function store(Request $request)
     {
         $request -> validate([
             "category" => ["required", "integer", "between:1,4"],
@@ -65,7 +63,7 @@ class EventsController extends Controller
 
         Event::create([
             "category_id" => $request -> category,
-            "user_id" => $user -> id,
+            "user_id" => Auth::id(),
             "name" => $request -> name,
             "description" => $request -> description,
             "color" => $request -> color,
@@ -84,7 +82,7 @@ class EventsController extends Controller
      */
     public function show(Request $request)
     {
-        $event = Event::join("categories", "events.category_id", "categories.id") -> join("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> first();
+        $event = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> first();
 
         return view("events.show", [
             "event" => $event,
