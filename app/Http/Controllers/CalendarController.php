@@ -65,7 +65,7 @@ class CalendarController extends Controller
         $date = new DateTime($request -> date);
         $current = $date -> format("j") . " " . self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
-        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "LIKE", $date -> format("Y-m-d%")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where(DB::raw("DATE(events.date)"), $request -> date) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -106,7 +106,7 @@ class CalendarController extends Controller
         if ($month != $month2 && $year == $year2) $month .= " - " . $month2 . " " . $year;
         if ($month == $month2 && $year == $year2) $month .= " " . $year;
 
-        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereBetween(DB::raw("DATE(events.date)"), [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -147,7 +147,7 @@ class CalendarController extends Controller
 
         $current = self::MONTHS[$this -> lang][$date -> format("m")] . " " . $date -> format("Y");
 
-        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereBetween("events.date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereBetween(DB::raw("DATE(events.date)"), [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $weeks = [];
 
         for ($week = 0; $date -> format("m") == $date2 -> format("m"); $week++) {
@@ -192,7 +192,7 @@ class CalendarController extends Controller
 
         $current = $date -> format("Y");
 
-        $events = Event::where("user_id", Auth::id()) -> whereBetween("date", [$date -> format("Y-m-d 00:00:00"), $date2 -> format("Y-m-d 23:59:59")]) -> select("date") -> orderBy("date") -> get();
+        $events = Event::where("user_id", Auth::id()) -> whereBetween(DB::raw("DATE(date)"), [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("date") -> orderBy("date") -> get();
         $months = [];
 
         for ($month = 1; $date -> format("Y") == $date2 -> format("Y"); $month++) {
