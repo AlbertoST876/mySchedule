@@ -15,8 +15,8 @@ class EventsController extends Controller
     private string $lang;
 
     const DATE_FORMAT = [
-        "en" => "Y-m-d H:i",
-        "es" => "d/m/Y H:i",
+        "en" => "%Y-%m-%d %H:%i",
+        "es" => "%d/%m/%Y %H:%i",
     ];
 
     public function __construct()
@@ -33,14 +33,13 @@ class EventsController extends Controller
     public function index()
     {
         $categories = Category::select("id", "name_" . $this -> lang . " AS name") -> get();
-        $prevEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date", "DESC") -> get();
-        $nextEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $prevEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[$this -> lang] . "')")) -> orderBy("events.date", "DESC") -> get();
+        $nextEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[$this -> lang] . "')")) -> orderBy("events.date") -> get();
 
         return view("events.index", [
             "categories" => $categories,
             "prevEvents" => $prevEvents,
-            "nextEvents" => $nextEvents,
-            "dateFormat" => self::DATE_FORMAT[$this -> lang]
+            "nextEvents" => $nextEvents
         ]);
     }
 
@@ -82,12 +81,9 @@ class EventsController extends Controller
      */
     public function show(Request $request)
     {
-        $event = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> first();
+        $event = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[$this -> lang] . "')")) -> first();
 
-        return view("events.show", [
-            "event" => $event,
-            "dateFormat" => self::DATE_FORMAT[$this -> lang]
-        ]);
+        return view("events.show", ["event" => $event]);
     }
 
     /**

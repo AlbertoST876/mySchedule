@@ -107,7 +107,7 @@ class UserController extends Controller
         $request -> session() -> regenerate();
 
         $timeZone = User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
-        $request -> session() -> put("timeZone", $timeZone -> name);
+        $request -> session() -> put("timeZone", $timeZone -> name, 9999);
 
         return redirect() -> route("index") -> with("status", __("messages.user_logged"));
     }
@@ -175,7 +175,7 @@ class UserController extends Controller
             User::where("id", Auth::id()) -> update(["timeZone" => $request -> zone]);
 
             $timeZone = User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
-            $request -> session() -> put("timeZone", $timeZone -> name);
+            $request -> session() -> put("timeZone", $timeZone -> name, 9999);
         }
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));

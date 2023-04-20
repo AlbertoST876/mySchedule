@@ -10,7 +10,7 @@
             <div class="mx-6 my-12 lg:mx-24 lg:my-12 p-8 rounded-xl" data-color="{{ is_null($event -> color) ? $event -> categoryColor : $event -> color }}">
                 <div class="grid gap-2 lg:gap-4 grid-cols-2 lg:grid-cols-3 grid-rows-2">
                     <div>
-                        <span class="text-lg font-bold">{{ $event -> date -> format($dateFormat) }}</span>
+                        <span class="text-lg font-bold">{{ $event -> date }}</span>
                         <h3 class="mt-2 text-xl font-extrabold">{{ $event -> name }}</h3>
                     </div>
 
