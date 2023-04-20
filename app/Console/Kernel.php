@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule -> call(function() {
-            $events = Event::join("users", "events.user_id", "users.id") -> where("events.remember", "<=", DB::raw("NOW()")) -> where("events.isRemembered", false) -> select("events.id", "users.email", "events.name", "events.description", "events.date") -> get();
+            $events = Event::leftJoin("users", "events.user_id", "users.id") -> where("events.remember", "<=", DB::raw("NOW()")) -> where("events.isRemembered", false) -> select("events.id", "users.email", "events.name", "events.description", "events.date") -> get();
 
             foreach ($events as $event) {
                 mail($event -> email, $event -> name, $event -> description);
