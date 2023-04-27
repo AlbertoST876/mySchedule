@@ -13,8 +13,8 @@
     @auth
         @if (!session() -> has("timeZone"))
             @php
-                $timeZone = User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
-                $request -> session() -> put("timeZone", $timeZone -> name);
+                $timeZone = App\Models\User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
+                session() -> put("timeZone", $timeZone -> name);
             @endphp
         @endif
 
