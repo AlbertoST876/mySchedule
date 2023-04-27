@@ -75,7 +75,7 @@
                                 @foreach ($regions as $region => $zones)
                                     <optgroup label="{{ $region }}">
                                         @foreach ($zones as $zone)
-                                            @if (session() -> get("timeZone") == $zone -> zone)
+                                            @if (Auth::user() -> timeZone == $zone -> id)
                                                 <option value="{{ $zone -> id }}" selected>{{ $zone -> name }}</option>
                                             @else
                                                 <option value="{{ $zone -> id }}">{{ $zone -> name }}</option>
