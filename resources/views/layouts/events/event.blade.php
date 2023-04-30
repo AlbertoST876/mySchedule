@@ -25,7 +25,7 @@
             <input class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.edit")">
         </form>
 
-        <form action="{{ route("events.delete") }}" method="post">
+        <form action="{{ route("events.destroy") }}" method="post">
             @csrf
 
             <input type="hidden" name="event" value="{{ $event -> id }}">
