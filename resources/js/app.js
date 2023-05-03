@@ -37,4 +37,15 @@ window.onload = function() {
         rememberCheck.onclick = function() { toggleField(remember); };
         remember.addEventListener("focus", function() { remember.setAttribute("max", date.value); });
     }
+
+    let prevEvents = document.querySelector("#prevEvents");
+    let nextEvents = document.querySelector("#nextEvents");
+
+    if (prevEvents instanceof Element && nextEvents instanceof Element) {
+        prevEvents.addEventListener("toggle", function() { localStorage.setItem("prevEventsOpen", prevEvents.open); });
+        nextEvents.addEventListener("toggle", function() { localStorage.setItem("nextEventsOpen", nextEvents.open); });
+
+        if (localStorage.getItem("prevEventsOpen") == "true") { prevEvents.open = true; }
+        if (localStorage.getItem("nextEventsOpen") == "false") { nextEvents.open = false; }
+    }
 };

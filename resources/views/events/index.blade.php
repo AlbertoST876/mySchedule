@@ -12,11 +12,11 @@
 
                 <div class="my-8">
                     @if (count($prevEvents) > 0)
-                        @include("layouts.events.eventsList", ["open" => false, "name" => __("messages.prevEvents"), "events" => $prevEvents])
+                        @include("layouts.events.eventsList", ["id" => "prevEvents", "open" => false, "name" => __("messages.prevEvents"), "events" => $prevEvents])
                     @endif
 
                     @if (count($nextEvents) > 0)
-                        @include("layouts.events.eventsList", ["open" => true, "name" => __("messages.nextEvents"), "events" => $nextEvents])
+                        @include("layouts.events.eventsList", ["id" => "nextEvents", "open" => true, "name" => __("messages.nextEvents"), "events" => $nextEvents])
                     @endif
                 </div>
 
