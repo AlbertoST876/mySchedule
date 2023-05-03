@@ -71,24 +71,24 @@
                         @method("patch")
 
                         <div class="mb-6">
-                            <select class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="zone" required>
-                                @foreach ($regions as $region => $zones)
+                            <select class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="timeZone" required>
+                                @foreach ($regions as $region => $timeZones)
                                     <optgroup label="{{ $region }}">
-                                        @foreach ($zones as $zone)
-                                            @if (Auth::user() -> timeZone == $zone -> id)
-                                                <option value="{{ $zone -> id }}" selected>{{ $zone -> name }}</option>
+                                        @foreach ($timeZones as $timeZone)
+                                            @if (Auth::user() -> timeZone == $timeZone -> name)
+                                                <option value="{{ $timeZone -> name }}" selected>{{ $timeZone -> city }}</option>
                                             @else
-                                                <option value="{{ $zone -> id }}">{{ $zone -> name }}</option>
+                                                <option value="{{ $timeZone -> name }}">{{ $timeZone -> city }}</option>
                                             @endif
                                         @endforeach
                                     </optgroup>
                                 @endforeach
                             </select>
 
-                            @include("layouts.error", ["field" => "zone"])
+                            @include("layouts.error", ["field" => "timeZone"])
                         </div>
 
-                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="timeZone" value="@lang("messages.change")">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="time" value="@lang("messages.change")">
                     </form>
                 </div>
             </div>

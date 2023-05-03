@@ -49,7 +49,7 @@ class TimeZoneSeeder extends Seeder
         ];
 
         foreach ($timeZones as $timeZone) {
-            TimeZone::factory() -> create(["region" => $timeZone[0], "name" => $timeZone[1], "shortName" => $timeZone[2]]);
+            TimeZone::factory() -> create(["region" => $timeZone[0], "name" => $timeZone[1], "city" => $timeZone[2]]);
         }
     }
 }

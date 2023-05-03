@@ -14,10 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create("time_zones", function(Blueprint $table) {
-            $table -> id();
+            $table -> string("name", 30) -> primary();
+            $table -> string("city", 30);
             $table -> integer("region") -> references("id") -> on("regions");
-            $table -> string("name", 30);
-            $table -> string("shortName", 30);
             $table -> timestamps();
         });
     }

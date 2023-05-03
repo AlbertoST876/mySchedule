@@ -18,7 +18,7 @@ class TimeZoneFactory extends Factory
     {
         return [
             "name" => fake() -> name(),
-            "shortName" => fake() -> name()
+            "city" => fake() -> name()
         ];
     }
 }

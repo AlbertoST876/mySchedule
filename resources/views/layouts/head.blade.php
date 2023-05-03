@@ -11,13 +11,6 @@
     <title>@lang("messages.appName") - {{ $title }}</title>
 
     @auth
-        @if (!session() -> has("timeZone"))
-            @php
-                $timeZone = App\Models\User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
-                session() -> put("timeZone", $timeZone -> name);
-            @endphp
-        @endif
-
-        @php date_default_timezone_set(session() -> get("timeZone")) @endphp
+        @php date_default_timezone_set(Auth::user() -> timeZone) @endphp
     @endauth
 </head>

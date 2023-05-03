@@ -106,9 +106,6 @@ class UserController extends Controller
 
         $request -> session() -> regenerate();
 
-        $timeZone = User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
-        $request -> session() -> put("timeZone", $timeZone -> name);
-
         return redirect() -> route("index") -> with("status", __("messages.user_logged"));
     }
 
@@ -121,7 +118,7 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         $categories = CategoryUserColor::leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", Auth::id()) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
-        $timeZones = TimeZone::leftJoin("regions", "time_zones.region", "regions.id") -> select("time_zones.id", "regions.name_" . $this -> lang . " AS region", "time_zones.name AS zone", "time_zones.shortName AS name") -> get();
+        $timeZones = TimeZone::leftJoin("regions", "time_zones.region", "regions.id") -> select("regions.name_" . $this -> lang . " AS region", "time_zones.name", "time_zones.city") -> get();
 
         $regions = [];
 
@@ -167,15 +164,12 @@ class UserController extends Controller
             User::where("id", Auth::id()) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
         }
 
-        if (isset($request -> timeZone)) {
+        if (isset($request -> time)) {
             $request -> validate([
-                "zone" => ["integer"]
+                "timeZone" => ["string", "max:30"]
             ]);
 
-            User::where("id", Auth::id()) -> update(["timeZone" => $request -> zone]);
-
-            $timeZone = User::leftJoin("time_zones", "users.timeZone", "time_zones.id") -> where("users.id", Auth::id()) -> select("time_zones.name") -> first();
-            $request -> session() -> put("timeZone", $timeZone -> name);
+            User::where("id", Auth::id()) -> update(["timeZone" => $request -> timeZone]);
         }
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));
