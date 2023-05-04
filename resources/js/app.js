@@ -46,6 +46,6 @@ window.onload = function() {
         nextEvents.addEventListener("toggle", function() { localStorage.setItem("nextEventsOpen", nextEvents.open); });
 
         if (localStorage.getItem("prevEventsOpen") == "true") { prevEvents.open = true; }
-        if (localStorage.getItem("nextEventsOpen") == "false") { nextEvents.open = false; }
+        if (localStorage.getItem("nextEventsOpen") == "true") { nextEvents.open = true; }
     }
 };
