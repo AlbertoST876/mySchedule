@@ -31,6 +31,7 @@
 
                     <form action="{{ route("events.destroy") }}" method="post">
                         @csrf
+                        @method("DELETE")
 
                         <input type="hidden" name="event" value="{{ $event -> id }}">
                         <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.delete")" onclick="return confirm('@lang("messages.delete_confirm")')">

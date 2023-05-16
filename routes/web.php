@@ -43,6 +43,6 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
         Route::post("events/show", "show") -> name("events.show");
         Route::post("events/edit", "edit") -> name("events.edit");
         Route::patch("events/update", "update") -> name("events.update");
-        Route::post("events/destroy", "destroy") -> name("events.destroy");
+        Route::delete("events/destroy", "destroy") -> name("events.destroy");
     });
 });

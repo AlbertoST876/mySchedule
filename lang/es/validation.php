@@ -37,7 +37,7 @@ return [
     'date' => 'El campo :attribute no es una fecha válida.',
     'date_equals' => 'El campo :attribute debe ser una fecha igual a :date.',
     'date_format' => 'El campo :attribute no corresponde con el formato :format.',
-     'decimal' => 'El :attribute debe tener :decimal decimales.',
+    'decimal' => 'El :attribute debe tener :decimal decimales.',
     'declined' => 'El campo :attribute debe marcar como rechazado.',
     'declined_if' => 'El campo :attribute debe marcar como rechazado cuando :other es :value.',
     'different' => 'Los campos :attribute y :other deben ser diferentes.',
