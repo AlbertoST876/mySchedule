@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="flex">
-                    <a class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" href="{{ route("events") }}">@lang("messages.return")</a>
+                    <a class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" href="{{ route("events.index") }}">@lang("messages.return")</a>
 
                     <form action="{{ route("events.edit") }}" method="post">
                         @csrf
@@ -31,6 +31,7 @@
 
                     <form action="{{ route("events.destroy") }}" method="post">
                         @csrf
+                        @method("delete")
 
                         <input type="hidden" name="event" value="{{ $event -> id }}">
                         <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.delete")" onclick="return confirm('@lang("messages.delete_confirm")')">

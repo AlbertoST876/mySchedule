@@ -30,19 +30,27 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
     });
 
     Route::controller(CalendarController::class) -> group(function() {
-        Route::redirect("calendar", "calendar/month", 301) -> name("calendar");
-        Route::get("calendar/day", "day") -> name("calendar.day");
-        Route::get("calendar/week", "week") -> name("calendar.week");
-        Route::get("calendar/month", "month") -> name("calendar.month");
-        Route::get("calendar/year", "year") -> name("calendar.year");
+        Route::prefix("calendar") -> group(function() {
+            Route::name("calendar.") -> group(function() {
+                Route::redirect("/", "/month", 301) -> name("index");
+                Route::get("/day", "day") -> name("day");
+                Route::get("/week", "week") -> name("week");
+                Route::get("/month", "month") -> name("month");
+                Route::get("/year", "year") -> name("year");
+            });
+        });
     });
 
     Route::controller(EventsController::class) -> group(function() {
-        Route::get("events", "index") -> name("events");
-        Route::post("events/create", "store") -> name("events.create");
-        Route::post("events/show", "show") -> name("events.show");
-        Route::post("events/edit", "edit") -> name("events.edit");
-        Route::patch("events/update", "update") -> name("events.update");
-        Route::post("events/destroy", "destroy") -> name("events.destroy");
+        Route::prefix("events") -> group(function() {
+            Route::name("events.") -> group(function() {
+                Route::get("/", "index") -> name("index");
+                Route::put("/store", "store") -> name("store");
+                Route::post("/show", "show") -> name("show");
+                Route::post("/edit", "edit") -> name("edit");
+                Route::patch("/update", "update") -> name("update");
+                Route::delete("/destroy", "destroy") -> name("destroy");
+            });
+        });
     });
 });
