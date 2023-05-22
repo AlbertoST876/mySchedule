@@ -42,12 +42,6 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
     });
 
     Route::controller(EventsController::class) -> group(function() {
-        Route::get("events", "index") -> name("events");
-        Route::post("events/create", "store") -> name("events.create");
-        Route::post("events/show", "show") -> name("events.show");
-        Route::post("events/edit", "edit") -> name("events.edit");
-        Route::patch("events/update", "update") -> name("events.update");
-        Route::delete("events/destroy", "destroy") -> name("events.destroy");
         Route::prefix("events") -> group(function() {
             Route::name("events.") -> group(function() {
                 Route::get("/", "index") -> name("index");
