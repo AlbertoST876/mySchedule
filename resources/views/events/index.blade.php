@@ -39,9 +39,10 @@
                                 </button>
                             </div>
 
-                            <form action="{{ route("events.create") }}" method="post">
+                            <form action="{{ route("events.store") }}" method="post">
                                 <div class="p-6">
                                     @csrf
+                                    @method("put")
 
                                     <div class="mb-6">
                                         <select class="p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" name="category" required>

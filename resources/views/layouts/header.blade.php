@@ -52,8 +52,8 @@
             <div class="mt-4 p-4 md:mt-0 items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
                 <ul class="flex flex-col border border-gray-100 rounded-lg bg-slate-100 md:flex-row md:space-x-8 md:text-sm md:font-medium md:border-0 md:bg-slate-100">
                     <li><a href="{{ route("index") }}" class="block p-2 text-lg md:text-xl {{ $current == "home" ? "text-blue-600" : "text-black" }} rounded md:bg-transparent md:hover:text-blue-600">@lang("messages.home")</a></li>
-                    <li><a href="{{ route("calendar") }}" class="block p-2 text-lg md:text-xl {{ $current == "calendar" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600">@lang("messages.calendar")</a></li>
-                    <li><a href="{{ route("events") }}" class="block p-2 text-lg md:text-xl {{ $current == "events" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600">@lang("messages.events")</a></li>
+                    <li><a href="{{ route("calendar.index") }}" class="block p-2 text-lg md:text-xl {{ $current == "calendar" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600">@lang("messages.calendar")</a></li>
+                    <li><a href="{{ route("events.index") }}" class="block p-2 text-lg md:text-xl {{ $current == "events" ? "text-blue-600" : "text-black" }} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600">@lang("messages.events")</a></li>
                 </ul>
             </div>
         </div>
