@@ -33,6 +33,18 @@ return [
         "sunday" => "D",
 
         // Month
+        "january" => "Enero",
+        "february" => "Febrero",
+        "march" => "Marzo",
+        "april" => "Abril",
+        "may" => "Mayo",
+        "june" => "Junio",
+        "jule" => "Julio",
+        "august" => "Agosto",
+        "september" => "Septiembre",
+        "october" => "Octubre",
+        "november" => "Noviembre",
+        "december" => "Diciembre",
         "week_number" => "Semana Nº",
 
     // Events

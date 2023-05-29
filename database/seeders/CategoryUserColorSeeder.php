@@ -15,11 +15,19 @@ class CategoryUserColorSeeder extends Seeder
      */
     public function run()
     {
-        //CategoryUserColor::factory(4) -> create();
+        $categoryUserColors = [
+            [1, 1, "#f0e600"],
+            [2, 1, "#78ff78"],
+            [3, 1, "#6496ff"],
+            [4, 1, "#ff6464"],
+        ];
 
-        CategoryUserColor::factory() -> create(["category_id" => 1, "user_id" => 1, "color" => "#f0e600"]);
-        CategoryUserColor::factory() -> create(["category_id" => 2, "user_id" => 1, "color" => "#78ff78"]);
-        CategoryUserColor::factory() -> create(["category_id" => 3, "user_id" => 1, "color" => "#6496ff"]);
-        CategoryUserColor::factory() -> create(["category_id" => 4, "user_id" => 1, "color" => "#ff6464"]);
+        foreach ($categoryUserColors as $categoryUserColor) {
+            CategoryUserColor::factory() -> create([
+                "category_id" => $categoryUserColor[0],
+                "user_id" => $categoryUserColor[1],
+                "color" => $categoryUserColor[2],
+            ]);
+        }
     }
 }

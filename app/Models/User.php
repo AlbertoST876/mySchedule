@@ -22,7 +22,7 @@ class User extends Authenticatable
         "email",
         "password",
         "profileImg",
-        "timeZone"
+        "timeZone",
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         "password",
-        "remember_token"
+        "remember_token",
     ];
 
     /**
@@ -41,6 +41,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        "email_verified_at" => "datetime"
+        "email_verified_at" => "datetime",
     ];
 }

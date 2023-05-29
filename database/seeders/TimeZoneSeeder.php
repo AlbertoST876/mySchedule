@@ -15,8 +15,6 @@ class TimeZoneSeeder extends Seeder
      */
     public function run()
     {
-        //TimeZone::factory(1) -> create();
-
         $timeZones = [
             [1, "Africa/Cairo", "Cairo"],
             [1, "Africa/Lagos", "Lagos"],
@@ -45,11 +43,15 @@ class TimeZoneSeeder extends Seeder
             [7, "Pacific/Auckland", "Auckland"],
             [7, "Pacific/Honolulu", "Honolulu"],
             [7, "Pacific/Midway", "Midway"],
-            [8, "UTC", "UTC"]
+            [8, "UTC", "UTC"],
         ];
 
         foreach ($timeZones as $timeZone) {
-            TimeZone::factory() -> create(["region" => $timeZone[0], "name" => $timeZone[1], "city" => $timeZone[2]]);
+            TimeZone::factory() -> create([
+                "region" => $timeZone[0],
+                "name" => $timeZone[1],
+                "city" => $timeZone[2],
+            ]);
         }
     }
 }

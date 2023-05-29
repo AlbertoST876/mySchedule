@@ -15,17 +15,18 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        //Category::factory(1) -> create();
-
         $categories = [
-            ["Note", "Nota"],
-            ["Task", "Tarea"],
-            ["Event", "Evento"],
-            ["Reminder", "Recordatorio"]
+            ["Note",     "Nota"],
+            ["Task",     "Tarea"],
+            ["Event",    "Evento"],
+            ["Reminder", "Recordatorio"],
         ];
 
         foreach ($categories as $category) {
-            Category::factory() -> create(["name_en" => $category[0], "name_es" => $category[1]]);
+            Category::factory() -> create([
+                "name_en" => $category[0],
+                "name_es" => $category[1],
+            ]);
         }
     }
 }

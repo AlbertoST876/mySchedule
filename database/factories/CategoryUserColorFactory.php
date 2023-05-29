@@ -19,7 +19,7 @@ class CategoryUserColorFactory extends Factory
         return [
             "category_id" => random_int(1, 4),
             "user_id" => 1,
-            "color" => fake() -> hexColor()
+            "color" => fake() -> hexColor(),
         ];
     }
 }

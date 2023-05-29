@@ -17,7 +17,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
-    Route::view("/", "index") -> name("index");
+    Route::view("", "index") -> name("index");
 
     Route::controller(UserController::class) -> group(function() {
         Route::get("login", "index") -> name("login");
@@ -32,11 +32,11 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
     Route::controller(CalendarController::class) -> group(function() {
         Route::prefix("calendar") -> group(function() {
             Route::name("calendar.") -> group(function() {
-                Route::redirect("/", "/month", 301) -> name("index");
-                Route::get("/day", "day") -> name("day");
-                Route::get("/week", "week") -> name("week");
-                Route::get("/month", "month") -> name("month");
-                Route::get("/year", "year") -> name("year");
+                Route::get("", "index") -> name("index");
+                Route::get("day", "day") -> name("day");
+                Route::get("week", "week") -> name("week");
+                Route::get("month", "month") -> name("month");
+                Route::get("year", "year") -> name("year");
             });
         });
     });
@@ -44,12 +44,12 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
     Route::controller(EventsController::class) -> group(function() {
         Route::prefix("events") -> group(function() {
             Route::name("events.") -> group(function() {
-                Route::get("/", "index") -> name("index");
-                Route::put("/store", "store") -> name("store");
-                Route::post("/show", "show") -> name("show");
-                Route::post("/edit", "edit") -> name("edit");
-                Route::patch("/update", "update") -> name("update");
-                Route::delete("/destroy", "destroy") -> name("destroy");
+                Route::get("", "index") -> name("index");
+                Route::put("store", "store") -> name("store");
+                Route::post("show", "show") -> name("show");
+                Route::post("edit", "edit") -> name("edit");
+                Route::patch("update", "update") -> name("update");
+                Route::delete("destroy", "destroy") -> name("destroy");
             });
         });
     });

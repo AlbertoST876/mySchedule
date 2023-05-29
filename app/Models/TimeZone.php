@@ -16,7 +16,7 @@ class TimeZone extends Model
      */
     protected $fillable = [
         "name",
-        "city"
+        "city",
     ];
 
     /**

@@ -15,8 +15,6 @@ class RegionSeeder extends Seeder
      */
     public function run()
     {
-        //Region::factory(1) -> create();
-
         $regions = [
             ["Africa", "África"],
             ["America", "América"],
@@ -25,11 +23,14 @@ class RegionSeeder extends Seeder
             ["Australia", "Australia"],
             ["Europe", "Europa"],
             ["Pacific", "Pacífico"],
-            ["Others", "Otros"]
+            ["Others", "Otros"],
         ];
 
         foreach ($regions as $region) {
-            Region::factory() -> create(["name_en" => $region[0], "name_es" => $region[1]]);
+            Region::factory() -> create([
+                "name_en" => $region[0],
+                "name_es" => $region[1],
+            ]);
         }
     }
 }

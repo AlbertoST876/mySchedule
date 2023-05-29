@@ -12,23 +12,19 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    private string $lang;
-
     public function __construct() {
-        $this -> middleware("guest", ["only" => [
+        $this -> middleware("guest") -> only([
             "index",
             "create",
             "store",
-            "show"
-        ]]);
+            "show",
+        ]);
 
-        $this -> middleware("auth", ["only" => [
+        $this -> middleware("auth") -> only([
             "edit",
             "update",
-            "destroy"
-        ]]);
-
-        $this -> lang = app() -> getLocale();
+            "destroy",
+        ]);
     }
 
     /**
@@ -73,15 +69,19 @@ class UserController extends Controller
 
         // Auth::login($user);
 
-        $categoriesUserColor = [
+        $categoryUserColors = [
             [1, "#f0e600"],
             [2, "#78ff78"],
             [3, "#6496ff"],
-            [4, "#ff6464"]
+            [4, "#ff6464"],
         ];
 
-        foreach ($categoriesUserColor as $categoryUserColor) {
-            CategoryUserColor::factory() -> create(["category_id" => $categoryUserColor[0], "user_id" => $user -> id, "color" => $categoryUserColor[1]]);
+        foreach ($categoryUserColors as $categoryUserColor) {
+            CategoryUserColor::factory() -> create([
+                "category_id" => $categoryUserColor[0],
+                "user_id" => $user -> id,
+                "color" => $categoryUserColor[1],
+            ]);
         }
 
         return redirect() -> route("login") -> with("status", __("messages.user_registered"));
@@ -117,9 +117,7 @@ class UserController extends Controller
      */
     public function edit(Request $request)
     {
-        $categories = CategoryUserColor::leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", Auth::id()) -> select("categories.id", "categories.name_" . $this -> lang . " AS name", "category_user_colors.color") -> get();
-        $timeZones = TimeZone::leftJoin("regions", "time_zones.region", "regions.id") -> select("regions.name_" . $this -> lang . " AS region", "time_zones.name", "time_zones.city") -> get();
-
+        $timeZones = TimeZone::leftJoin("regions", "time_zones.region", "regions.id") -> select("regions.name_" . app() -> getLocale() . " AS region", "time_zones.name", "time_zones.city") -> get();
         $regions = [];
 
         foreach ($timeZones as $timeZone) {
@@ -127,8 +125,8 @@ class UserController extends Controller
         }
 
         return view("auth.settings", [
-            "categories" => $categories,
-            "regions" => $regions
+            "categories" => CategoryUserColor::leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", Auth::id()) -> select("categories.id", "categories.name_" . app() -> getLocale() . " AS name", "category_user_colors.color") -> get(),
+            "regions" => $regions,
         ]);
     }
 
@@ -145,7 +143,7 @@ class UserController extends Controller
                 "1" => ["string", "max:10"],
                 "2" => ["string", "max:10"],
                 "3" => ["string", "max:10"],
-                "4" => ["string", "max:10"]
+                "4" => ["string", "max:10"],
             ]);
 
             for ($category = 1; $category < 5; $category++) {
@@ -155,7 +153,7 @@ class UserController extends Controller
 
         if (isset($request -> image)) {
             $request -> validate([
-                "profileImg" => ["image", "mimes:png,jpg,jpeg", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"]
+                "profileImg" => ["image", "mimes:png,jpg,jpeg", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"],
             ]);
 
             $imageName = date("Y-m-d_H-i-s") . "_" . Auth::user() -> name . "." . $request -> file("profileImg") -> extension();
@@ -166,7 +164,7 @@ class UserController extends Controller
 
         if (isset($request -> time)) {
             $request -> validate([
-                "timeZone" => ["string", "max:30"]
+                "timeZone" => ["string", "max:30"],
             ]);
 
             User::where("id", Auth::id()) -> update(["timeZone" => $request -> timeZone]);

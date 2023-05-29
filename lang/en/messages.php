@@ -33,6 +33,18 @@ return [
         "sunday" => "Sun",
 
         // Month
+        "january" => "January",
+        "february" => "February",
+        "march" => "March",
+        "april" => "April",
+        "may" => "May",
+        "june" => "June",
+        "jule" => "Jule",
+        "august" => "August",
+        "september" => "September",
+        "october" => "October",
+        "november" => "November",
+        "december" => "December",
         "week_number" => "Week Nº",
 
     // Events

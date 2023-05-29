@@ -17,7 +17,7 @@ class CategoryUserColor extends Model
     protected $fillable = [
         "category_id",
         "user_id",
-        "color"
+        "color",
     ];
 
     /**

@@ -12,8 +12,6 @@ use App\Models\Event;
 
 class EventsController extends Controller
 {
-    private string $lang;
-
     const DATE_FORMAT = [
         "en" => "%Y-%m-%d %H:%i",
         "es" => "%d/%m/%Y %H:%i",
@@ -22,7 +20,6 @@ class EventsController extends Controller
     public function __construct()
     {
         $this -> middleware("auth");
-        $this -> lang = app() -> getLocale();
     }
 
     /**
@@ -32,14 +29,10 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $categories = Category::select("id", "name_" . $this -> lang . " AS name") -> get();
-        $prevEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[$this -> lang] . "') AS date")) -> orderBy("events.date", "DESC") -> get();
-        $nextEvents = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[$this -> lang] . "') AS date")) -> orderBy("events.date") -> get();
-
         return view("events.index", [
-            "categories" => $categories,
-            "prevEvents" => $prevEvents,
-            "nextEvents" => $nextEvents
+            "categories" => Category::select("id", "name_" . app() -> getLocale() . " AS name") -> get(),
+            "prevEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[app() -> getLocale()] . "') AS date")) -> orderBy("events.date", "DESC") -> get(),
+            "nextEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[app() -> getLocale()] . "') AS date")) -> orderBy("events.date") -> get(),
         ]);
     }
 
@@ -57,7 +50,7 @@ class EventsController extends Controller
             "description" => ["string", "nullable", "max:255"],
             "color" => ["string", "nullable", "max:10"],
             "date" => ["required", "date"],
-            "remember" => ["date", "nullable"]
+            "remember" => ["date", "nullable"],
         ]);
 
         Event::create([
@@ -67,7 +60,7 @@ class EventsController extends Controller
             "description" => $request -> description,
             "color" => $request -> color,
             "date" => $request -> date,
-            "remember" => $request -> remember
+            "remember" => $request -> remember,
         ]);
 
         return redirect() -> route("events.index") -> with("status", __("messages.event_created"));
@@ -81,9 +74,9 @@ class EventsController extends Controller
      */
     public function show(Request $request)
     {
-        $event = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . $this -> lang . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[$this -> lang] . "') AS date")) -> first();
-
-        return view("events.show", ["event" => $event]);
+        return view("events.show", [
+            "event" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[app() -> getLocale()] . "') AS date")) -> first(),
+        ]);
     }
 
     /**
@@ -94,12 +87,9 @@ class EventsController extends Controller
      */
     public function edit(Request $request)
     {
-        $categories = Category::select("id", "name_" . $this -> lang . " AS name") -> get();
-        $event = Event::find($request -> event);
-
         return view("events.edit", [
-            "categories" => $categories,
-            "event" => $event
+            "categories" => Category::select("id", "name_" . app() -> getLocale() . " AS name") -> get(),
+            "event" => Event::find($request -> event),
         ]);
     }
 
@@ -117,7 +107,7 @@ class EventsController extends Controller
             "description" => ["string", "nullable", "max:255"],
             "color" => ["string", "nullable", "max:10"],
             "date" => ["required", "date"],
-            "remember" => ["date", "nullable"]
+            "remember" => ["date", "nullable"],
         ]);
 
         $event = Event::find($request -> event);
@@ -126,8 +116,13 @@ class EventsController extends Controller
         $event -> description = $request -> description;
         $event -> color = $request -> color;
         $event -> date = $request -> date;
-        $event -> remember = $request -> remember;
-        $event -> isRemembered = 0;
+
+        if ($event -> remember != $request -> remember)
+        {
+            $event -> remember = $request -> remember;
+            $event -> isRemembered = 0;
+        }
+
         $event -> save();
 
         return redirect() -> route("events.index") -> with("status", __("messages.event_edited"));
