@@ -4,9 +4,9 @@ window.onload = function() {
     let events = document.querySelectorAll("*[data-color]");
 
     if (events.length > 0) {
-        for (let i = 0; i < events.length; i++) {
-            events[i].style.backgroundColor = events[i].getAttribute("data-color");
-        }
+        events.forEach(event => {
+            event.style.backgroundColor = event.getAttribute("data-color");
+        });
     }
 
     let colorCheck = document.querySelector("#color-checkbox");
