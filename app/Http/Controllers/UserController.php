@@ -117,7 +117,7 @@ class UserController extends Controller
      */
     public function edit(Request $request)
     {
-        $timeZones = TimeZone::leftJoin("regions", "time_zones.region", "regions.id") -> select("regions.name_" . app() -> getLocale() . " AS region", "time_zones.name", "time_zones.city") -> get();
+        $timeZones = TimeZone::leftJoin("regions", "time_zones.region_id", "regions.id") -> select("regions.name_" . app() -> getLocale() . " AS region", "time_zones.name", "time_zones.city") -> get();
         $regions = [];
 
         foreach ($timeZones as $timeZone) {

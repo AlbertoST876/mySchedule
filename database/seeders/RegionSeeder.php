@@ -16,14 +16,14 @@ class RegionSeeder extends Seeder
     public function run()
     {
         $regions = [
-            ["Africa", "África"],
-            ["America", "América"],
-            ["Asia", "Asia"],
-            ["Atlantic", "Atlántico"],
+            ["Africa",    "África"],
+            ["America",   "América"],
+            ["Asia",      "Asia"],
+            ["Atlantic",  "Atlántico"],
             ["Australia", "Australia"],
-            ["Europe", "Europa"],
-            ["Pacific", "Pacífico"],
-            ["Others", "Otros"],
+            ["Europe",    "Europa"],
+            ["Pacific",   "Pacífico"],
+            ["Others",    "Otros"],
         ];
 
         foreach ($regions as $region) {

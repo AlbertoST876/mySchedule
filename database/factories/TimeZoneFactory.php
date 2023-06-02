@@ -18,6 +18,7 @@ class TimeZoneFactory extends Factory
     {
         return [
             "name" => fake() -> name(),
+            "region_id" => fake() -> randomNumber(),
             "city" => fake() -> name(),
         ];
     }
