@@ -13,8 +13,8 @@ use App\Models\Event;
 class EventsController extends Controller
 {
     const DATE_FORMAT = [
-        "en" => "%Y-%m-%d %H:%i",
-        "es" => "%d/%m/%Y %H:%i",
+        "en" => "Y-m-d H:i",
+        "es" => "d/m/Y H:i",
     ];
 
     public function __construct()
@@ -30,9 +30,10 @@ class EventsController extends Controller
     public function index()
     {
         return view("events.index", [
+            "prevEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderByDesc("events.date") -> get(),
+            "nextEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get(),
             "categories" => Category::select("id", "name_" . app() -> getLocale() . " AS name") -> get(),
-            "prevEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[app() -> getLocale()] . "') AS date")) -> orderBy("events.date", "DESC") -> get(),
-            "nextEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[app() -> getLocale()] . "') AS date")) -> orderBy("events.date") -> get(),
+            "dateFormat" => self::DATE_FORMAT[app() -> getLocale()],
         ]);
     }
 
@@ -75,7 +76,8 @@ class EventsController extends Controller
     public function show(Request $request)
     {
         return view("events.show", [
-            "event" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", DB::raw("DATE_FORMAT(events.date, '" . self::DATE_FORMAT[app() -> getLocale()] . "') AS date")) -> first(),
+            "event" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> first(),
+            "dateFormat" => self::DATE_FORMAT[app() -> getLocale()],
         ]);
     }
 

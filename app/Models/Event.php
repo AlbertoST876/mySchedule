@@ -37,5 +37,8 @@ class Event extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [];
+    protected $casts = [
+        "date" => "datetime",
+        "remember" => "datetime",
+    ];
 }

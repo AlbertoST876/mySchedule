@@ -13,13 +13,6 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function __construct() {
-        $this -> middleware("guest") -> only([
-            "index",
-            "create",
-            "store",
-            "show",
-        ]);
-
         $this -> middleware("auth") -> only([
             "edit",
             "update",
@@ -67,8 +60,6 @@ class UserController extends Controller
             "password" => bcrypt($request -> password)
         ]);
 
-        // Auth::login($user);
-
         $categoryUserColors = [
             [1, "#f0e600"],
             [2, "#78ff78"],
@@ -83,6 +74,8 @@ class UserController extends Controller
                 "color" => $categoryUserColor[1],
             ]);
         }
+
+        // Auth::login($user);
 
         return redirect() -> route("login") -> with("status", __("messages.user_registered"));
     }

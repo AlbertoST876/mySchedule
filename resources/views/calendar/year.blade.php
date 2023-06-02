@@ -11,7 +11,7 @@
             @include("layouts.warn", ["message" => session("status")])
 
             <div>
-                <div class="w-full text-center font-bold border-b border-b-black">@lang("messages.year") {{ $current }}</div>
+                <div class="w-full text-center text-lg font-bold border-b border-b-black">@lang("messages.year") {{ $current }}</div>
 
                 <div class="flex flex-wrap align-center justify-center">
                     @foreach ($months as $month)
