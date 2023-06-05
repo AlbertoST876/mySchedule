@@ -11,7 +11,7 @@ class TimeZone extends Model
 
     public function region()
     {
-        return $this -> belongsTo(Region::class);
+        return $this -> belongsTo(Region::class) -> select("name_" . app() -> getLocale() . " AS name");
     }
 
     /**
