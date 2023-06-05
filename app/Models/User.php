@@ -32,7 +32,7 @@ class User extends Authenticatable
         "email",
         "password",
         "profileImg",
-        "timeZone",
+        "timezone",
     ];
 
     /**

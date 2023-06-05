@@ -9,9 +9,9 @@ class Region extends Model
 {
     use HasFactory;
 
-    public function timeZones()
+    public function timezones()
     {
-        return $this -> hasMany(TimeZone::class);
+        return $this -> hasMany(Timezone::class);
     }
 
     /**

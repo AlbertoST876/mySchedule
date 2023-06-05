@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create("time_zones", function(Blueprint $table) {
+        Schema::create("timezones", function(Blueprint $table) {
             $table -> string("name", 30) -> primary();
             $table -> foreignId("region_id") -> references("id") -> on("regions");
             $table -> string("city", 30);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("time_zones");
+        Schema::dropIfExists("timezones");
     }
 };

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\TimeZone;
 
-class TimeZoneSeeder extends Seeder
+class TimezoneSeeder extends Seeder
 {
     /**
      * Run the database seeds.

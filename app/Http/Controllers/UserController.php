@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\CategoryUserColor;
-use App\Models\TimeZone;
+use App\Models\Region;
 use App\Models\User;
 
 class UserController extends Controller
@@ -51,13 +51,13 @@ class UserController extends Controller
         $request -> validate([
             "name" => ["required", "string", "max:25", "unique:users"],
             "email" => ["required", "string", "email", "max:50", "unique:users"],
-            "password" => ["required", "string", "confirmed", "max:255"]
+            "password" => ["required", "string", "confirmed", "max:255"],
         ]);
 
         $user = User::create([
             "name" => $request -> name,
             "email" => $request -> email,
-            "password" => bcrypt($request -> password)
+            "password" => bcrypt($request -> password),
         ]);
 
         $categoryUserColors = [
@@ -90,7 +90,7 @@ class UserController extends Controller
     {
         $credentials = $request -> validate([
             "email" => ["required", "string", "email", "max:50"],
-            "password" => ["required", "string", "max:255"]
+            "password" => ["required", "string", "max:255"],
         ]);
 
         if (!Auth::attempt($credentials, $request -> boolean("remember"))) {
@@ -110,16 +110,9 @@ class UserController extends Controller
      */
     public function edit(Request $request)
     {
-        $timeZones = TimeZone::all();
-        $regions = [];
-
-        foreach ($timeZones as $timeZone) {
-            $regions[$timeZone -> region -> name][] = $timeZone;
-        }
-
         return view("auth.settings", [
             "categories" => CategoryUserColor::leftJoin("categories", "category_user_colors.category_id", "categories.id") -> where("category_user_colors.user_id", Auth::id()) -> select("categories.id", "categories.name_" . app() -> getLocale() . " AS name", "category_user_colors.color") -> get(),
-            "regions" => $regions,
+            "regions" => Region::select("id", "name_" . app() -> getLocale() . " AS name") -> get(),
         ]);
     }
 
@@ -157,10 +150,10 @@ class UserController extends Controller
 
         if (isset($request -> time)) {
             $request -> validate([
-                "timeZone" => ["string", "max:30"],
+                "timezone" => ["string", "max:30"],
             ]);
 
-            User::where("id", Auth::id()) -> update(["timeZone" => $request -> timeZone]);
+            User::where("id", Auth::id()) -> update(["timezone" => $request -> timezone]);
         }
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));
