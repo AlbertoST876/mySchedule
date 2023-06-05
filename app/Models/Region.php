@@ -9,6 +9,11 @@ class Region extends Model
 {
     use HasFactory;
 
+    public function timeZones()
+    {
+        return $this -> hasMany(TimeZone::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

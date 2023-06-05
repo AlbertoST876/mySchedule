@@ -9,6 +9,16 @@ class Category extends Model
 {
     use HasFactory;
 
+    public function events()
+    {
+        return $this -> hasMany(Event::class);
+    }
+
+    public function users()
+    {
+        return $this -> belongsToMany(User::class, "category_user_colors");
+    }
+
     /**
      * The attributes that are mass assignable.
      *
