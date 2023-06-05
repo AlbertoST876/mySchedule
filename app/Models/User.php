@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function timezone()
+    {
+        return $this -> belongsTo(Timezone::class);
+    }
+
     public function events()
     {
         return $this -> hasMany(Event::class);

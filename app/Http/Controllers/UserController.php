@@ -139,7 +139,7 @@ class UserController extends Controller
 
         if (isset($request -> image)) {
             $request -> validate([
-                "profileImg" => ["image", "mimes:png,jpg,jpeg", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"],
+                "profileImg" => ["required", "image", "mimes:png,jpg,jpeg", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"],
             ]);
 
             $imageName = date("Y-m-d_H-i-s") . "_" . Auth::user() -> name . "." . $request -> file("profileImg") -> extension();
@@ -150,10 +150,10 @@ class UserController extends Controller
 
         if (isset($request -> time)) {
             $request -> validate([
-                "timezone" => ["string", "max:30"],
+                "timezone" => ["required", "integer", "between:1,28"],
             ]);
 
-            User::where("id", Auth::id()) -> update(["timezone" => $request -> timezone]);
+            User::where("id", Auth::id()) -> update(["timezone_id" => $request -> timezone]);
         }
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));

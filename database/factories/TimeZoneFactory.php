@@ -17,8 +17,8 @@ class TimezoneFactory extends Factory
     public function definition()
     {
         return [
-            "name" => fake() -> name(),
             "region_id" => fake() -> randomNumber(),
+            "name" => fake() -> name(),
             "city" => fake() -> name(),
         ];
     }

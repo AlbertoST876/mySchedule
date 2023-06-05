@@ -20,8 +20,8 @@ class Timezone extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "name",
         "region_id",
+        "name",
         "city",
     ];
 

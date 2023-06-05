@@ -20,7 +20,7 @@ return new class extends Migration
             $table -> timestamp("email_verified_at") -> nullable();
             $table -> string("password");
             $table -> string("profileImg") -> nullable();
-            $table -> string("timezone", 30) -> default("UTC") -> references("name") -> on("timezones");
+            $table -> foreignId("timezone_id") -> default(28) -> references("id") -> on("timezones");
             $table -> rememberToken();
             $table -> timestamps();
         });

@@ -11,6 +11,6 @@
     <title>@lang("messages.appName") - {{ $title }}</title>
 
     @auth
-        @php date_default_timezone_set(Auth::user() -> timezone) @endphp
+        @php date_default_timezone_set(Auth::user() -> timezone -> name) @endphp
     @endauth
 </head>
