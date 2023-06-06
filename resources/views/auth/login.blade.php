@@ -34,8 +34,8 @@
                 </div>
 
                 <div class="mb-6">
-                    <input class="mr-2 px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" type="submit" name="login" value="@lang("messages.login")">
-                    <a class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" href="{{ route("register") }}">@lang("messages.register")</a>
+                    <input class="block sm:inline-block sm:mr-2 px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" type="submit" name="login" value="@lang("messages.login")">
+                    <a class="block sm:inline-block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" href="{{ route("register") }}">@lang("messages.register")</a>
                 </div>
             </form>
         </main>

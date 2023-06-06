@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "home"])
 
         <main>
-            <div class="mx-24 my-12">
+            <div class="mx-6 my-12 lg:mx-24 lg:my-12">
                 @include("layouts.warn", ["message" => session("status")])
 
                 <h1 class="my-6 text-5xl font-extrabold">@lang("messages.account_settings")</h1>

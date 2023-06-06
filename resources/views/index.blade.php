@@ -16,8 +16,8 @@
                     <p class="my-6 text-lg lg:text-xl text-justify">@lang("messages.intro")</p>
 
                     @guest
-                        <div class="flex items-center justify-center">
-                            <a class="mr-32 mb-2 px-6 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" href="{{ route("login") }}">@lang("messages.login")</a>
+                        <div class="flex items-center justify-between sm:justify-center">
+                            <a class="mr-0 sm:mr-32 mb-2 px-6 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" href="{{ route("login") }}">@lang("messages.login")</a>
                             <a class="mb-2 px-6 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" href="{{ route("register") }}">@lang("messages.register")</a>
                         </div>
                     @endguest
