@@ -3,8 +3,10 @@
 namespace App\Console;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Mail\RememberEmail;
 use App\Models\Event;
 
 class Kernel extends ConsoleKernel
@@ -18,14 +20,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule -> call(function() {
-            $events = Event::leftJoin("users", "events.user_id", "users.id") -> where("events.remember", "<=", DB::raw("NOW()")) -> where("events.isRemembered", false) -> select("events.id", "users.email", "events.name", "events.description", "events.date") -> get();
+            $events = Event::where("remember", "<=", DB::raw("NOW()")) -> where("isRemembered", false) -> get();
 
             foreach ($events as $event) {
-                mail($event -> email, $event -> name, $event -> description);
-
+                Mail::to($event -> user -> email) -> send(new RememberEmail($event));
                 Event::where("id", $event -> id) -> update(["isRemembered" => true]);
             }
-        }) -> everyTwoMinutes();
+        }) -> everyMinute();
     }
 
     /**

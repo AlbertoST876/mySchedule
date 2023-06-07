@@ -47,6 +47,10 @@ return [
         "december" => "December",
         "week_number" => "Week Nº",
 
+    // Emails
+        "rememberEmail" => "Remember email",
+        "rememberMessage" => "We remind you that your event is the",
+
     // Events
         // Edit
         "title" => "Title",
