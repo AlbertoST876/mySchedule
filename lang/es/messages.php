@@ -19,6 +19,7 @@ return [
         "profileImg_size" => "Tamaño máximo de 2 Mb.",
         "profileImg_dimensions" => "Ancho y alto mínimo de 128 Pixeles y máximo de 2048 Pixeles.",
         "profileImg_recomendation" => "Se recomienda que la proporción de la imagen sea 1:1 (p. ej. 512 x 512 Pixeles).",
+        "profileImg_delete_confirm" => "¿Estás seguro de que deseas borrar tu imagen de perfil?",
         "change" => "Cambiar",
         "timeZone" => "Zona Horaria",
 
@@ -97,7 +98,7 @@ return [
         // Footer
         "all_rights_reserved" => "Todos los derechos reservados.",
         "about_us" => "Sobre Nosotros",
-        "privacy_policy" => "Politica de Privacidad",
+        "privacy_policy" => "Política de Privacidad",
         "final_user_license" => "Licencia de Usuario Final",
         "contact" => "Contacto",
 
