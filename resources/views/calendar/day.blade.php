@@ -10,7 +10,7 @@
         <main>
             @include("layouts.warn", ["message" => session("status")])
 
-            <div>
+            <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-100">
                         <tr>

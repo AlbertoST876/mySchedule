@@ -10,8 +10,8 @@
         <main>
             @include("layouts.warn", ["message" => session("status")])
 
-            <div>
-                <table class="block w-full overflow-x-auto">
+            <div class="overflow-x-auto">
+                <table class="w-full">
                     <thead class="bg-gray-100">
                         <tr>
                             <th class="w-[12.5%] min-w-[200px]" rowspan="2">{{ $current }}</th>
