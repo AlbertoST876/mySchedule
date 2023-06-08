@@ -145,7 +145,11 @@ class UserController extends Controller
             $imageName = date("Y-m-d_H-i-s") . "_" . Auth::user() -> name . "." . $request -> file("profileImg") -> extension();
             $request -> file("profileImg") -> storeAs("public/img/users", $imageName);
 
-            User::where("id", Auth::id()) -> update(["profileImg" => "./storage/img/users/" . $imageName]);
+            Auth::user() -> profileImg = "./storage/img/users/" . $imageName;
+        }
+
+        if (isset($request -> deleteImage)) {
+            Auth::user() -> profileImg = null;
         }
 
         if (isset($request -> time)) {
@@ -153,8 +157,10 @@ class UserController extends Controller
                 "timezone" => ["required", "integer", "between:1,28"],
             ]);
 
-            User::where("id", Auth::id()) -> update(["timezone_id" => $request -> timezone]);
+            Auth::user() -> timezone_id = $request -> timezone;
         }
+
+        Auth::user() -> save();
 
         return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));
     }

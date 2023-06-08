@@ -156,11 +156,22 @@ class CalendarController extends Controller
                 $weeks[$week]["days"][$day]["date"] = $date -> format("Y-m-d");
                 $weeks[$week]["days"][$day]["events"] = [];
 
-                foreach ($events as $event) {
-                    if ($event -> date -> format("j") == $date -> format("j")) {
-                        $weeks[$week]["days"][$day]["events"][] = $event;
+                for ($i = 0; $i < count($events); $i++) {
+                    if ($events[$i] -> date -> format("j") == $date -> format("j")) {
+                        $weeks[$week]["days"][$day]["events"][] = $events[$i];
+                        unset($events[$i]);
                     }
                 }
+
+                $eventsTmp = [];
+
+                foreach ($events as $event) {
+                    if (!is_null($event)) {
+                        $eventsTmp[] = $event;
+                    }
+                }
+
+                $events = $eventsTmp;
 
                 $date -> add(new DateInterval("P1D"));
             }
@@ -206,11 +217,22 @@ class CalendarController extends Controller
                     $color = "";
                     $count = 0;
 
-                    foreach ($events as $event) {
-                        if ($event -> date -> format("n-j") == $date -> format("n-j")) {
+                    for ($i = 0; $i < count($events); $i++) {
+                        if ($events[$i] -> date -> format("n-j") == $date -> format("n-j")) {
+                            unset($events[$i]);
                             $count++;
                         }
                     }
+
+                    $eventsTmp = [];
+
+                    foreach ($events as $event) {
+                        if (!is_null($event)) {
+                            $eventsTmp[] = $event;
+                        }
+                    }
+
+                    $events = $eventsTmp;
 
                     if ($count == 1) $color = "#00ff00";
                     if ($count == 2) $color = "#bbff00";
