@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create("events", function(Blueprint $table) {
             $table -> id();
-            $table -> foreignId("user_id") -> references("id") -> on("users");
-            $table -> foreignId("category_id") -> references("id") -> on("categories");
+            $table -> foreignId("user_id") -> references("id") -> on("users") -> onUpdate("CASCADE") -> onDelete("CASCADE");
+            $table -> foreignId("category_id") -> references("id") -> on("categories") -> onUpdate("CASCADE") -> onDelete("CASCADE");
             $table -> string("name", 50);
             $table -> string("description", 255) -> nullable();
             $table -> string("color", 10) -> nullable();

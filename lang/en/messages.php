@@ -10,6 +10,8 @@ return [
         // Register
         "username" => "Username",
         "password_confirm" => "Password confirm",
+        "youMustVerified" => "You must verify your email to continue",
+        "verified" => "Your email has been successfully verified",
 
         // Settings
         "account_settings" => "Account Settings",
@@ -120,7 +122,7 @@ return [
     "event_deleted" => "The event was deleted successfully",
 
     // UserController
-    "user_registered" => "You have successfully registered",
+    "user_registered" => "You have successfully registered, now you must verify your email",
     "user_logged" => "You are logged in",
     "user_settings_updated" => "Settings saved successfully",
     "user_logged_out" => "You have logged out",

@@ -17,7 +17,7 @@ class CalendarController extends Controller
 
     public function __construct()
     {
-        $this -> middleware("auth");
+        $this -> middleware(["auth", "verified"]);
 
         $this -> months = [
             "01" => __("messages.january"),

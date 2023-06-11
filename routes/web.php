@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserController;
@@ -53,4 +54,14 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
             });
         });
     });
+
+    Route::get("email/verify", function() {
+        return redirect() -> route("index") -> with("status", __("messages.youMustVerified"));
+    }) -> middleware("auth") -> name("verification.notice");
+
+    Route::get("email/verify/{id}/{hash}", function(EmailVerificationRequest $request) {
+        $request -> fulfill();
+
+        return redirect() -> route("index") -> with("status", __("messages.verified"));
+    }) -> middleware(["auth", "signed"]) -> name("verification.verify");
 });

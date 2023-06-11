@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Events\Registered;
 use App\Models\CategoryUserColor;
 use App\Models\Region;
 use App\Models\User;
@@ -13,7 +14,7 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function __construct() {
-        $this -> middleware("auth") -> only([
+        $this -> middleware(["auth", "verified"]) -> only([
             "edit",
             "update",
             "destroy",
@@ -75,9 +76,11 @@ class UserController extends Controller
             ]);
         }
 
-        // Auth::login($user);
+        event(new Registered($user));
 
-        return redirect() -> route("login") -> with("status", __("messages.user_registered"));
+        Auth::login($user);
+
+        return redirect() -> route("index") -> with("status", __("messages.user_registered"));
     }
 
     /**

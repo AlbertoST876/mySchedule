@@ -10,6 +10,8 @@ return [
         // Register
         "username" => "Nombre de usuario",
         "password_confirm" => "Confirmar contraseña",
+        "youMustVerified" => "Debes verificar tu correo electrónico para continuar",
+        "verified" => "Tu correo electrónico ha sido verificado con éxito",
 
         // Settings
         "account_settings" => "Ajustes de la cuenta",
@@ -120,7 +122,7 @@ return [
     "event_deleted" => "El evento se eliminó correctamente",
 
     // UserController
-    "user_registered" => "Te has registrado correctamente",
+    "user_registered" => "Te has registrado correctamente, ahora debes verificar tu correo electrónico",
     "user_logged" => "Has iniciado sesión",
     "user_settings_updated" => "Ajustes guardados correctamente",
     "user_logged_out" => "Has cerrado sesión",

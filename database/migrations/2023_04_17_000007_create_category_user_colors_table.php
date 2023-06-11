@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('category_user_colors', function(Blueprint $table) {
             $table -> id();
-            $table -> foreignId("category_id") -> references("id") -> on("categories");
-            $table -> foreignId("user_id") -> references("id") -> on("users");
+            $table -> foreignId("category_id") -> references("id") -> on("categories") -> onUpdate("CASCADE") -> onDelete("CASCADE");
+            $table -> foreignId("user_id") -> references("id") -> on("users") -> onUpdate("CASCADE") -> onDelete("CASCADE");
             $table -> string("color", 10);
             $table -> timestamps();
         });
