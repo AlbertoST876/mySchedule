@@ -113,7 +113,7 @@ class CalendarController extends Controller
 
         $days = [];
 
-        for ($day = $date -> format("N"); $day < 8; $day++) {
+        for ($day = 1; $day < 8; $day++) {
             $days[$day]["num"] = $date -> format("j");
             $days[$day]["date"] = $date -> format("Y-m-d");
 
