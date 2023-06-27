@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\TimeZone;
+use App\Models\Timezone;
 
 class TimezoneSeeder extends Seeder
 {
@@ -47,7 +47,7 @@ class TimezoneSeeder extends Seeder
         ];
 
         foreach ($timeZones as $timeZone) {
-            TimeZone::factory() -> create([
+            Timezone::factory() -> create([
                 "region_id" => $timeZone[0],
                 "name" => $timeZone[1],
                 "city" => $timeZone[2],
