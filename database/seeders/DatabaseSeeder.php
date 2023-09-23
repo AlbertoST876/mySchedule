@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this -> call([
             RegionSeeder::class,
-            TimeZoneSeeder::class,
+            TimezoneSeeder::class,
             CategorySeeder::class,
             UserSeeder::class,
             EventSeeder::class,
