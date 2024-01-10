@@ -20,18 +20,18 @@ class CalendarController extends Controller
         $this -> middleware(["auth", "verified"]);
 
         $this -> months = [
-            "01" => __("messages.january"),
-            "02" => __("messages.february"),
-            "03" => __("messages.march"),
-            "04" => __("messages.april"),
-            "05" => __("messages.may"),
-            "06" => __("messages.june"),
-            "07" => __("messages.jule"),
-            "08" => __("messages.august"),
-            "09" => __("messages.september"),
-            "10" => __("messages.october"),
-            "11" => __("messages.november"),
-            "12" => __("messages.december"),
+            "01" => __("app.january"),
+            "02" => __("app.february"),
+            "03" => __("app.march"),
+            "04" => __("app.april"),
+            "05" => __("app.may"),
+            "06" => __("app.june"),
+            "07" => __("app.jule"),
+            "08" => __("app.august"),
+            "09" => __("app.september"),
+            "10" => __("app.october"),
+            "11" => __("app.november"),
+            "12" => __("app.december"),
         ];
     }
 

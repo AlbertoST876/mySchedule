@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="{{ app() -> getLocale() }}">
-    @include("layouts.head", ["title" => __("messages.calendar") . " - " . __("messages.year")])
+    @include("layouts.head", ["title" => __("app.calendar") . " - " . __("app.year")])
 
     <body>
         @include("layouts.header", ["current" => "calendar"])
@@ -11,7 +11,7 @@
             @include("layouts.warn", ["message" => session("status")])
 
             <div>
-                <div class="w-full text-center text-lg font-bold border-b border-b-black">@lang("messages.year") {{ $current }}</div>
+                <div class="w-full text-center text-lg font-bold border-b border-b-black">@lang("app.year") {{ $current }}</div>
 
                 <div class="flex flex-wrap align-center justify-center">
                     @foreach ($months as $month)
@@ -27,14 +27,14 @@
                                 </tr>
 
                                 <tr>
-                                    <th class="w-[12.5%]">@lang("messages.week_number")</th>
-                                    <th class="w-[12.5%]">@lang("messages.monday")</th>
-                                    <th class="w-[12.5%]">@lang("messages.thuesday")</th>
-                                    <th class="w-[12.5%]">@lang("messages.wednesday")</th>
-                                    <th class="w-[12.5%]">@lang("messages.thursday")</th>
-                                    <th class="w-[12.5%]">@lang("messages.friday")</th>
-                                    <th class="w-[12.5%]">@lang("messages.saturday")</th>
-                                    <th class="w-[12.5%]">@lang("messages.sunday")</th>
+                                    <th class="w-[12.5%]">@lang("app.week_number")</th>
+                                    <th class="w-[12.5%]">@lang("app.monday")</th>
+                                    <th class="w-[12.5%]">@lang("app.thuesday")</th>
+                                    <th class="w-[12.5%]">@lang("app.wednesday")</th>
+                                    <th class="w-[12.5%]">@lang("app.thursday")</th>
+                                    <th class="w-[12.5%]">@lang("app.friday")</th>
+                                    <th class="w-[12.5%]">@lang("app.saturday")</th>
+                                    <th class="w-[12.5%]">@lang("app.sunday")</th>
                                 </tr>
                             </thead>
 

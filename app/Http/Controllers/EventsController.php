@@ -64,7 +64,7 @@ class EventsController extends Controller
             "remember" => $request -> remember,
         ]);
 
-        return redirect() -> route("events.index") -> with("status", __("messages.event_created"));
+        return redirect() -> route("events.index") -> with("status", __("app.event_created"));
     }
 
     /**
@@ -127,7 +127,7 @@ class EventsController extends Controller
 
         $event -> save();
 
-        return redirect() -> route("events.index") -> with("status", __("messages.event_edited"));
+        return redirect() -> route("events.index") -> with("status", __("app.event_edited"));
     }
 
     /**
@@ -140,6 +140,6 @@ class EventsController extends Controller
     {
         Event::destroy($request -> event);
 
-        return redirect() -> route("events.index") -> with("status", __("messages.event_deleted"));
+        return redirect() -> route("events.index") -> with("status", __("app.event_deleted"));
     }
 }

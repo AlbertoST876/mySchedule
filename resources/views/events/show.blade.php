@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="{{ app() -> getLocale() }}">
-    @include("layouts.head", ["title" => __("messages.events") . " - " . __("messages.see")])
+    @include("layouts.head", ["title" => __("app.events") . " - " . __("app.see")])
 
     <body>
         @include("layouts.header", ["current" => "events"])
@@ -20,13 +20,13 @@
                 </div>
 
                 <div class="flex">
-                    <a class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" href="{{ route("events.index") }}">@lang("messages.return")</a>
+                    <a class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" href="{{ route("events.index") }}">@lang("app.return")</a>
 
                     <form action="{{ route("events.edit") }}" method="post">
                         @csrf
 
                         <input type="hidden" name="event" value="{{ $event -> id }}">
-                        <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.edit")">
+                        <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm" type="submit" value="@lang("app.edit")">
                     </form>
 
                     <form action="{{ route("events.destroy") }}" method="post">
@@ -34,7 +34,7 @@
                         @method("delete")
 
                         <input type="hidden" name="event" value="{{ $event -> id }}">
-                        <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" value="@lang("messages.delete")" onclick="return confirm('@lang("messages.delete_confirm")')">
+                        <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" value="@lang("app.delete")" onclick="return confirm('@lang("app.delete_confirm")')">
                     </form>
                 </div>
             </div>

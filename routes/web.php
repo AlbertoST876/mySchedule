@@ -56,12 +56,12 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
     });
 
     Route::get("email/verify", function() {
-        return redirect() -> route("index") -> with("status", __("messages.youMustVerified"));
+        return redirect() -> route("index") -> with("status", __("app.youMustVerified"));
     }) -> middleware("auth") -> name("verification.notice");
 
     Route::get("email/verify/{id}/{hash}", function(EmailVerificationRequest $request) {
         $request -> fulfill();
 
-        return redirect() -> route("index") -> with("status", __("messages.verified"));
+        return redirect() -> route("index") -> with("status", __("app.verified"));
     }) -> middleware(["auth", "signed"]) -> name("verification.verify");
 });

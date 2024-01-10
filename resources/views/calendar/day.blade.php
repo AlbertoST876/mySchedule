@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="{{ app() -> getLocale() }}">
-    @include("layouts.head", ["title" => __("messages.calendar") . " - " . __("messages.day")])
+    @include("layouts.head", ["title" => __("app.calendar") . " - " . __("app.day")])
 
     <body>
         @include("layouts.header", ["current" => "calendar"])

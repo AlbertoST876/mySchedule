@@ -8,7 +8,7 @@
     <meta name="author" content="Alberto Sánchez Torreblanca">
     @vite(["resources/js/app.js", "resources/css/app.css"])
     <link rel="icon" href="{{ asset("icon.svg") }}">
-    <title>@lang("messages.appName") - {{ $title }}</title>
+    <title>@lang("app.appName") - {{ $title }}</title>
 
     @auth
         @php date_default_timezone_set(Auth::user() -> timezone -> name) @endphp

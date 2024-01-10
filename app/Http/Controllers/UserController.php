@@ -80,7 +80,7 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return redirect() -> route("index") -> with("status", __("messages.user_registered"));
+        return redirect() -> route("index") -> with("status", __("app.user_registered"));
     }
 
     /**
@@ -102,7 +102,7 @@ class UserController extends Controller
 
         $request -> session() -> regenerate();
 
-        return redirect() -> route("index") -> with("status", __("messages.user_logged"));
+        return redirect() -> route("index") -> with("status", __("app.user_logged"));
     }
 
     /**
@@ -165,7 +165,7 @@ class UserController extends Controller
 
         Auth::user() -> save();
 
-        return redirect() -> route("settings") -> with("status", __("messages.user_settings_updated"));
+        return redirect() -> route("settings") -> with("status", __("app.user_settings_updated"));
     }
 
     /**
@@ -181,6 +181,6 @@ class UserController extends Controller
         $request -> session() -> invalidate();
         $request -> session() -> regenerateToken();
 
-        return redirect() -> route("index") -> with("status", __("messages.user_logged_out"));
+        return redirect() -> route("index") -> with("status", __("app.user_logged_out"));
     }
 }
