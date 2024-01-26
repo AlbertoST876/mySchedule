@@ -7,6 +7,7 @@ use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Category;
 use App\Models\Event;
 
@@ -76,7 +77,7 @@ class EventsController extends Controller
     public function show(Request $request)
     {
         return view("events.show", [
-            "event" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", $request -> event) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> first(),
+            "event" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("events.id", Crypt::decrypt($request -> event)) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> first(),
             "dateFormat" => self::DATE_FORMAT[app() -> getLocale()],
         ]);
     }
@@ -91,7 +92,7 @@ class EventsController extends Controller
     {
         return view("events.edit", [
             "categories" => Category::select("id", "name_" . app() -> getLocale() . " AS name") -> get(),
-            "event" => Event::find($request -> event),
+            "event" => Event::find(Crypt::decrypt($request -> event)),
         ]);
     }
 
@@ -112,7 +113,7 @@ class EventsController extends Controller
             "remember" => ["date", "nullable"],
         ]);
 
-        $event = Event::find($request -> event);
+        $event = Event::find(Crypt::decrypt($request -> event));
         $event -> category_id = $request -> category;
         $event -> name = $request -> name;
         $event -> description = $request -> description;
@@ -138,7 +139,7 @@ class EventsController extends Controller
      */
     public function destroy(Request $request)
     {
-        Event::destroy($request -> event);
+        Event::destroy(Crypt::decrypt($request -> event));
 
         return redirect() -> route("events.index") -> with("status", __("app.event_deleted"));
     }

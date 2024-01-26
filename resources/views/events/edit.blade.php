@@ -63,7 +63,7 @@
                         @include("layouts.error", ["field" => "color"])
                     </div>
 
-                    <input type="hidden" name="event" value="{{ $event -> id }}">
+                    <input type="hidden" name="event" value="{{ Crypt::encrypt($event -> id) }}">
                     <input class="mr-2 mb-2 mt-6 px-5 py-3 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm" type="submit" name="edit" value="@lang("app.edit")">
                 </form>
 
@@ -73,7 +73,7 @@
                     <form action="{{ route("events.show") }}" method="post">
                         @csrf
 
-                        <input type="hidden" name="event" value="{{ $event -> id }}">
+                        <input type="hidden" name="event" value="{{ Crypt::encrypt($event -> id) }}">
                         <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm" type="submit" value="@lang("app.see")">
                     </form>
 
@@ -81,7 +81,7 @@
                         @csrf
                         @method("delete")
 
-                        <input type="hidden" name="event" value="{{ $event -> id }}">
+                        <input type="hidden" name="event" value="{{ Crypt::encrypt($event -> id) }}">
                         <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" value="@lang("app.delete")" onclick="return confirm('@lang("app.delete_confirm")')">
                     </form>
                 </div>

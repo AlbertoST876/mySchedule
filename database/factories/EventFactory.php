@@ -22,7 +22,7 @@ class EventFactory extends Factory
             "name" => fake() -> name(),
             "description" => fake() -> text(),
             "color" => NULL,
-            "date" => fake() -> dateTimeBetween(date("Y-m-d H:i:s")/*"2023-01-01 00:00:00"*/, "2023-12-31 23:59:59"),
+            "date" => fake() -> dateTimeBetween(date("Y-m-d H:i:s"/*"2023-01-01 00:00:00"*/), "2024-12-31 23:59:59"),
             "remember" => NULL,
             "isRemembered" => 0,
         ];
