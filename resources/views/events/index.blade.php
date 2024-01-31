@@ -11,6 +11,8 @@
                 @include("layouts.warn", ["message" => session("status")])
 
                 <div class="my-8">
+                    @php $i = 1; @endphp
+
                     @if (count($prevEvents) > 0)
                         @include("layouts.events.eventsList", ["id" => "prevEvents", "name" => __("app.prevEvents"), "events" => $prevEvents])
                     @endif
@@ -21,19 +23,19 @@
                 </div>
 
                 <div class="fixed right-6 bottom-6 group">
-                    <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none">
+                    <button data-modal-target="createModal" data-modal-toggle="createModal" class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none">
                         <svg aria-hidden="true" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                         <span class="sr-only">@lang("app.create_event")</span>
                     </button>
                 </div>
 
-                <div id="defaultModal" tabindex="-1" aria-hidden="true" class="p-4 fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                <div id="createModal" tabindex="-1" aria-hidden="true" class="p-4 fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
                     <div class="relative w-full h-full max-w-2xl md:h-auto">
                         <div class="relative bg-white rounded-lg shadow">
                             <div class="p-4 flex items-start justify-between border-b rounded-t">
                                 <h3 class="text-xl font-semibold text-gray-900">@lang("app.create_event")</h3>
 
-                                <button type="button" class="p-2 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm ml-auto inline-flex items-center" data-modal-hide="defaultModal">
+                                <button type="button" class="p-2 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm ml-auto inline-flex items-center" data-modal-hide="createModal">
                                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                     <span class="sr-only">@lang("app.close_create_event")</span>
                                 </button>

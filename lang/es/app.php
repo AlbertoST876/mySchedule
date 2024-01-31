@@ -85,6 +85,7 @@ return [
             "edit" => "Editar",
             "delete" => "Eliminar",
             "delete_confirm" => "¿Estás seguro de que deseas borrar el evento?",
+            "cancel" => "Cancelar",
 
         // Header
         "open_user_menu" => "Abrir menú de usuario",
