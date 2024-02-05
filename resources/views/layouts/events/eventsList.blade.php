@@ -3,6 +3,5 @@
 
     @foreach ($events as $event)
         @include("layouts.events.event")
-        @php $i++; @endphp
     @endforeach
 </details>

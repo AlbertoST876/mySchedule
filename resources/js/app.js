@@ -48,4 +48,14 @@ window.onload = function() {
         if (localStorage.getItem("prevEventsOpen") == "true") { prevEvents.open = true; }
         if (localStorage.getItem("nextEventsOpen") == "true") { nextEvents.open = true; }
     }
+
+    let deleteButtons = document.querySelectorAll('[data-modal-target="deleteModal"]');
+
+    if (deleteButtons.length > 0) {
+        deleteButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
+                document.getElementById("deleteEventId").value = button.getAttribute("data-event-id");
+            });
+        });
+    }
 };
