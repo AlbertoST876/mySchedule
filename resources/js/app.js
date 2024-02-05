@@ -53,9 +53,7 @@ window.onload = function() {
 
     if (deleteButtons.length > 0) {
         deleteButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
-                document.getElementById("deleteEventId").value = button.getAttribute("data-event-id");
-            });
+            button.onclick = function() { document.getElementById("deleteEventId").value = button.getAttribute("data-event-id"); };
         });
     }
 };
