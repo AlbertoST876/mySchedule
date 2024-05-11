@@ -5,22 +5,28 @@ namespace App\Http\Controllers;
 use DateTime;
 use DateInterval;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Category;
 use App\Models\Event;
 
-class EventsController extends Controller
+class EventsController extends Controller implements HasMiddleware
 {
     const DATE_FORMAT = [
         "en" => "Y-m-d H:i",
         "es" => "d/m/Y H:i",
     ];
 
-    public function __construct()
-    {
-        $this -> middleware(["auth", "verified"]);
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array {
+        return [
+            new Middleware(["auth", "verified"]),
+        ];
     }
 
     /**

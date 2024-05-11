@@ -1,17 +1,14 @@
+/.phpunit.cache
 /node_modules
 /public/build
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
-composer.lock
-package-lock.json
 .env
 .env.backup
 .env.production
 .phpunit.result.cache
-composer.lock
-package-lock.json
 Homestead.json
 Homestead.yaml
 auth.json
@@ -20,3 +17,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+composer.lock
+package-lock.json

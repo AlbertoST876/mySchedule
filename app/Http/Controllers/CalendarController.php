@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use DateTime;
 use DateInterval;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CategoryUserColor;
 use App\Models\Category;
 use App\Models\Event;
 
-class CalendarController extends Controller
+class CalendarController extends Controller implements HasMiddleware
 {
     private array $months;
 
     public function __construct()
     {
-        $this -> middleware(["auth", "verified"]);
-
         $this -> months = [
             "01" => __("app.january"),
             "02" => __("app.february"),
@@ -32,6 +32,15 @@ class CalendarController extends Controller
             "10" => __("app.october"),
             "11" => __("app.november"),
             "12" => __("app.december"),
+        ];
+    }
+
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array {
+        return [
+            new Middleware(["auth", "verified"]),
         ];
     }
 

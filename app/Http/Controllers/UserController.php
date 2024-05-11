@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -11,14 +13,19 @@ use App\Models\CategoryUserColor;
 use App\Models\Region;
 use App\Models\User;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
-    public function __construct() {
-        $this -> middleware(["auth", "verified"]) -> only([
-            "edit",
-            "update",
-            "destroy",
-        ]);
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array {
+        return [
+            new Middleware(["auth", "verified"], only: [
+                "edit",
+                "update",
+                "destroy",
+            ]),
+        ];
     }
 
     /**

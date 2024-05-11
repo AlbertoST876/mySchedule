@@ -9,10 +9,8 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this -> call([
             RegionSeeder::class,
@@ -20,7 +18,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             UserSeeder::class,
             EventSeeder::class,
-            CategoryUserColorSeeder::class
+            CategoryUserColorSeeder::class,
         ]);
     }
 }

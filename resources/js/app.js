@@ -1,3 +1,4 @@
+import "./bootstrap";
 import "flowbite";
 
 window.onload = function() {

@@ -18,7 +18,7 @@ class RememberEmail extends Mailable
 
     /**
      * Create a new message instance.
-     *
+     * 
      * @param Event $event
      * @return void
      */
@@ -29,10 +29,8 @@ class RememberEmail extends Mailable
 
     /**
      * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
      */
-    public function envelope()
+    public function envelope(): Envelope
     {
         return new Envelope(
             subject: $this -> event -> name,
@@ -41,10 +39,8 @@ class RememberEmail extends Mailable
 
     /**
      * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
      */
-    public function content()
+    public function content(): Content
     {
         return new Content(
             view: "emails.remember",
@@ -59,9 +55,9 @@ class RememberEmail extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments()
+    public function attachments(): array
     {
         return [];
     }
