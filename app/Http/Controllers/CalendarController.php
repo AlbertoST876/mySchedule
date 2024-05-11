@@ -7,7 +7,6 @@ use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CategoryUserColor;
 use App\Models\Category;
@@ -67,9 +66,8 @@ class CalendarController extends Controller implements HasMiddleware
         }
 
         $date = new DateTime($request -> date);
-        $current = $date -> format("j") . " " . $this -> months[$date -> format("m")] . " " . $date -> format("Y");
 
-        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where("events.user_id", Auth::id()) -> where(DB::raw("DATE(events.date)"), $request -> date) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where("events.user_id", Auth::id()) -> whereRaw("DATE(events.date) = ?", [$request -> date]) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -77,7 +75,7 @@ class CalendarController extends Controller implements HasMiddleware
         }
 
         return view("calendar.day", [
-            "current" => $current,
+            "current" => $date -> format("j") . " " . $this -> months[$date -> format("m")] . " " . $date -> format("Y"),
             "times" => $times,
         ]);
     }
@@ -107,11 +105,11 @@ class CalendarController extends Controller implements HasMiddleware
         $year = $date -> format("Y");
         $year2 = $date2 -> format("Y");
 
-        if ($month != $month2 && $year != $year2) $month .= " - " . $month2 . " " . $year . " - " . $year2;
+        if ($month != $month2 && $year != $year2) $month .= " " . $year . " - " . $month2 . " " . $year2;
         if ($month != $month2 && $year == $year2) $month .= " - " . $month2 . " " . $year;
         if ($month == $month2 && $year == $year2) $month .= " " . $year;
 
-        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where("events.user_id", Auth::id()) -> whereBetween(DB::raw("DATE(events.date)"), [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where("events.user_id", Auth::id()) -> whereRaw("DATE(events.date) BETWEEN ? AND ?", [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $times = [];
 
         foreach ($events as $event) {
@@ -151,9 +149,7 @@ class CalendarController extends Controller implements HasMiddleware
         $date = new DateTime($request -> date . "-01");
         $date2 = new DateTime($request -> date . "-" . $date -> format("t"));
 
-        $current = $this -> months[$date -> format("m")] . " " . $date -> format("Y");
-
-        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where("events.user_id", Auth::id()) -> whereBetween(DB::raw("DATE(events.date)"), [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
+        $events = Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where("events.user_id", Auth::id()) -> whereRaw("DATE(events.date) BETWEEN ? AND ?", [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get();
         $weeks = [];
 
         for ($week = 0; $date -> format("m") == $date2 -> format("m"); $week++) {
@@ -176,7 +172,7 @@ class CalendarController extends Controller implements HasMiddleware
         }
 
         return view("calendar.month", [
-            "current" => $current,
+            "current" => $this -> months[$date -> format("m")] . " " . $date -> format("Y"),
             "weeks" => $weeks,
         ]);
     }
@@ -196,9 +192,7 @@ class CalendarController extends Controller implements HasMiddleware
         $date = new DateTime($request -> date . "-01-01");
         $date2 = new DateTime($request -> date . "-12-31");
 
-        $current = $date -> format("Y");
-
-        $events = Event::where("user_id", Auth::id()) -> whereBetween(DB::raw("DATE(date)"), [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("date") -> orderBy("date") -> get();
+        $events = Event::where("user_id", Auth::id()) -> whereRaw("DATE(date) BETWEEN ? AND ?", [$date -> format("Y-m-d"), $date2 -> format("Y-m-d")]) -> select("date") -> orderBy("date") -> get();
         $months = [];
 
         for ($month = 1; $date -> format("Y") == $date2 -> format("Y"); $month++) {
@@ -236,7 +230,7 @@ class CalendarController extends Controller implements HasMiddleware
         }
 
         return view("calendar.year", [
-            "current" => $current,
+            "current" => $date -> format("Y"),
             "months" => $months,
         ]);
     }

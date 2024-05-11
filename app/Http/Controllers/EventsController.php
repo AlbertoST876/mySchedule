@@ -7,7 +7,6 @@ use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Category;
@@ -37,8 +36,8 @@ class EventsController extends Controller implements HasMiddleware
     public function index()
     {
         return view("events.index", [
-            "prevEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", "<", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderByDesc("events.date") -> get(),
-            "nextEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> where("events.date", ">=", DB::raw("NOW()")) -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get(),
+            "prevEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereRaw("events.date < NOW()") -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderByDesc("events.date") -> get(),
+            "nextEvents" => Event::leftJoin("categories", "events.category_id", "categories.id") -> leftJoin("category_user_colors", "categories.id", "category_user_colors.category_id") -> where("category_user_colors.user_id", Auth::id()) -> where ("events.user_id", Auth::id()) -> whereRaw("events.date >= NOW()") -> select("events.id", "categories.name_" . app() -> getLocale() . " AS category", "events.name", "events.description", "events.color", "category_user_colors.color AS categoryColor", "events.date") -> orderBy("events.date") -> get(),
             "categories" => Category::select("id", "name_" . app() -> getLocale() . " AS name") -> get(),
             "dateFormat" => self::DATE_FORMAT[app() -> getLocale()],
         ]);
