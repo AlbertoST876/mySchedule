@@ -39,16 +39,16 @@ window.onload = function() {
         remember.addEventListener("focus", function() { remember.setAttribute("max", date.value); });
     }
 
-    let prevEvents = document.querySelector("#prevEvents");
-    let nextEvents = document.querySelector("#nextEvents");
+    function toggleOpen(tag, name) {
+        if (tag instanceof Element) {
+            tag.addEventListener("toggle", function() { localStorage.setItem(name, tag.open); });
 
-    if (prevEvents instanceof Element && nextEvents instanceof Element) {
-        prevEvents.addEventListener("toggle", function() { localStorage.setItem("prevEventsOpen", prevEvents.open); });
-        nextEvents.addEventListener("toggle", function() { localStorage.setItem("nextEventsOpen", nextEvents.open); });
-
-        if (localStorage.getItem("prevEventsOpen") == "true") { prevEvents.open = true; }
-        if (localStorage.getItem("nextEventsOpen") == "true") { nextEvents.open = true; }
+            if (localStorage.getItem(name) == "true") { tag.open = true; }
+        }
     }
+
+    toggleOpen(document.querySelector("#prevEvents"), "prevEventsOpen");
+    toggleOpen(document.querySelector("#nextEvents"), "nextEventsOpen");
 
     let deleteButtons = document.querySelectorAll('[data-modal-target="deleteModal"]');
 
