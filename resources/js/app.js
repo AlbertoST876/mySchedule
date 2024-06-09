@@ -2,6 +2,7 @@ import "./bootstrap";
 import "flowbite";
 
 window.onload = function() {
+    // Colorear los eventos
     let events = document.querySelectorAll("*[data-color]");
 
     if (events.length > 0) {
@@ -10,6 +11,7 @@ window.onload = function() {
         });
     }
 
+    // Controles de edición de los eventos
     let colorCheck = document.querySelector("#color-checkbox");
     let color = document.querySelector("#color");
     let rememberCheck = document.querySelector("#remember-checkbox");
@@ -39,22 +41,26 @@ window.onload = function() {
         remember.addEventListener("focus", function() { remember.setAttribute("max", date.value); });
     }
 
+    // Recordar si las categorias de eventos pasados o proximos están desplegados o sin desplegar
     function toggleOpen(tag, name) {
         if (tag instanceof Element) {
             tag.addEventListener("toggle", function() { localStorage.setItem(name, tag.open); });
 
-            if (localStorage.getItem(name) == "true") { tag.open = true; }
+            if (localStorage.getItem(name) == "true") {
+                tag.open = true;
+            }
         }
     }
 
     toggleOpen(document.querySelector("#prevEvents"), "prevEventsOpen");
     toggleOpen(document.querySelector("#nextEvents"), "nextEventsOpen");
 
+    // Actualiza el modal de eliminacion para eliminar el evento seleccionado
     let deleteButtons = document.querySelectorAll('[data-modal-target="deleteModal"]');
 
     if (deleteButtons.length > 0) {
-        deleteButtons.forEach(function(button) {
-            button.onclick = function() { document.getElementById("deleteEventId").value = button.getAttribute("data-event-id"); };
+        deleteButtons.forEach(deleteButton => {
+            deleteButton.onclick = function() { document.getElementById("deleteEventId").value = deleteButton.getAttribute("data-event-id"); };
         });
     }
 };
