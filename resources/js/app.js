@@ -63,4 +63,26 @@ window.onload = function() {
             deleteButton.onclick = function() { document.getElementById("deleteEventId").value = deleteButton.getAttribute("data-event-id"); };
         });
     }
+
+    // Guarda la posición del scroll al borrar un evento y vuelve a dicha posición
+    function saveScrollPosition() {
+        localStorage.setItem("eventsScrollPosition", window.scrollY);
+    }
+
+    function restoreScrollPosition() {
+        let scrollPosition = localStorage.getItem("eventsScrollPosition");
+
+        if (scrollPosition != null) {
+            window.scrollTo(0, parseInt(scrollPosition));
+            localStorage.removeItem("eventsScrollPosition");
+        }
+    }
+
+    let deleteForm = document.querySelector("#deleteModal form");
+
+    if (deleteForm instanceof Element) {
+        deleteForm.onsubmit = function() { saveScrollPosition(); };
+
+        restoreScrollPosition();
+    }
 };
