@@ -17,7 +17,8 @@ return new class extends Migration
             $table -> id();
             $table -> foreignId("region_id") -> references("id") -> on("regions") -> OnUpdate("CASCADE") -> onDelete("CASCADE");
             $table -> string("name", 30);
-            $table -> string("city", 30);
+            $table -> string("city_en", 30);
+            $table -> string("city_es", 30);
             $table -> timestamps();
         });
     }

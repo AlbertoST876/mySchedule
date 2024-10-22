@@ -79,7 +79,9 @@
                                 @foreach ($regions as $region)
                                     <optgroup label="{{ $region -> name }}">
                                         @foreach ($region -> timezones as $timezone)
-                                            <option value="{{ $timezone -> id }}" {{ Auth::user() -> timezone_id == $timezone -> id ? "selected" : "" }}>{{ $timezone -> city }}</option>
+                                            @php $city = "city_" . app() -> getLocale(); @endphp
+
+                                            <option value="{{ $timezone -> id }}" {{ Auth::user() -> timezone_id == $timezone -> id ? "selected" : "" }}>{{ $timezone -> $city }}</option>
                                         @endforeach
                                     </optgroup>
                                 @endforeach

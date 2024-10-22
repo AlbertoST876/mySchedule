@@ -102,7 +102,7 @@ return [
         "all_rights_reserved" => "Todos los derechos reservados.",
         "about_us" => "Sobre Nosotros",
         "privacy_policy" => "Política de Privacidad",
-        "final_user_license" => "Licencia de Usuario Final",
+        "license" => "Licencia",
         "contact" => "Contacto",
 
         // Warn
