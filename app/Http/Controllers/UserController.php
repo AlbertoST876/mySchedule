@@ -22,6 +22,8 @@ class UserController extends Controller implements HasMiddleware
             new Middleware(["auth", "verified"], only: [
                 "edit",
                 "update",
+            ]),
+            new Middleware("auth", only: [
                 "destroy",
             ]),
         ];
