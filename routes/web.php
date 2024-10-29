@@ -5,9 +5,16 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
     Route::view("", "index") -> name("index");
+
+    Route::controller(HomeController::class) -> group(function() {
+        Route::get("about", "about") -> name("about");
+        Route::get("license", "license") -> name("license");
+        Route::get("privacyPolicy", "privacyPolicy") -> name("privacyPolicy");
+    });
 
     Route::controller(UserController::class) -> group(function() {
         Route::get("login", "index") -> name("login");
