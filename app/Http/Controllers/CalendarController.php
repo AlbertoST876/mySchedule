@@ -172,7 +172,7 @@ class CalendarController extends Controller implements HasMiddleware
         }
 
         return view("calendar.month", [
-            "current" => $this -> months[$date -> format("m")] . " " . $date -> format("Y"),
+            "current" => $this -> months[$date2 -> format("m")] . " " . $date2 -> format("Y"),
             "weeks" => $weeks,
         ]);
     }
