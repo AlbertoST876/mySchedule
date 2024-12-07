@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex,nofollow">
     @vite(["resources/js/app.js", "resources/css/app.css"])
     <link rel="icon" href="{{ asset("icon.svg") }}">
-    <title>@lang("app.appName") - {{ $title }}</title>
+    <title>{{ config("app.name") }} - {{ $title }}</title>
 
     @auth
         @php date_default_timezone_set(Auth::user() -> timezone -> name) @endphp

@@ -3,7 +3,7 @@
         <div class="flex flex-wrap items-center justify-between">
             <a class="flex items-center" href="{{ route("index") }}">
                 <img class="mr-3 w-12 h-12" src="{{ asset("icon.svg") }}" alt="@lang("app.alt_appIcon")">
-                <span class="self-center text-lg lg:text-xl font-semibold">@lang("app.appName")</span>
+                <span class="self-center text-lg lg:text-xl font-semibold">{{ config("app.name") }}</span>
             </a>
 
             <div class="flex items-center md:order-2">

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@lang("app.appName") - @lang("app.rememberEmail")</title>
+        <title>{{ config("app.name") }} - @lang("app.rememberEmail")</title>
     </head>
 
     <body>

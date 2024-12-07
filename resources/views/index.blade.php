@@ -11,7 +11,7 @@
 
             <div class="mx-8 my-12 lg:m-24 grid gap-12 lg:gap-24 grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1">
                 <div>
-                    <h1 class="text-5xl lg:text-6xl font-extrabold">@lang("app.appName")</h1>
+                    <h1 class="text-5xl lg:text-6xl font-extrabold">{{ config("app.name") }}</h1>
 
                     <p class="my-6 text-lg lg:text-xl text-justify">@lang("app.intro")</p>
 
