@@ -62,7 +62,22 @@
                         <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="image" value="@lang("app.change")">
 
                         @if (isset(Auth::user() -> profileImg))
-                            <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" name="deleteImage" value="@lang("app.delete")" onclick="return confirm('@lang("app.profileImg_delete_confirm")')">
+                            <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm">@lang("app.delete")</button>
+
+                            <div id="deleteModal" tabindex="-1" aria-hidden="true" class="p-4 fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                                <div class="relative w-full h-full max-w-2xl md:h-auto">
+                                    <div class="relative bg-white rounded-lg shadow">
+                                        <div class="p-4 flex items-start justify-between border-b rounded-t">
+                                            <h3 class="text-xl font-semibold text-gray-900">@lang("app.profileImg_delete_confirm")</h3>
+                                        </div>
+
+                                        <div class="p-4 flex items-center space-x-2 border-t border-gray-200 rounded-b">
+                                            <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" name="deleteImage" value="@lang("app.delete")">
+                                            <button type="button" class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" data-modal-hide="deleteModal">@lang("app.cancel")</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
                     </form>
                 </div>
