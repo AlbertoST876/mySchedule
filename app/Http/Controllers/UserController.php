@@ -163,6 +163,14 @@ class UserController extends Controller implements HasMiddleware
             Auth::user() -> profileImg = null;
         }
 
+        if (isset($request -> changePassword)) {
+            $request -> validate([
+                "password" => ["required", "string", "confirmed", "max:255"],
+            ]);
+
+            Auth::user() -> password = bcrypt($request -> password);
+        }
+
         if (isset($request -> time)) {
             $request -> validate([
                 "timezone" => ["required", "integer", "between:1,28"],

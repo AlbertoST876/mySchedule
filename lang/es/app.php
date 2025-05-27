@@ -14,16 +14,17 @@ return [
         "verified" => "Tu correo electrónico ha sido verificado con éxito",
 
         // Settings
-        "account_settings" => "Ajustes de la cuenta",
-        "categories_colors" => "Colores de las categorías",
+        "account_settings" => "Ajustes de la Cuenta",
+        "categories_colors" => "Colores de las Categorías",
         "profileImg" => "Foto de Perfil",
         "profileImg_formats" => "Formato PNG, JPG o JPEG.",
         "profileImg_size" => "Tamaño máximo de 2 Mb.",
         "profileImg_dimensions" => "Ancho y alto mínimo de 128 Pixeles y máximo de 2048 Pixeles.",
         "profileImg_recomendation" => "Se recomienda que la proporción de la imagen sea 1:1 (p. ej. 512 x 512 Pixeles).",
         "profileImg_delete_confirm" => "¿Estás seguro de que deseas borrar tu imagen de perfil?",
-        "change" => "Cambiar",
+        "change_password" => "Cambiar Contraseña",
         "timeZone" => "Zona Horaria",
+        "change" => "Cambiar",
 
     // Calendar
         // Week

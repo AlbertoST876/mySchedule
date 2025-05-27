@@ -24,13 +24,13 @@
                         @foreach ($categories as $category)
                             <div class="mb-4">
                                 <label class="mb-2 block text-sm font-medium text-gray-900" for="{{ $category -> id }}">{{ $category -> name }}:</label>
-                                <input class="p-1 block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" type="color" name="{{ $category -> id }}" value="{{ $category -> color }}" required>
+                                <input class="p-1 block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg cursor-pointer focus:ring-blue-500 focus:border-blue-500" type="color" name="{{ $category -> id }}" value="{{ $category -> color }}" required>
 
                                 @include("layouts.error", ["field" => $category -> id])
                             </div>
                         @endforeach
 
-                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="colors" value="@lang("app.change")">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm cursor-pointer focus:outline-none" type="submit" name="colors" value="@lang("app.change")">
                     </form>
                 </div>
 
@@ -45,9 +45,9 @@
 
                         <div class="mb-4">
                             <input class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" type="file" name="profileImg">
-                        </div>
 
-                        @include("layouts.error", ["field" => "profileImg"])
+                            @include("layouts.error", ["field" => "profileImg"])
+                        </div>
 
                         <div class="mb-4">
                             <ul class="mb-4 max-w-full space-y-1 text-gray-500 list-disc list-inside">
@@ -59,10 +59,10 @@
                             <span class="text-gray-500">@lang("app.profileImg_recomendation")</span>
                         </div>
 
-                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="image" value="@lang("app.change")">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm cursor-pointer focus:outline-none" type="submit" name="image" value="@lang("app.change")">
 
                         @if (isset(Auth::user() -> profileImg))
-                            <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm">@lang("app.delete")</button>
+                            <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="mr-2 my-2 px-5 py-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm cursor-pointer">@lang("app.delete")</button>
 
                             <div id="deleteModal" tabindex="-1" aria-hidden="true" class="p-4 fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
                                 <div class="relative w-full h-full max-w-2xl md:h-auto">
@@ -72,13 +72,37 @@
                                         </div>
 
                                         <div class="p-4 flex items-center space-x-2 border-t border-gray-200 rounded-b">
-                                            <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" name="deleteImage" value="@lang("app.delete")">
-                                            <button type="button" class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" data-modal-hide="deleteModal">@lang("app.cancel")</button>
+                                            <input class="px-5 py-3 mr-2 mb-2 focus:outline-none text-white bg-red-70 hover:bg-red-800 cursor-pointer focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm" type="submit" name="deleteImage" value="@lang("app.delete")">
+                                            <button type="button" class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 cursor-pointer focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" data-modal-hide="deleteModal">@lang("app.cancel")</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endif
+                    </form>
+                </div>
+
+                <div class="my-8">
+                    <h2 class="mb-6 text-3xl font-extrabold">@lang("app.change_password")</h2>
+
+                    <form action="{{ route("settings.update") }}" method="post">
+                        @csrf
+                        @method("patch")
+
+                        <div class="mb-4">
+                            <label class="mb-2 block text-sm font-medium text-gray-900" for="password">@lang("app.password"):</label>
+                            <input class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" type="password" name="password">
+
+                            @include("layouts.error", ["field" => "password"])
+                        </div>
+
+
+                        <div class="mb-4">
+                            <label class="mb-2 block text-sm font-medium text-gray-900" for="password_confirmation">@lang("app.password_confirm"):</label>
+                            <input class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" type="password" name="password_confirmation">
+                        </div>
+
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm cursor-pointer focus:outline-none" type="submit" name="changePassword" value="@lang("app.change")">
                     </form>
                 </div>
 
@@ -90,7 +114,7 @@
                         @method("patch")
 
                         <div class="mb-6">
-                            <select class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" name="timezone" required>
+                            <select class="block w-full md:w-3/4 lg:w-2/4 xl:w-1/4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg cursor-pointer focus:ring-blue-500 focus:border-blue-500" name="timezone" required>
                                 @foreach ($regions as $region)
                                     <optgroup label="{{ $region -> name }}">
                                         @foreach ($region -> timezones as $timezone)
@@ -105,7 +129,7 @@
                             @include("layouts.error", ["field" => "timezone"])
                         </div>
 
-                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none" type="submit" name="time" value="@lang("app.change")">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm cursor-pointer focus:outline-none" type="submit" name="time" value="@lang("app.change")">
                     </form>
                 </div>
             </div>

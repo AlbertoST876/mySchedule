@@ -22,8 +22,9 @@ return [
         "profileImg_dimensions" => "Minimum width and height of 128 Pixels and maximum of 2048 Pixels.",
         "profileImg_recomendation" => "It's recommended that the aspect ratio of the image be 1:1 (eg 512 x 512 Pixels).",
         "profileImg_delete_confirm" => "Are you sure you want to delete your profile picture?",
-        "change" => "Change",
+        "change_password" => "Change Password",
         "timeZone" => "Time Zone",
+        "change" => "Change",
 
     // Calendar
         // Week
