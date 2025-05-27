@@ -9,6 +9,7 @@
     <meta name="copyright" content="Alberto Sánchez Torreblanca">
     <meta name="robots" content="noindex,nofollow">
     @vite(["resources/js/app.js", "resources/css/app.css"])
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <link rel="icon" href="{{ asset("icon.svg") }}">
     <title>{{ config("app.name") }} - {{ $title }}</title>
 

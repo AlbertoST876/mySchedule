@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @source "../views";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite";
 
 th, td {
     border: 1px solid #000000;

@@ -1,5 +1,4 @@
 import "./bootstrap";
-import "flowbite";
 
 window.onload = function() {
     // Colorear los eventos

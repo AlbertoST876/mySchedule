@@ -14,6 +14,6 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
-        "flowbite": "^2.3.0"
+        "flowbite": "^3.1.2"
     }
 }
