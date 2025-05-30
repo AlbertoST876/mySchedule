@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "home"])
 
         <main>
-            <form class="m-12" action="" method="post">
+            <form class="md:mx-auto p-12 w-full md:w-xl" action="{{ route("register") }}" method="post">
                 @csrf
 
                 <div class="mb-6">

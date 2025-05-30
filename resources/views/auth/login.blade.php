@@ -9,7 +9,7 @@
         <main>
             @include("layouts.warn", ["message" => session("status")])
 
-            <form class="m-12" action="{{ route("login") }}" method="post">
+            <form class="md:mx-auto p-12 w-full md:w-xl" action="{{ route("login") }}" method="post">
                 @csrf
 
                 <div class="mb-6">
