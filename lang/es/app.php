@@ -6,6 +6,9 @@ return [
         "email" => "Email",
         "password" => "Contraseña",
         "rememberme" => "Recuérdame",
+        "forgot_password" => "¿Has olvidado tu contraseña?",
+        "restore_password" => "Restaurar contraseña",
+        "new_password" => "Nueva contraseña",
 
         // Register
         "username" => "Nombre de usuario",

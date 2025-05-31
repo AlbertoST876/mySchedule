@@ -60,7 +60,7 @@ class UserController extends Controller implements HasMiddleware
         $request -> validate([
             "name" => ["required", "string", "max:25", "unique:users"],
             "email" => ["required", "string", "email", "max:50", "unique:users"],
-            "password" => ["required", "string", "confirmed", "max:255"],
+            "password" => ["required", "string", "confirmed", "min:8", "max:255"],
         ]);
 
         $user = User::create([
@@ -101,7 +101,7 @@ class UserController extends Controller implements HasMiddleware
     {
         $credentials = $request -> validate([
             "email" => ["required", "string", "email", "max:50"],
-            "password" => ["required", "string", "max:255"],
+            "password" => ["required", "string", "min:8", "max:255"],
         ]);
 
         if (!Auth::attempt($credentials, $request -> boolean("remember"))) {
@@ -165,7 +165,7 @@ class UserController extends Controller implements HasMiddleware
 
         if (isset($request -> changePassword)) {
             $request -> validate([
-                "password" => ["required", "string", "confirmed", "max:255"],
+                "password" => ["required", "string", "confirmed", "min:8", "max:255"],
             ]);
 
             Auth::user() -> password = bcrypt($request -> password);

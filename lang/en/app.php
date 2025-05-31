@@ -6,6 +6,9 @@ return [
         "email" => "Email",
         "password" => "Password",
         "rememberme" => "Remember me",
+        "forgot_password" => "Forgot password?",
+        "restore_password" => "Restore password",
+        "new_password" => "New password",
 
         // Register
         "username" => "Username",

@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "home"])
 
         <main>
-            <form class="md:mx-auto p-12 w-full md:w-xl" action="{{ route("register") }}" method="post">
+            <form class="sm:mx-auto p-12 w-full sm:w-xl" action="{{ route("register") }}" method="post">
                 @csrf
 
                 <div class="mb-6">
@@ -36,9 +36,9 @@
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" type="password" name="password_confirmation" max="255" required>
                 </div>
 
-                <div class="mb-6">
-                    <input class="block sm:inline-block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" type="submit" name="register" value="@lang("app.register")">
-                    <a class="block sm:inline-block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" href="{{ route("login") }}">@lang("app.login")</a>
+                <div class="flex mb-6 justify-between">
+                    <input class="block sm:inline-block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-5/12 text-center" type="submit" name="register" value="@lang("app.register")">
+                    <a class="block sm:inline-block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-5/12 text-center" href="{{ route("login") }}">@lang("app.login")</a>
                 </div>
             </form>
         </main>

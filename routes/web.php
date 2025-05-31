@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
@@ -59,4 +60,20 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
             });
         });
     });
+
+    Route::controller(PasswordResetController::class)->group(function() {
+    Route::prefix('forgot-password')->group(function() {
+        Route::name('password.')->group(function() {
+            Route::get('', 'request')->name('request');
+            Route::post('', 'email')->name('email');
+        });
+    });
+
+    Route::prefix('reset-password')->group(function() {
+        Route::name('password.')->group(function() {
+            Route::get('{token}', 'reset')->name('reset');
+            Route::post('', 'update')->name('update');
+        });
+    });
+});
 });

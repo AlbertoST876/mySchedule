@@ -9,7 +9,7 @@
         <main>
             @include("layouts.warn", ["message" => session("status")])
 
-            <form class="md:mx-auto p-12 w-full md:w-xl" action="{{ route("login") }}" method="post">
+            <form class="sm:mx-auto p-12 w-full sm:w-xl" action="{{ route("login") }}" method="post">
                 @csrf
 
                 <div class="mb-6">
@@ -34,8 +34,12 @@
                 </div>
 
                 <div class="mb-6">
-                    <input class="block sm:inline-block sm:mr-2 px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" type="submit" name="login" value="@lang("app.login")">
-                    <a class="block sm:inline-block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center" href="{{ route("register") }}">@lang("app.register")</a>
+                    <div class="flex justify-between">
+                        <input class="block sm:inline-block sm:mr-2 px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-5/12 text-center" type="submit" name="login" value="@lang("app.login")">
+                        <a class="block sm:inline-block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-5/12 text-center" href="{{ route("register") }}">@lang("app.register")</a>
+                    </div>
+
+                    <a class="block px-5 py-3 mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full text-center" href="{{ route("password.request") }}">@lang("app.forgot_password")</a>
                 </div>
             </form>
         </main>
