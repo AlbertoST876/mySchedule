@@ -23,7 +23,7 @@ class VerificationController extends Controller implements HasMiddleware
      * Notify the user by email that they need to be verified.
      */
     public function notice() {
-        return redirect() -> route("index") -> with("status", __("app.youMustVerified"));
+        return redirect() -> route("index") -> with("status", __("app.you_must_verified"));
     }
 
     /**

@@ -3,7 +3,7 @@
 return [
     // Auth
         // Login
-        "email" => "Email",
+        "email" => "Correo electrónico",
         "password" => "Contraseña",
         "rememberme" => "Recuérdame",
         "forgot_password" => "¿Has olvidado tu contraseña?",
@@ -13,7 +13,7 @@ return [
         // Register
         "username" => "Nombre de usuario",
         "password_confirm" => "Confirmar contraseña",
-        "youMustVerified" => "Debes verificar tu correo electrónico para continuar",
+        "you_must_verified" => "Debes verificar tu correo electrónico para continuar",
         "verified" => "Tu correo electrónico ha sido verificado con éxito",
 
         // Settings
@@ -25,6 +25,8 @@ return [
         "profileImg_dimensions" => "Ancho y alto mínimo de 128 Pixeles y máximo de 2048 Pixeles.",
         "profileImg_recomendation" => "Se recomienda que la proporción de la imagen sea 1:1 (p. ej. 512 x 512 Pixeles).",
         "profileImg_delete_confirm" => "¿Estás seguro de que deseas borrar tu imagen de perfil?",
+        "change_email" => "Cambiar correo electrónico",
+        "new_email" => "Nuevo correo electrónico",
         "change_password" => "Cambiar Contraseña",
         "timeZone" => "Zona Horaria",
         "change" => "Cambiar",
@@ -55,7 +57,7 @@ return [
         "week_number" => "Semana Nº",
 
     // Emails
-    "rememberEmail" => "Email recordatorio",
+    "rememberEmail" => "Correo electrónico de recordatorio",
     "rememberMessage" => "Te recordamos que tu evento es el",
 
     // Events
@@ -165,5 +167,6 @@ return [
     "user_registered" => "Te has registrado correctamente, ahora debes verificar tu correo electrónico",
     "user_logged" => "Has iniciado sesión",
     "user_settings_updated" => "Ajustes guardados correctamente",
+    "user_email_changed_verify" => "Hemos enviado un enlace de verificación a tu nuevo correo electrónico. Por favor, verifica tu nuevo correo electrónico.",
     "user_logged_out" => "Has cerrado sesión",
 ];

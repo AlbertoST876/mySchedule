@@ -13,7 +13,7 @@ return [
         // Register
         "username" => "Username",
         "password_confirm" => "Password confirm",
-        "youMustVerified" => "You must verify your email to continue",
+        "you_must_verified" => "You must verify your email to continue",
         "verified" => "Your email has been successfully verified",
 
         // Settings
@@ -25,6 +25,8 @@ return [
         "profileImg_dimensions" => "Minimum width and height of 128 Pixels and maximum of 2048 Pixels.",
         "profileImg_recomendation" => "It's recommended that the aspect ratio of the image be 1:1 (eg 512 x 512 Pixels).",
         "profileImg_delete_confirm" => "Are you sure you want to delete your profile picture?",
+        "change_email" => "Change Email",
+        "new_email" => "New email",
         "change_password" => "Change Password",
         "timeZone" => "Time Zone",
         "change" => "Change",
@@ -165,5 +167,6 @@ return [
     "user_registered" => "You have successfully registered, now you must verify your email",
     "user_logged" => "You are logged in",
     "user_settings_updated" => "Settings saved successfully",
+    "user_email_changed_verify" => "We have sent a verification link to your new email address. Please verify your new email.",
     "user_logged_out" => "You have logged out",
 ];

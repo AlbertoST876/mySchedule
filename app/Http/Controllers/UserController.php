@@ -135,7 +135,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function update(Request $request)
     {
-        if (isset($request -> colors)) {
+        if (isset($request -> changeCategoriesColors)) {
             $request -> validate([
                 "1" => ["string", "max:10"],
                 "2" => ["string", "max:10"],
@@ -148,7 +148,7 @@ class UserController extends Controller implements HasMiddleware
             }
         }
 
-        if (isset($request -> image)) {
+        if (isset($request -> changeProfileImg)) {
             $request -> validate([
                 "profileImg" => ["required", "image", "mimes:png,jpg,jpeg", "max:2048", "dimensions:min_width=128,min_height=128,max_width=2048,max_height=2048"],
             ]);
@@ -159,8 +159,22 @@ class UserController extends Controller implements HasMiddleware
             Auth::user() -> profileImg = "./storage/img/users/" . $imageName;
         }
 
-        if (isset($request -> deleteImage)) {
+        if (isset($request -> deleteProfileImg)) {
             Auth::user() -> profileImg = null;
+        }
+
+        if (isset($request -> changeEmail)) {
+            $request -> validate([
+                "new_email" => ["required", "string", "email", "max:50", "unique:users,email"],
+                "password" => ["required", "string", "min:8", "max:255", "current_password"],
+            ]);
+
+            Auth::user() -> email = $request -> new_email;
+            Auth::user() -> email_verified_at = null;
+            Auth::user() -> save();
+            Auth::user() -> sendEmailVerificationNotification();
+
+            return redirect() -> route("index") -> with("status", __("app.user_email_changed_verify"));
         }
 
         if (isset($request -> changePassword)) {
@@ -171,7 +185,7 @@ class UserController extends Controller implements HasMiddleware
             Auth::user() -> password = bcrypt($request -> password);
         }
 
-        if (isset($request -> time)) {
+        if (isset($request -> changeTimezone)) {
             $request -> validate([
                 "timezone" => ["required", "integer", "between:1,28"],
             ]);
