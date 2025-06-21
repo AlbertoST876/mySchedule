@@ -32,7 +32,7 @@
                 <div id="createModal" tabindex="-1" aria-hidden="true" class="p-4 fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
                     <div class="relative w-full h-full max-w-2xl md:h-auto">
                         <div class="relative bg-white rounded-lg shadow">
-                            <div class="p-4 flex items-start justify-between border-b rounded-t">
+                            <div class="p-4 flex items-start justify-between border-b border-gray-200 rounded-t">
                                 <h3 class="text-xl font-semibold text-gray-900">@lang("app.create_event")</h3>
 
                                 <button type="button" class="p-2 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm ml-auto inline-flex items-center" data-modal-hide="createModal">
