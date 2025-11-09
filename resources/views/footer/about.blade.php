@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "home"])
 
         <main class="block w-full p-4">
-            <div class="max-w-screen-xl mx-auto">
+            <div class="max-w-7xl mx-auto">
                 <h1 class="block my-8 text-5xl lg:text-6xl font-extrabold">{{ mb_strtoupper(__("app.about_us")) }}</h1>
 
                 <hr>

@@ -7,7 +7,7 @@
         @include("layouts.header", ["current" => "home"])
 
         <main class="block w-full p-4">
-            <div class="max-w-screen-xl mx-auto">
+            <div class="max-w-7xl mx-auto">
                 <h1 class="block my-8 text-5xl lg:text-6xl font-extrabold">{{ mb_strtoupper(__("app.privacy_policy")) }}</h1>
                 <h2 class="block mb-8 text-3xl lg:text-4xl font-extrabold">@lang("app.last_update"): {{ $date }}</h2>
 
