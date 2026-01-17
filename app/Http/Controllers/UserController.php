@@ -14,6 +14,18 @@ use App\Models\User;
 
 class UserController extends Controller implements HasMiddleware
 {
+    private array $categoryUserColors;
+
+    public function __construct()
+    {
+        $this -> categoryUserColors = [
+            [1, "#f0e600"],
+            [2, "#78ff78"],
+            [3, "#6496ff"],
+            [4, "#ff6464"],
+        ];
+    }
+
     /**
      * Get the middleware that should be assigned to the controller.
      */
@@ -69,14 +81,7 @@ class UserController extends Controller implements HasMiddleware
             "password" => bcrypt($request -> password),
         ]);
 
-        $categoryUserColors = [
-            [1, "#f0e600"],
-            [2, "#78ff78"],
-            [3, "#6496ff"],
-            [4, "#ff6464"],
-        ];
-
-        foreach ($categoryUserColors as $categoryUserColor) {
+        foreach ($this -> categoryUserColors as $categoryUserColor) {
             CategoryUserColor::factory() -> create([
                 "category_id" => $categoryUserColor[0],
                 "user_id" => $user -> id,
@@ -145,6 +150,12 @@ class UserController extends Controller implements HasMiddleware
 
             for ($category = 1; $category < 5; $category++) {
                 CategoryUserColor::where("category_id", $category) -> where("user_id", Auth::id()) -> update(["color" => $request -> $category]);
+            }
+        }
+
+        if (isset($request -> restoreCategoriesColors)) {
+            foreach ($this -> categoryUserColors as $categoryUserColor) {
+                CategoryUserColor::where("category_id", $categoryUserColor[0]) -> where("user_id", Auth::id()) -> update(["color" => $categoryUserColor[1]]);
             }
         }
 

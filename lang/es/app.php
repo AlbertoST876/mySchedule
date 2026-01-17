@@ -30,6 +30,7 @@ return [
         "change_password" => "Cambiar Contraseña",
         "timeZone" => "Zona Horaria",
         "change" => "Cambiar",
+        "restore" => "Restaurar",
 
     // Calendar
         // Week

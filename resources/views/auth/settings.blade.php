@@ -31,6 +31,7 @@
                         @endforeach
 
                         <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm cursor-pointer focus:outline-none" type="submit" name="changeCategoriesColors" value="@lang("app.change")">
+                        <input class="px-5 py-3 mr-2 mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm cursor-pointer focus:outline-none" type="submit" name="restoreCategoriesColors" value="@lang("app.restore")">
                     </form>
                 </div>
 
