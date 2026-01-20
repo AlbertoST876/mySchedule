@@ -7,6 +7,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
     Route::view("", "index") -> name("index");
@@ -61,19 +62,19 @@ Route::group(["prefix" => LaravelLocalization::setLocale()], function() {
         });
     });
 
-    Route::controller(PasswordResetController::class)->group(function() {
-    Route::prefix('forgot-password')->group(function() {
-        Route::name('password.')->group(function() {
-            Route::get('', 'request')->name('request');
-            Route::post('', 'email')->name('email');
+    Route::controller(PasswordResetController::class) -> group(function() {
+        Route::prefix("forgot-password") -> group(function() {
+            Route::name("password.") -> group(function() {
+                Route::get("", "request") -> name("request");
+                Route::post("", "email") -> name("email");
+            });
         });
-    });
 
-    Route::prefix('reset-password')->group(function() {
-        Route::name('password.')->group(function() {
-            Route::get('{token}', 'reset')->name('reset');
-            Route::post('', 'update')->name('update');
+        Route::prefix("reset-password") -> group(function() {
+            Route::name("password.") -> group(function() {
+                Route::get("{token}", "reset") -> name("reset");
+                Route::post("", "update") -> name("update");
+            });
         });
     });
-});
 });
