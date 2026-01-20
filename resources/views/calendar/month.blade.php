@@ -18,14 +18,14 @@
                         </tr>
 
                         <tr>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.week_number")</th>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.monday")</th>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.thuesday")</th>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.wednesday")</th>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.thursday")</th>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.friday")</th>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.saturday")</th>
-                            <th class="w-[12.5%] min-w-[200px]">@lang("app.sunday")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.week_number")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.monday")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.thuesday")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.wednesday")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.thursday")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.friday")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.saturday")</th>
+                            <th class="w-[12.5%] min-w-50">@lang("app.sunday")</th>
                         </tr>
                     </thead>
 

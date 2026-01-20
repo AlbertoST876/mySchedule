@@ -14,19 +14,19 @@
                 <table class="w-full">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="w-[12.5%] min-w-[200px]" rowspan="2">{{ $current }}</th>
-                            <th class="w-[12.5%] min-w-[200px] border-b-0">@lang("app.monday")</th>
-                            <th class="w-[12.5%] min-w-[200px] border-b-0">@lang("app.thuesday")</th>
-                            <th class="w-[12.5%] min-w-[200px] border-b-0">@lang("app.wednesday")</th>
-                            <th class="w-[12.5%] min-w-[200px] border-b-0">@lang("app.thursday")</th>
-                            <th class="w-[12.5%] min-w-[200px] border-b-0">@lang("app.friday")</th>
-                            <th class="w-[12.5%] min-w-[200px] border-b-0">@lang("app.saturday")</th>
-                            <th class="w-[12.5%] min-w-[200px] border-b-0">@lang("app.sunday")</th>
+                            <th class="w-[12.5%] min-w-50" rowspan="2">{{ $current }}</th>
+                            <th class="w-[12.5%] min-w-50 border-b-0">@lang("app.monday")</th>
+                            <th class="w-[12.5%] min-w-50 border-b-0">@lang("app.thuesday")</th>
+                            <th class="w-[12.5%] min-w-50 border-b-0">@lang("app.wednesday")</th>
+                            <th class="w-[12.5%] min-w-50 border-b-0">@lang("app.thursday")</th>
+                            <th class="w-[12.5%] min-w-50 border-b-0">@lang("app.friday")</th>
+                            <th class="w-[12.5%] min-w-50 border-b-0">@lang("app.saturday")</th>
+                            <th class="w-[12.5%] min-w-50 border-b-0">@lang("app.sunday")</th>
                         </tr>
 
                         <tr>
                             @foreach ($days as $day)
-                                <th class="w-[12.5%] min-w-[200px] border-t-0">
+                                <th class="w-[12.5%] min-w-50 border-t-0">
                                     <form action="{{ route("calendar.day") }}" method="get">
                                         <input type="hidden" name="date" value="{{ $day["date"] }}">
                                         <input class="px-2 py-1 bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm focus:outline-none" type="submit" value="{{ $day["num"] }}">
